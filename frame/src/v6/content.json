@@ -1,0 +1,1717 @@
+{
+  "teacher": {
+    "authors": [
+      {
+        "id": "T-U01",
+        "userId": "user-linyue",
+        "name": "林悦",
+        "relationCodes": ["student"],
+        "relationNote": "曾经，补充“2004届学生”",
+        "impressions": ["耐心", "给人信心"],
+        "wishId": "T-W01",
+        "wish": "陈老师，愿往后的清晨不用赶课，喜欢的书可以慢慢读。您教我们先看见自己做到的部分，这句话，我一直带着。"
+      },
+      {
+        "id": "T-U02",
+        "userId": "t-u02",
+        "name": "陆航",
+        "relationCodes": ["student"],
+        "relationNote": "曾经",
+        "impressions": ["幽默", "愿意倾听"],
+        "wishId": "T-W02",
+        "wish": "以后有空回来走走，我们还想听您把难题讲成有意思的故事。祝您荣休快乐，也祝每天都能遇见一点新鲜事。"
+      },
+      {
+        "id": "T-U03",
+        "userId": "t-u03",
+        "name": "周宁",
+        "relationCodes": ["colleague"],
+        "relationNote": "曾经；兼发起经办人",
+        "impressions": ["认真", "温和"],
+        "wishId": "T-W03",
+        "wish": "一起备课时，您总是最后一个合上本子。现在请把这一份认真留给散步、花草和自己喜欢的生活。"
+      },
+      {
+        "id": "T-U04",
+        "userId": "t-u04",
+        "name": "许然",
+        "relationCodes": ["research_student"],
+        "relationNote": "曾经",
+        "impressions": ["治学严谨", "给人信心"],
+        "wishId": "T-W04",
+        "wish": "您说“问题问清楚了，就已经走出一半”。这句话陪我做完研究，也陪我学着面对生活。谢谢您，陈老师。"
+      },
+      {
+        "id": "T-U05",
+        "userId": "t-u05",
+        "name": "陈晓禾",
+        "relationCodes": ["child"],
+        "relationNote": "当前",
+        "impressions": ["好奇", "温暖"],
+        "wishId": "T-W05",
+        "wish": "爸，家里的小花园等您很久了。以后不用把想做的事留到“等有空”，我们从这个周末就开始。"
+      },
+      {
+        "id": "T-U06",
+        "userId": "t-u06",
+        "name": "魏成",
+        "relationCodes": ["friend"],
+        "relationNote": "当前",
+        "impressions": ["幽默", "踏实"],
+        "wishId": "T-W06",
+        "wish": "棋盘已经摆好，就等您慢慢来。愿以后的日子有书、有茶，也有怎么都聊不完的话。"
+      },
+      {
+        "id": "T-U07",
+        "userId": "t-u07",
+        "name": "宋知夏",
+        "relationCodes": ["student"],
+        "relationNote": "曾经",
+        "impressions": ["愿意倾听", "温和"],
+        "wishId": "T-W07",
+        "wish": "谢谢您在我说不清楚的时候，也没有急着替我说完。愿您以后每一天都有人耐心听，也有人一起笑。"
+      },
+      {
+        "id": "T-U08",
+        "userId": "t-u08",
+        "name": "赵衡",
+        "relationCodes": ["colleague"],
+        "relationNote": "曾经",
+        "impressions": ["治学严谨", "言传身教"],
+        "wishId": "T-W08",
+        "wish": "从一张张教案里学到的，不只是怎样上课。愿您卸下忙碌，依然保有对世界的那份好奇。"
+      },
+      {
+        "id": "T-U09",
+        "userId": "t-u09",
+        "name": "蒋予",
+        "relationCodes": ["student"],
+        "relationNote": "曾经",
+        "impressions": ["耐心", "认真"],
+        "wishId": "T-W09",
+        "wish": "很多年后再翻开旧笔记，旁边仍是您那句“再试一次”。祝陈老师荣休快乐，接下来的每一次尝试都轻松又有趣。"
+      },
+      {
+        "id": "T-U10",
+        "userId": "t-u10",
+        "name": "邵文",
+        "relationCodes": ["schoolmate", "friend"],
+        "relationNote": "＋，当前；主要为朋友",
+        "impressions": ["好奇", "幽默"],
+        "wishId": "T-W10",
+        "wish": "年轻时说要一起走的那些路，现在可以慢慢兑现了。别着急，下一次出发，我们一起商量。"
+      },
+      {
+        "id": "T-U11",
+        "userId": "t-u11",
+        "name": "王珺",
+        "relationCodes": ["project_partner"],
+        "relationNote": "曾经",
+        "impressions": ["踏实", "愿意倾听"],
+        "wishId": "T-W11",
+        "wish": "谢谢您在合作里总给年轻人留一个发言的位置。愿新的日子少些日程表，多些随心走走的下午。"
+      },
+      {
+        "id": "T-U12",
+        "userId": "t-u12",
+        "name": "梁溪",
+        "relationCodes": ["neighbor"],
+        "relationNote": "当前",
+        "impressions": ["温和", "热心"],
+        "wishId": "T-W12",
+        "wish": "楼下树荫里的长椅又多了一位老朋友。祝您身体舒展、心里自在，日常的小风景都能慢慢看见。"
+      }
+    ],
+    "photos": [
+      {
+        "id": "T-P01",
+        "authorId": "T-U01",
+        "date": "2002",
+        "precision": "year",
+        "scene": "竖图，木桌上半展开的试卷和铅笔，手指轻点圈出的题目；情景重现",
+        "caption": "那天下午，先圈出会做的部分。",
+        "path": "images/cases/teacher/t-p01.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P02",
+        "authorId": "T-U01",
+        "date": "2002-06",
+        "precision": "month",
+        "scene": "横图，旧教室窗边两把椅子和斜阳，书本留在桌面；无人环境",
+        "caption": "铃响以后，教室里的光还亮着。",
+        "path": "images/cases/teacher/t-p02.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P03",
+        "authorId": "T-U02",
+        "date": "2004-06-30",
+        "precision": "day",
+        "scene": "横图，虚构成年毕业生与中年老师的小组合影，完整半身，校园树下",
+        "caption": "毕业那天，我们说好常回来。",
+        "path": "images/cases/teacher/t-p03.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P04",
+        "authorId": "T-U02",
+        "date": "2004-07",
+        "precision": "month",
+        "scene": "竖图，办公室门口手持一本书的成年青年，脸部侧面，温暖自然",
+        "caption": "离校前，最后一次去办公室。",
+        "path": "images/cases/teacher/t-p04.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P05",
+        "authorId": "T-U03",
+        "date": "2008",
+        "precision": "year",
+        "scene": "横图，两位成年教师在桌边讨论教材，窗边光，人物不摆拍",
+        "caption": "一起备课的普通下午。",
+        "path": "images/cases/teacher/t-p05.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P06",
+        "authorId": "T-U03",
+        "date": "2012-09",
+        "precision": "month",
+        "scene": "竖图，翻开的备课本、两支笔和茶杯细节，无需可读字",
+        "caption": "教案边上，总留着一点空白。",
+        "path": "images/cases/teacher/t-p06.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P07",
+        "authorId": "T-U04",
+        "date": "2015",
+        "precision": "year",
+        "scene": "横图，成年研究生在教室白板前讨论，老师坐一旁倾听",
+        "caption": "先把问题问清楚。",
+        "path": "images/cases/teacher/t-p07.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P08",
+        "authorId": "T-U04",
+        "date": "2016-06",
+        "precision": "month",
+        "scene": "横图，空下来的答辩教室，椅背上一本论文，柔光",
+        "caption": "结束以后，心终于放下来。",
+        "path": "images/cases/teacher/t-p08.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P09",
+        "authorId": "T-U05",
+        "date": "2019",
+        "precision": "year",
+        "scene": "竖图，父亲与成年女儿在阳台移栽绿植，侧面与双手为主",
+        "caption": "第一次认真商量小花园。",
+        "path": "images/cases/teacher/t-p09.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P10",
+        "authorId": "T-U05",
+        "date": "2021-05",
+        "precision": "month",
+        "scene": "横图，窗边花盆、旧园艺剪与新叶，浅景深",
+        "caption": "那两盆花，后来又长高了。",
+        "path": "images/cases/teacher/t-p10.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P11",
+        "authorId": "T-U06",
+        "date": "2022",
+        "precision": "year",
+        "scene": "横图，两位老友在树荫下下棋，完整棋盘，轻松笑意",
+        "caption": "总说，还能再下一盘。",
+        "path": "images/cases/teacher/t-p11.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P12",
+        "authorId": "T-U07",
+        "date": "2023-04",
+        "precision": "month",
+        "scene": "竖图，成年校友回访时与老师站在书架旁聊天",
+        "caption": "隔了很多年，您还是认真听。",
+        "path": "images/cases/teacher/t-p12.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P13",
+        "authorId": "T-U08",
+        "date": "2024-09",
+        "precision": "month",
+        "scene": "横图，三位教师在会议后的桌边收拾教案，真实日常",
+        "caption": "工作之外，也聊聊生活。",
+        "path": "images/cases/teacher/t-p13.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P14",
+        "authorId": "T-U09",
+        "date": "2025-12",
+        "precision": "month",
+        "scene": "竖图，一本泛黄笔记与刚拍下照片的手机，文字留模糊",
+        "caption": "这页笔记，一直舍不得丢。",
+        "path": "images/cases/teacher/t-p14.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P15",
+        "authorId": "T-U10",
+        "date": "2026-06",
+        "precision": "month",
+        "scene": "横图，两位老友沿湖边步道慢走，背影，不摆拍",
+        "caption": "下一次出发，我们一起商量。",
+        "path": "images/cases/teacher/t-p15.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P16",
+        "authorId": "T-U11",
+        "date": "",
+        "precision": "unknown",
+        "scene": "横图，小团队在窗前讨论资料的片段，自然手势",
+        "caption": "合作里，总有人认真听你说完。",
+        "path": "images/cases/teacher/t-p16.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P17",
+        "authorId": "T-U12",
+        "date": "",
+        "precision": "unknown",
+        "scene": "竖图，小区树荫中的长椅与一只保温杯，无人",
+        "caption": "楼下也有值得慢慢看的风景。",
+        "path": "images/cases/teacher/t-p17.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "T-P18",
+        "authorId": "T-U12",
+        "date": "",
+        "precision": "unknown",
+        "scene": "横图，沿用现有 `campus.png` 的林荫路；通用场景示意，不称真实校史照片",
+        "caption": "走过很多次，今天想慢一点。",
+        "path": "images/campus.png",
+        "source": "通用场景示意"
+      }
+    ],
+    "stories": [
+      {
+        "id": "T-S01",
+        "authorId": "T-U01",
+        "title": "那张没有分数的试卷",
+        "body": "大学二年级有一次考试没考好，我把试卷折起来，不想拿给陈老师看。他没有先问分数，而是让我把会做的题圈出来。圈完以后，他说：“先看看自己已经走到了哪儿。”后来工作上遇到难题，我还是会先找出已经做好的那一小部分。陈老师，您那天下午留下的耐心，比那次考试的分数留得久得多。",
+        "photoIds": ["T-P01", "T-P02"],
+        "featured": true
+      },
+      {
+        "id": "T-S02",
+        "authorId": "T-U03",
+        "title": "最后合上的备课本",
+        "body": "有一回一起备课，大家已经讨论完了，陈老师还在本子上添两行字。我问是不是又想到一道题，他说，是想起班里有人可能会听不懂前面的解释，得准备另一种说法。后来轮到我带年轻老师，我也会在教案边上留一点空白。那不是没写完，是提醒自己：同一个问题，还可以再想一种让人听懂的办法。",
+        "photoIds": ["T-P05", "T-P06"],
+        "featured": true
+      },
+      {
+        "id": "T-S03",
+        "authorId": "T-U05",
+        "title": "终于不用等有空了",
+        "body": "小时候，爸爸总说等有空了，要把阳台收拾成一个小花园。我买来两盆花，他比看新教案还认真，连浇水都记在小纸条上。这次荣休，我没有再问他准备做什么大事，只把新的花盆摆在窗边。爸，您不需要一下子学会休息。我们先从周末一起去花市开始，想做的事情，一件一件慢慢来。",
+        "photoIds": ["T-P09", "T-P10"],
+        "featured": true
+      },
+      {
+        "id": "T-S04",
+        "authorId": "T-U02",
+        "title": "铃响之后的十分钟",
+        "body": "毕业前最后一次去办公室，我原本只想道别。陈老师却问我，到了新的地方，最担心什么。我说怕自己不够好。他没有给我一长串建议，只说不懂的时候问一句，并不是丢脸的事。那次聊天没有超过十分钟，却让我后来每次走进陌生的会议室，都愿意先把那个问题问出口。",
+        "photoIds": ["T-P03", "T-P04"],
+        "featured": false
+      },
+      {
+        "id": "T-S05",
+        "authorId": "T-U06",
+        "title": "总想再下一盘",
+        "body": "我们下棋很少认真计输赢。陈老师一边想下一步，一边还要问我最近看了什么书。有一次天色都暗了，他说再下一盘，我说不如留到下次。今天终于可以把“下次”约得从容一点了。朋友之间最好的礼物，大概就是知道有人愿意陪你，把一盘棋慢慢下完。",
+        "photoIds": ["T-P11"],
+        "featured": false
+      },
+      {
+        "id": "T-S06",
+        "authorId": "T-U09",
+        "title": "笔记边上的那句话",
+        "body": "收拾书柜时，我找到一本旧笔记。那一页的解法现在已经记不全，边上的“再试一次”却很熟悉。当时我以为老师只是让我重做一道题，后来才知道，那也是一种看待困难的方式。我把这页拍下来，想放进今天的礼物里：您随手留下的鼓励，我们真的保存了很久。",
+        "photoIds": ["T-P14"],
+        "featured": false
+      }
+    ],
+    "shots": [
+      {
+        "id": "T-M01",
+        "layout": "hero",
+        "photoIds": ["T-P01"],
+        "seconds": 5,
+        "caption": "有些耐心，从一个下午开始。"
+      },
+      {
+        "id": "T-M02",
+        "layout": "diptych",
+        "photoIds": ["T-P02", "T-P03"],
+        "seconds": 6,
+        "caption": "离开教室以后，那句话还在。"
+      },
+      {
+        "id": "T-M03",
+        "layout": "triptych",
+        "photoIds": ["T-P04", "T-P05", "T-P06"],
+        "seconds": 7,
+        "caption": "也有人记得，一起备课的光。"
+      },
+      {
+        "id": "T-M04",
+        "layout": "diptych",
+        "photoIds": ["T-P07", "T-P08"],
+        "seconds": 6,
+        "caption": "被认真听见的问题，会带人往前走。"
+      },
+      {
+        "id": "T-M05",
+        "layout": "collage",
+        "photoIds": ["T-P09", "T-P10", "T-P11", "T-P12"],
+        "seconds": 8,
+        "caption": "花园、老朋友，还有久别重逢。"
+      },
+      {
+        "id": "T-M06",
+        "layout": "hero",
+        "photoIds": ["T-P13"],
+        "seconds": 5,
+        "caption": "工作之外，也聊聊生活。"
+      },
+      {
+        "id": "T-M07",
+        "layout": "quote_photo",
+        "photoIds": ["T-P14"],
+        "seconds": 7,
+        "caption": "您随手留下的鼓励，我们真的保存了很久。"
+      },
+      {
+        "id": "T-M08",
+        "layout": "hero",
+        "photoIds": ["T-P15"],
+        "seconds": 6,
+        "caption": "把新的路慢慢走。"
+      },
+      {
+        "id": "T-M09",
+        "layout": "triptych",
+        "photoIds": ["T-P16", "T-P17", "T-P18"],
+        "seconds": 8,
+        "caption": "没记住日期，也记住了心情。"
+      }
+    ],
+    "voices": [
+      {
+        "id": "T-A01",
+        "author": "林悦",
+        "blockId": "T-S01",
+        "text": "陈老师，我一直记得您说的，先看看自己已经走到了哪儿。那天下午留下的耐心，比那次考试的分数留得久得多。谢谢您。",
+        "path": "audio/cases/teacher/t-a01.m4a"
+      },
+      {
+        "id": "T-A02",
+        "author": "周宁",
+        "blockId": "T-S02",
+        "text": "后来我也会在教案边上留一点空白，提醒自己，同一个问题，还可以再想一种让人听懂的办法。谢谢这些年一起备课的时光。",
+        "path": "audio/cases/teacher/t-a02.m4a"
+      },
+      {
+        "id": "T-A03",
+        "author": "陈晓禾",
+        "blockId": "T-W05",
+        "text": "爸，小花园等您很久了。以后不用把想做的事留到等有空，我们从这个周末就开始。",
+        "path": "audio/cases/teacher/t-a03.m4a"
+      }
+    ],
+    "polished": {
+      "T-S01": "大学二年级，一次考试没考好，我把试卷折起来，不愿给陈老师看。他没有先问分数，而是让我圈出自己会做的题。“先看看自己已经走到了哪儿。”后来遇到工作上的难题，我也会先找出已经做好的部分。那天下午的耐心，比那次考试的分数，在我心里留得更久。"
+    }
+  },
+  "leader": {
+    "authors": [
+      {
+        "id": "L-U01",
+        "userId": "user-linyue",
+        "name": "林悦",
+        "relationCodes": ["subordinate"],
+        "relationNote": "曾经；全局",
+        "impressions": ["愿意倾听", "给人信心"],
+        "wishId": "L-W01",
+        "wish": "周老师，愿您以后少一点必须赶上的进度，多一点想走就走的路。谢谢您让我知道，负责不是一个人扛住所有事。"
+      },
+      {
+        "id": "L-U02",
+        "userId": "l-u02",
+        "name": "许岚",
+        "relationCodes": ["colleague"],
+        "relationNote": "曾经；兼主创",
+        "impressions": ["稳妥", "细心"],
+        "wishId": "L-W02",
+        "wish": "这次不用您来检查大家有没有准备齐了。我们都在，也都记得您的照顾。祝下一程从容，常回来坐坐。"
+      },
+      {
+        "id": "L-U03",
+        "userId": "l-u03",
+        "name": "程野",
+        "relationCodes": ["project_partner"],
+        "relationNote": "曾经",
+        "impressions": ["踏实", "坦诚"],
+        "wishId": "L-W03",
+        "wish": "一起解过的难题，现在想起来都成了好故事。愿您把更多时间留给山水、家人和一直想修好的小物件。"
+      },
+      {
+        "id": "L-U04",
+        "userId": "l-u04",
+        "name": "罗青",
+        "relationCodes": ["leader"],
+        "relationNote": "曾经",
+        "impressions": ["可靠", "担当"],
+        "wishId": "L-W04",
+        "wish": "从曾经并肩工作到今天看您安心开启新生活，这份踏实一直没变。愿新的日程里，多是您自己喜欢的安排。"
+      },
+      {
+        "id": "L-U05",
+        "userId": "l-u05",
+        "name": "周恬",
+        "relationCodes": ["child"],
+        "relationNote": "当前",
+        "impressions": ["细心", "温暖"],
+        "wishId": "L-W05",
+        "wish": "爸，家里那台旧收音机还等着您。以后别总说周末再看，我们可以在任何一个普通下午一起把它修好。"
+      },
+      {
+        "id": "L-U06",
+        "userId": "l-u06",
+        "name": "何越",
+        "relationCodes": ["mentee"],
+        "relationNote": "曾经",
+        "impressions": ["耐心", "给人信心"],
+        "wishId": "L-W06",
+        "wish": "您让我先试一试，也总在旁边留着一份支持。谢谢那份信任，祝您接下来的每一天都有轻松的新发现。"
+      },
+      {
+        "id": "L-U07",
+        "userId": "l-u07",
+        "name": "顾舟",
+        "relationCodes": ["friend"],
+        "relationNote": "当前",
+        "impressions": ["幽默", "爽快"],
+        "wishId": "L-W07",
+        "wish": "上次那条没走完的步道，我们终于可以慢慢走了。记得带帽子，其他的都不着急。"
+      },
+      {
+        "id": "L-U08",
+        "userId": "l-u08",
+        "name": "林曼",
+        "relationCodes": ["business_partner"],
+        "relationNote": "曾经",
+        "impressions": ["守信", "愿意倾听"],
+        "wishId": "L-W08",
+        "wish": "多年的合作，让我们记住的不只是项目结果，还有每次认真回应的态度。愿您往后的日子宽阔、自在。"
+      }
+    ],
+    "photos": [
+      {
+        "id": "L-P01",
+        "authorId": "L-U01",
+        "date": "2014",
+        "precision": "year",
+        "scene": "横图，年轻工程师与中年负责人围桌讨论，图纸无机密文字",
+        "caption": "第一次把担心的问题说出来。",
+        "path": "images/cases/leader/l-p01.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "L-P02",
+        "authorId": "L-U01",
+        "date": "2014-06",
+        "precision": "month",
+        "scene": "竖图，桌面便签、图纸、三只不同的笔，手部细节",
+        "caption": "难题放在桌面上，就能一起想办法。",
+        "path": "images/cases/leader/l-p02.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "L-P03",
+        "authorId": "L-U02",
+        "date": "2017",
+        "precision": "year",
+        "scene": "横图，团队出发前在办公楼门口等齐人，虚构成年人物",
+        "caption": "出发前，总要确认大家都在。",
+        "path": "images/cases/leader/l-p03.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "L-P04",
+        "authorId": "L-U02",
+        "date": "2018-09",
+        "precision": "month",
+        "scene": "竖图，活动准备桌上的车次卡片和水杯，不生成可读个人信息",
+        "caption": "多问一句，别人就少一点为难。",
+        "path": "images/cases/leader/l-p04.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "L-P05",
+        "authorId": "L-U03",
+        "date": "2020",
+        "precision": "year",
+        "scene": "横图，白板旁空椅子与讨论中的团队，人物完整",
+        "caption": "那把椅子，是留给每一种意见的。",
+        "path": "images/cases/leader/l-p05.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "L-P06",
+        "authorId": "L-U04",
+        "date": "2021",
+        "precision": "year",
+        "scene": "横图，两代团队负责人在窗边交流，便装与自然姿态",
+        "caption": "从一起共事，到放心交棒。",
+        "path": "images/cases/leader/l-p06.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "L-P07",
+        "authorId": "L-U05",
+        "date": "2023",
+        "precision": "year",
+        "scene": "竖图，旧收音机与排列整齐的小螺丝盒，暖光",
+        "caption": "等一个不着急的下午。",
+        "path": "images/cases/leader/l-p07.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "L-P08",
+        "authorId": "L-U05",
+        "date": "2024-04",
+        "precision": "month",
+        "scene": "横图，父亲和成年女儿在家中桌边检查收音机，无危险操作",
+        "caption": "不急着修好，先听听旧故事。",
+        "path": "images/cases/leader/l-p08.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "L-P09",
+        "authorId": "L-U06",
+        "date": "2025",
+        "precision": "year",
+        "scene": "横图，师徒在安全整洁的工作台前讨论零件，护具合理",
+        "caption": "有人让你试，也有人在旁边。",
+        "path": "images/cases/leader/l-p09.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "L-P10",
+        "authorId": "L-U07",
+        "date": "2026-05",
+        "precision": "month",
+        "scene": "横图，两位朋友沿平缓步道行走，山景留白",
+        "caption": "那条没走完的路，还等着我们。",
+        "path": "images/cases/leader/l-p10.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "L-P11",
+        "authorId": "L-U08",
+        "date": "",
+        "precision": "unknown",
+        "scene": "竖图，两杯热茶与合上的文件夹，普通会议室",
+        "caption": "项目之外，也有多年的熟悉。",
+        "path": "images/cases/leader/l-p11.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "L-P12",
+        "authorId": "L-U08",
+        "date": "",
+        "precision": "unknown",
+        "scene": "横图，小型合作团队的自然合照，不含品牌标识",
+        "caption": "认真合作，也真诚道别。",
+        "path": "images/cases/leader/l-p12.jpg",
+        "source": "虚构情景重现"
+      }
+    ],
+    "stories": [
+      {
+        "id": "L-S01",
+        "authorId": "L-U01",
+        "title": "第一次独立带项目",
+        "body": "第一次独立带项目时，我总想把每件事都做得没有差错。周老师提醒我：“先把大家最担心的问题放到桌面上，再一起想办法。”那次讨论之后，原来难以开口的问题，都变成了可以一起处理的事情。后来带新人，我也会先问一句你现在最担心什么。谢谢您让我知道，负责不等于一个人扛住所有事。",
+        "photoIds": ["L-P01", "L-P02"],
+        "featured": true
+      },
+      {
+        "id": "L-S02",
+        "authorId": "L-U02",
+        "title": "总会多问一句",
+        "body": "每次安排活动，周老师最后总会问一句，远一点的同事回去方便吗。那时候我觉得这只是个小问题，后来才发现，有人早一点想到，别人就能少一点为难。这次准备荣休礼，我也在清单最后写了这句话。周老师，这一次您放心坐着，您惦记过的那些细节，我们都记住了。",
+        "photoIds": ["L-P03", "L-P04"],
+        "featured": true
+      },
+      {
+        "id": "L-S03",
+        "authorId": "L-U03",
+        "title": "白板旁的一把椅子",
+        "body": "合作刚开始时，我对团队的讨论方式还不熟，常站在白板旁边听。周老师拉来一把椅子，说先坐下，你看到的问题也很重要。后来那几次讨论里，我慢慢敢把不同意见说出来。现在每次新伙伴加入，我也会先把椅子摆好。欢迎一个人，有时就是这么一件很小的事。",
+        "photoIds": ["L-P05"],
+        "featured": false
+      },
+      {
+        "id": "L-S04",
+        "authorId": "L-U05",
+        "title": "还没修好的收音机",
+        "body": "家里那台旧收音机坏了很久。爸爸一直说找个完整的下午来修，可每次工具拿出来，又有别的事要忙。这次我把螺丝盒整理好了，就放在窗边。爸，我们不急着把它修好。我想要的，是和您一起坐下来，听听您讲这些旧东西的故事。",
+        "photoIds": ["L-P07", "L-P08"],
+        "featured": false
+      }
+    ],
+    "shots": [
+      {
+        "id": "L-M01",
+        "layout": "diptych",
+        "photoIds": ["L-P01", "L-P02"],
+        "seconds": 7,
+        "caption": ""
+      },
+      {
+        "id": "L-M02",
+        "layout": "collage",
+        "photoIds": ["L-P03", "L-P04", "L-P05"],
+        "seconds": 8,
+        "caption": ""
+      },
+      {
+        "id": "L-M03",
+        "layout": "hero",
+        "photoIds": ["L-P06"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "L-M04",
+        "layout": "quote_photo",
+        "photoIds": ["L-P07"],
+        "seconds": 7,
+        "caption": ""
+      },
+      {
+        "id": "L-M05",
+        "layout": "hero",
+        "photoIds": ["L-P08"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "L-M06",
+        "layout": "hero",
+        "photoIds": ["L-P09"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "L-M07",
+        "layout": "hero",
+        "photoIds": ["L-P10"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "L-M08",
+        "layout": "diptych",
+        "photoIds": ["L-P11", "L-P12"],
+        "seconds": 7,
+        "caption": ""
+      }
+    ],
+    "voices": [
+      {
+        "id": "L-A01",
+        "author": "林悦",
+        "blockId": "L-S01",
+        "text": "周老师，您让我知道，负责不等于一个人扛住所有事。现在带新人时，我也会先问，你最担心什么。谢谢您当时的信任。",
+        "path": "audio/cases/leader/l-a01.m4a"
+      },
+      {
+        "id": "L-A02",
+        "author": "许岚",
+        "blockId": "L-W02",
+        "text": "这次不用您检查大家有没有准备齐了。您惦记过的那些细节，我们都记住了。祝下一程从容，常回来坐坐。",
+        "path": "audio/cases/leader/l-a02.m4a"
+      }
+    ],
+    "polished": {
+      "L-S01": "第一次独立带项目，我总想把所有事做得没有差错。周老师提醒我，先把大家最担心的问题放到桌面上，再一起想办法。那次讨论让我明白，负责不等于独自扛住一切。后来带新人，我也开始先问：你现在最担心什么？谢谢您，把这份信任留给了我们。"
+    }
+  },
+  "nurse": {
+    "authors": [
+      {
+        "id": "N-U01",
+        "userId": "n-u01",
+        "name": "唐薇",
+        "relationCodes": ["mentee"],
+        "relationNote": "曾经",
+        "impressions": ["耐心", "让人安心"],
+        "wishId": "N-W01",
+        "wish": "沈老师，您陪我把心放稳的那些夜晚，我一直记得。愿以后清晨不用赶交班，有时间慢慢吃一顿喜欢的早饭。"
+      },
+      {
+        "id": "N-U02",
+        "userId": "n-u02",
+        "name": "韩静",
+        "relationCodes": ["colleague"],
+        "relationNote": "曾经",
+        "impressions": ["细心", "温柔"],
+        "wishId": "N-W02",
+        "wish": "从前您总记得提醒别人喝口水。现在我们也想多提醒您一句，别忙着照顾所有人，也把自己放在心上。"
+      },
+      {
+        "id": "N-U03",
+        "userId": "n-u03",
+        "name": "孟欣",
+        "relationCodes": ["mentee"],
+        "relationNote": "曾经",
+        "impressions": ["认真", "愿意倾听"],
+        "wishId": "N-W03",
+        "wish": "谢谢您让我知道，不确定的时候问出来，是认真负责的开始。愿新的日子轻松，也愿您常常被温柔对待。"
+      },
+      {
+        "id": "N-U04",
+        "userId": "n-u04",
+        "name": "陶岚",
+        "relationCodes": ["leader"],
+        "relationNote": "曾经",
+        "impressions": ["稳妥", "担当"],
+        "wishId": "N-W04",
+        "wish": "您留给团队的不只是一份份经验，还有让人安心的做事方式。祝荣休快乐，往后多一些自在的安排。"
+      },
+      {
+        "id": "N-U05",
+        "userId": "n-u05",
+        "name": "沈栩",
+        "relationCodes": ["child"],
+        "relationNote": "当前",
+        "impressions": ["温暖", "认真生活"],
+        "wishId": "N-W05",
+        "wish": "妈，您一直想去的花市，我们已经记下来了。以后不用凑一个难得的休息日，我们可以慢慢挑，也慢慢逛。"
+      },
+      {
+        "id": "N-U06",
+        "userId": "n-u06",
+        "name": "江澄",
+        "relationCodes": ["friend"],
+        "relationNote": "当前",
+        "impressions": ["幽默", "温和"],
+        "wishId": "N-W06",
+        "wish": "茶杯给您留着，新学的点心也等您来尝。愿以后聚在一起的理由，就是今天刚好都有空。"
+      },
+      {
+        "id": "N-U07",
+        "userId": "n-u07",
+        "name": "杜晴",
+        "relationCodes": ["community_peer"],
+        "relationNote": "当前",
+        "impressions": ["热心", "耐心"],
+        "wishId": "N-W07",
+        "wish": "一起参加活动时，您总让不熟悉的人也觉得自在。愿您继续做喜欢的事，也得到一样细致的照顾。"
+      },
+      {
+        "id": "N-U08",
+        "userId": "user-linyue",
+        "name": "林悦",
+        "relationCodes": ["friend"],
+        "relationNote": "当前；全局",
+        "impressions": ["温和", "好奇"],
+        "wishId": "N-W08",
+        "wish": "下次散步，我们换一条没走过的小路。祝沈老师把新的日子过得舒展，有好风景，也有好心情。"
+      }
+    ],
+    "photos": [
+      {
+        "id": "N-P01",
+        "authorId": "N-U01",
+        "date": "2013",
+        "precision": "year",
+        "scene": "横图，成年带教者和新人在空培训室核对物品，无病例文字",
+        "caption": "第一次独立工作前，再陪我一会儿。",
+        "path": "images/cases/nurse/n-p01.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "N-P02",
+        "authorId": "N-U01",
+        "date": "2013-08",
+        "precision": "month",
+        "scene": "竖图，空走廊窗边柔和夜灯与整齐工作鞋，不出现病人",
+        "caption": "那天心里的紧张，慢慢放下了。",
+        "path": "images/cases/nurse/n-p02.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "N-P03",
+        "authorId": "N-U02",
+        "date": "2016",
+        "precision": "year",
+        "scene": "横图，两位同事在休息室短暂坐下喝水，自然表情",
+        "caption": "忙碌里，也有人记得让你歇一下。",
+        "path": "images/cases/nurse/n-p03.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "N-P04",
+        "authorId": "N-U02",
+        "date": "2018-03",
+        "precision": "month",
+        "scene": "竖图，木托盘上一杯温水和一小束花，细节特写",
+        "caption": "那杯终于喝上的温水。",
+        "path": "images/cases/nurse/n-p04.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "N-P05",
+        "authorId": "N-U03",
+        "date": "2020",
+        "precision": "year",
+        "scene": "横图，模拟培训区内成年新人向带教者提问，工具无危险细节",
+        "caption": "问出来，就可以一起解决。",
+        "path": "images/cases/nurse/n-p05.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "N-P06",
+        "authorId": "N-U04",
+        "date": "2021",
+        "precision": "year",
+        "scene": "横图，职工活动中同事合影，便装、完整面孔、无单位真实标识",
+        "caption": "让大家安心的那份稳妥。",
+        "path": "images/cases/nurse/n-p06.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "N-P07",
+        "authorId": "N-U05",
+        "date": "2023",
+        "precision": "year",
+        "scene": "竖图，花市茉莉花和扶着花盆的手，自然光",
+        "caption": "一眼喜欢上的那盆花。",
+        "path": "images/cases/nurse/n-p07.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "N-P08",
+        "authorId": "N-U05",
+        "date": "2024-05",
+        "precision": "month",
+        "scene": "横图，母亲与成年子女逛花市，轻松侧影",
+        "caption": "下次，不赶时间。",
+        "path": "images/cases/nurse/n-p08.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "N-P09",
+        "authorId": "N-U06",
+        "date": "2025",
+        "precision": "year",
+        "scene": "横图，几位女性朋友在家中喝茶、摆点心，自然生活感",
+        "caption": "聚在一起，就是今天刚好有空。",
+        "path": "images/cases/nurse/n-p09.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "N-P10",
+        "authorId": "N-U07",
+        "date": "2026-06",
+        "precision": "month",
+        "scene": "横图，社区植栽活动中的成年志愿者，花草占前景",
+        "caption": "把热心带到新的地方。",
+        "path": "images/cases/nurse/n-p10.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "N-P11",
+        "authorId": "N-U08",
+        "date": "",
+        "precision": "unknown",
+        "scene": "竖图，公园步道上的树影与落叶，不出现可识别路人",
+        "caption": "换条路，也有新风景。",
+        "path": "images/cases/nurse/n-p11.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "N-P12",
+        "authorId": "N-U08",
+        "date": "",
+        "precision": "unknown",
+        "scene": "横图，湖边长椅上的两位朋友背影，平静自然",
+        "caption": "想说的话，可以慢慢说。",
+        "path": "images/cases/nurse/n-p12.jpg",
+        "source": "虚构情景重现"
+      }
+    ],
+    "stories": [
+      {
+        "id": "N-S01",
+        "authorId": "N-U01",
+        "title": "第一次独立值夜班",
+        "body": "第一次独立值夜班前，我紧张得反复核对准备事项。沈老师陪我又过了一遍，说：“认真是好事，遇到不确定的事就问。”她没有替我完成所有事情，只在旁边多留了一会儿。后来轮到我带新人，我也会这样多留一会儿，陪她把心放稳。原来一份耐心，真的可以从一个人传给另一个人。",
+        "photoIds": ["N-P01", "N-P02"],
+        "featured": true
+      },
+      {
+        "id": "N-S02",
+        "authorId": "N-U02",
+        "title": "那杯终于喝上的温水",
+        "body": "有一阵子工作忙，我常常到下午才发现早上的水还没喝。沈老师经过休息室，会顺手把我的杯子往前推一点，说别等凉透了。如今我每次看见桌上的杯子，都会想起这种很轻、却一直在的关心。今天想把同一句话送给她：先坐一会儿，喝口温水，再慢慢做自己的事。",
+        "photoIds": ["N-P03", "N-P04"],
+        "featured": true
+      },
+      {
+        "id": "N-S03",
+        "authorId": "N-U03",
+        "title": "问出来，就一起解决",
+        "body": "刚参加工作时，我最怕别人觉得我问题太多。有一次培训后，沈老师问我是不是还有哪里不确定。我小声说了，她认真听完，拉着我一起把练习再做一遍。那次以后，我开始把不懂的地方记下来，而不是藏起来。谢谢您让提问变得不再难为情。",
+        "photoIds": ["N-P05"],
+        "featured": false
+      },
+      {
+        "id": "N-S04",
+        "authorId": "N-U05",
+        "title": "不赶时间的花市",
+        "body": "妈妈喜欢植物，可去花市总像完成一个小任务，买好就要赶着回去。去年她看中一盆茉莉，走出很远还在回头看。我记下了那家店。这次给她准备礼物时，最想放进来的是一句很普通的邀请：妈，下次我们不赶时间，您想停多久，就停多久。",
+        "photoIds": ["N-P07", "N-P08"],
+        "featured": false
+      }
+    ],
+    "shots": [
+      {
+        "id": "N-M01",
+        "layout": "hero",
+        "photoIds": ["N-P01"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "N-M02",
+        "layout": "triptych",
+        "photoIds": ["N-P02", "N-P03", "N-P04"],
+        "seconds": 8,
+        "caption": ""
+      },
+      {
+        "id": "N-M03",
+        "layout": "quote_photo",
+        "photoIds": ["N-P05"],
+        "seconds": 7,
+        "caption": ""
+      },
+      {
+        "id": "N-M04",
+        "layout": "hero",
+        "photoIds": ["N-P06"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "N-M05",
+        "layout": "diptych",
+        "photoIds": ["N-P07", "N-P08"],
+        "seconds": 7,
+        "caption": ""
+      },
+      {
+        "id": "N-M06",
+        "layout": "hero",
+        "photoIds": ["N-P09"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "N-M07",
+        "layout": "hero",
+        "photoIds": ["N-P10"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "N-M08",
+        "layout": "diptych",
+        "photoIds": ["N-P11", "N-P12"],
+        "seconds": 7,
+        "caption": ""
+      }
+    ],
+    "voices": [
+      {
+        "id": "N-A01",
+        "author": "唐薇",
+        "blockId": "N-S01",
+        "text": "沈老师，您说，遇到不确定的事就问。后来我带新人，也会多留一会儿，陪她把心放稳。谢谢您把这份耐心传给我们。",
+        "path": "audio/cases/nurse/n-a01.m4a"
+      },
+      {
+        "id": "N-A02",
+        "author": "沈栩",
+        "blockId": "N-W05",
+        "text": "妈，下次逛花市，我们不赶时间。您想停多久，就停多久。也请把照顾我们的耐心，多留一点给自己。",
+        "path": "audio/cases/nurse/n-a02.m4a"
+      }
+    ],
+    "polished": {
+      "N-S01": "第一次独立值夜班前，我紧张地反复核对准备事项。沈老师又陪我过了一遍，说不确定的地方就问。她没有替我做完所有事，只是多留了一会儿。后来我带新人，也学会了这样陪她把心放稳。一份耐心，就这样继续传给了下一个人。"
+    }
+  },
+  "birthday": {
+    "authors": [
+      {
+        "id": "B-U01",
+        "userId": "b-u01",
+        "name": "顾宁",
+        "relationCodes": ["child"],
+        "relationNote": "当前",
+        "impressions": ["温暖", "认真生活"],
+        "wishId": "B-W01",
+        "wish": "妈，生日快乐。以前总是您问我们想吃什么，以后也请多说说您自己想做什么。我们很愿意陪您一起试。"
+      },
+      {
+        "id": "B-U02",
+        "userId": "b-u02",
+        "name": "赵松",
+        "relationCodes": ["spouse"],
+        "relationNote": "当前",
+        "impressions": ["乐观", "细心"],
+        "wishId": "B-W02",
+        "wish": "雅琴，往后的日子，我们继续一起买菜，也一起走远一点。愿每一个普通早晨，都有新的盼头。"
+      },
+      {
+        "id": "B-U03",
+        "userId": "b-u03",
+        "name": "顾川",
+        "relationCodes": ["child"],
+        "relationNote": "当前",
+        "impressions": ["耐心", "有趣"],
+        "wishId": "B-W03",
+        "wish": "妈，您新学的水彩比我们想象中认真多了。生日快乐，愿您一直愿意开始新的事情，不用先问自己是不是太晚。"
+      },
+      {
+        "id": "B-U04",
+        "userId": "b-u04",
+        "name": "唐舒",
+        "relationCodes": ["child_in_law"],
+        "relationNote": "当前；补充“儿媳”",
+        "impressions": ["体贴", "温和"],
+        "wishId": "B-W04",
+        "wish": "谢谢您把一家人的口味都记在心里，也一直照顾我的习惯。今天想认真祝您生日快乐，愿您总被一样用心地惦记。"
+      },
+      {
+        "id": "B-U05",
+        "userId": "b-u05",
+        "name": "顾晴",
+        "relationCodes": ["sibling"],
+        "relationNote": "当前",
+        "impressions": ["爽朗", "可靠"],
+        "wishId": "B-W05",
+        "wish": "姐，年轻时说过的旅行计划，我们可以重新拿出来看了。慢慢安排，哪一站让你开心，就先去哪一站。"
+      },
+      {
+        "id": "B-U06",
+        "userId": "b-u06",
+        "name": "何玲",
+        "relationCodes": ["friend"],
+        "relationNote": "当前",
+        "impressions": ["幽默", "热心"],
+        "wishId": "B-W06",
+        "wish": "下次聚会还是坐你旁边，因为你总有新的故事。生日快乐，愿这一年有好朋友、有新画作，也有说走就走的小出游。"
+      },
+      {
+        "id": "B-U07",
+        "userId": "b-u07",
+        "name": "夏敏",
+        "relationCodes": ["hobby_friend"],
+        "relationNote": "当前",
+        "impressions": ["好奇", "专注"],
+        "wishId": "B-W07",
+        "wish": "画室里看到你认真调颜色的样子，特别让人开心。愿新的一岁有更多喜欢的颜色，也有充足的时间慢慢画。"
+      },
+      {
+        "id": "B-U08",
+        "userId": "b-u08",
+        "name": "邓兰",
+        "relationCodes": ["neighbor"],
+        "relationNote": "当前",
+        "impressions": ["温暖", "乐于分享"],
+        "wishId": "B-W08",
+        "wish": "一起照看的花又开了，想在今天把这份好心情送给你。祝生日快乐，日子像窗边的光一样明亮。"
+      }
+    ],
+    "photos": [
+      {
+        "id": "B-P01",
+        "authorId": "B-U01",
+        "date": "2010",
+        "precision": "year",
+        "scene": "竖图，家常饭桌上一只单独盛菜的小碗，暖色旧木桌",
+        "caption": "那一小碗，是被记住的习惯。",
+        "path": "images/cases/birthday/b-p01.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "B-P02",
+        "authorId": "B-U01",
+        "date": "2015-02",
+        "precision": "month",
+        "scene": "横图，虚构成年家人围桌做饭，主角顾雅琴处于相应年龄",
+        "caption": "一起做饭的时候，家里最热闹。",
+        "path": "images/cases/birthday/b-p02.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "B-P03",
+        "authorId": "B-U02",
+        "date": "2018",
+        "precision": "year",
+        "scene": "横图，一对中老年夫妻拎菜篮沿河边散步，生活纪实",
+        "caption": "回家的路，偶尔绕一点。",
+        "path": "images/cases/birthday/b-p03.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "B-P04",
+        "authorId": "B-U02",
+        "date": "2019-04",
+        "precision": "month",
+        "scene": "竖图，河边新芽与停在旁边的菜篮子，浅景深",
+        "caption": "今天也想看看那棵树。",
+        "path": "images/cases/birthday/b-p04.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "B-P05",
+        "authorId": "B-U03",
+        "date": "2022",
+        "precision": "year",
+        "scene": "竖图，第一张植物水彩与用过的调色盘，不含署名字样",
+        "caption": "第一张作业，改了又改。",
+        "path": "images/cases/birthday/b-p05.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "B-P06",
+        "authorId": "B-U04",
+        "date": "2023-01",
+        "precision": "month",
+        "scene": "横图，婆婆与成年儿媳一起包饺子，手部和轻松表情",
+        "caption": "熟悉起来，也从一顿饭开始。",
+        "path": "images/cases/birthday/b-p06.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "B-P07",
+        "authorId": "B-U05",
+        "date": "2024",
+        "precision": "year",
+        "scene": "竖图，桌上摊开的旅行册与两杯茶，地图文字不要求清晰",
+        "caption": "把想去的地方，再翻出来看看。",
+        "path": "images/cases/birthday/b-p07.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "B-P08",
+        "authorId": "B-U05",
+        "date": "2025-03",
+        "precision": "month",
+        "scene": "横图，两位姐妹坐在窗边商量出游，笑容自然",
+        "caption": "时间慢慢定，愿望先留着。",
+        "path": "images/cases/birthday/b-p08.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "B-P09",
+        "authorId": "B-U06",
+        "date": "2025-10",
+        "precision": "month",
+        "scene": "横图，四位成年女性朋友在小庭院喝茶，绿植和阳光",
+        "caption": "每次坐在一起，都有新的故事。",
+        "path": "images/cases/birthday/b-p09.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "B-P10",
+        "authorId": "B-U07",
+        "date": "2026-08",
+        "precision": "month",
+        "scene": "横图，顾雅琴在明亮画室学习水彩，非专业摆拍",
+        "caption": "喜欢的颜色，可以慢慢调。",
+        "path": "images/cases/birthday/b-p10.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "B-P11",
+        "authorId": "B-U08",
+        "date": "",
+        "precision": "unknown",
+        "scene": "竖图，邻里共同养护的窗台花草，陶盆与光影",
+        "caption": "一起照看的花又开了。",
+        "path": "images/cases/birthday/b-p11.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "B-P12",
+        "authorId": "B-U08",
+        "date": "",
+        "precision": "unknown",
+        "scene": "横图，两位邻居在阳台交换一小盆植物，完整自然姿态",
+        "caption": "把一点好心情，送到门口。",
+        "path": "images/cases/birthday/b-p12.jpg",
+        "source": "虚构情景重现"
+      }
+    ],
+    "stories": [
+      {
+        "id": "B-S01",
+        "authorId": "B-U01",
+        "title": "饭桌上那只小碗",
+        "body": "小时候我不太能吃辣，家里做同一道菜，妈妈总会先留出一小碗。那时只觉得理所当然，后来一个人做饭，才知道多记住一个人的习惯，是要在很多小事上都想着他。今天想把这只碗放进礼物里。妈，您照顾我们的方式，我们正在慢慢学会，也想慢慢用来照顾您。",
+        "photoIds": ["B-P01", "B-P02"],
+        "featured": true
+      },
+      {
+        "id": "B-S02",
+        "authorId": "B-U02",
+        "title": "绕一点路也没关系",
+        "body": "我们去市场有一条近路，雅琴却常拉着我绕到河边。她说昨天那棵树有新芽，今天想再看一眼。我原来总催她快点，后来才发现，这些绕出来的几分钟，让日子有了很多可以记得的地方。以后不赶了。买完菜，也可以再坐一会儿，看看今天的风吹向哪里。",
+        "photoIds": ["B-P03", "B-P04"],
+        "featured": true
+      },
+      {
+        "id": "B-S03",
+        "authorId": "B-U03",
+        "title": "第一张水彩作业",
+        "body": "妈妈第一次把水彩作业发到群里，说画得还不太像。我放大看，发现花盆边缘改了好几遍。她很久没有这么认真地向我们展示一件属于自己的新作品。我回了一句真好看，她过了一会儿又发来下一次想画的植物。原来开始一件喜欢的事，不需要等谁给一个理由。",
+        "photoIds": ["B-P05"],
+        "featured": false
+      },
+      {
+        "id": "B-S04",
+        "authorId": "B-U05",
+        "title": "还没去过的那一站",
+        "body": "我们年轻时在地图上圈过几个地方，后来各忙各的，圈出来的名字都快忘了。前些天姐姐又提起其中一个，说现在坐车很方便。我找出了那本旧册子，才发现想一起去看看世界的心情，一直都在。生日这天，我想送她一张还没填日期的计划表。时间可以慢慢定，愿望先留着。",
+        "photoIds": ["B-P07", "B-P08"],
+        "featured": false
+      }
+    ],
+    "shots": [
+      {
+        "id": "B-M01",
+        "layout": "quote_photo",
+        "photoIds": ["B-P01"],
+        "seconds": 7,
+        "caption": ""
+      },
+      {
+        "id": "B-M02",
+        "layout": "hero",
+        "photoIds": ["B-P02"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "B-M03",
+        "layout": "collage",
+        "photoIds": ["B-P03", "B-P04", "B-P05", "B-P06"],
+        "seconds": 8,
+        "caption": ""
+      },
+      {
+        "id": "B-M04",
+        "layout": "hero",
+        "photoIds": ["B-P07"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "B-M05",
+        "layout": "hero",
+        "photoIds": ["B-P08"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "B-M06",
+        "layout": "hero",
+        "photoIds": ["B-P09"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "B-M07",
+        "layout": "hero",
+        "photoIds": ["B-P10"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "B-M08",
+        "layout": "diptych",
+        "photoIds": ["B-P11", "B-P12"],
+        "seconds": 7,
+        "caption": ""
+      }
+    ],
+    "voices": [
+      {
+        "id": "B-A01",
+        "author": "顾宁",
+        "blockId": "B-S01",
+        "text": "妈，您照顾我们的方式，我们正在慢慢学会。以后也请多说说您自己想做什么，我们很愿意陪您一起试。生日快乐。",
+        "path": "audio/cases/birthday/b-a01.m4a"
+      },
+      {
+        "id": "B-A02",
+        "author": "顾川",
+        "blockId": "B-W03",
+        "text": "妈，愿您一直愿意开始新的事情，不用先问自己是不是太晚。下一张水彩作业，我们也等着看。",
+        "path": "audio/cases/birthday/b-a02.m4a"
+      }
+    ],
+    "polished": {
+      "B-S01": "小时候不能吃辣，妈妈总在做菜时先为我留一小碗。长大后自己做饭，才懂得记住一个人的习惯，藏在许多细小的惦记里。今天想把那只碗放进礼物。妈，您照顾我们的方式，我们正在慢慢学，也想用同样的用心照顾您。"
+    }
+  },
+  "anniversary": {
+    "authors": [
+      {
+        "id": "A-U01",
+        "userId": "a-u01",
+        "name": "许知远",
+        "relationCodes": ["child"],
+        "relationNote": "／",
+        "impressions": ["踏实", "温暖"],
+        "wishId": "A-W01",
+        "wish": "爸、妈，四十周年快乐。以前觉得你们的日子很普通，现在才懂得，把普通日子过好，是两个人一起做了很多小事。"
+      },
+      {
+        "id": "A-U02",
+        "userId": "a-u02",
+        "name": "苏婉",
+        "relationCodes": ["relative", "sibling"],
+        "relationNote": "（妻妹）／（妹妹）",
+        "impressions": ["默契", "体贴"],
+        "wishId": "A-W02",
+        "wish": "姐姐、姐夫，愿你们继续一起买菜、一起散步，也一起去看看没去过的地方。熟悉的陪伴，永远值得认真庆祝。"
+      },
+      {
+        "id": "A-U03",
+        "userId": "a-u03",
+        "name": "陈宁",
+        "relationCodes": ["child_in_law"],
+        "relationNote": "／，补充“儿媳”",
+        "impressions": ["包容", "温和"],
+        "wishId": "A-W03",
+        "wish": "谢谢你们让我慢慢成为家里自然的一部分。祝纪念日快乐，愿接下来的每一天，都有安心的陪伴。"
+      },
+      {
+        "id": "A-U04",
+        "userId": "a-u04",
+        "name": "许知遥",
+        "relationCodes": ["child"],
+        "relationNote": "／",
+        "impressions": ["乐观", "有趣"],
+        "wishId": "A-W04",
+        "wish": "爸妈，愿你们以后少问我们忙不忙，多告诉我们今天又去了哪里。看你们一起开心，我们也跟着觉得日子很好。"
+      },
+      {
+        "id": "A-U05",
+        "userId": "a-u05",
+        "name": "罗平",
+        "relationCodes": ["friend"],
+        "relationNote": "／",
+        "impressions": ["爽朗", "守信"],
+        "wishId": "A-W05",
+        "wish": "从年轻时一起聚，到现在带着一桌故事再聚，真好。祝两位纪念日快乐，老朋友的位置，我们一直给彼此留着。"
+      },
+      {
+        "id": "A-U06",
+        "userId": "a-u06",
+        "name": "程蓉",
+        "relationCodes": ["friend", "classmate"],
+        "relationNote": "／，对苏文澜为曾经同学",
+        "impressions": ["细心", "默契"],
+        "wishId": "A-W06",
+        "wish": "文澜，我们从同学变成老朋友，也看着你们把日子过得越来越有滋味。愿往后有茶、有花，也有两个人的新计划。"
+      },
+      {
+        "id": "A-U07",
+        "userId": "a-u07",
+        "name": "余衡",
+        "relationCodes": ["colleague", "friend"],
+        "relationNote": "（曾经）／",
+        "impressions": ["可靠", "温暖"],
+        "wishId": "A-W07",
+        "wish": "一起共事的年月过去了，来家里坐坐的熟悉还在。祝两位继续把日子过得踏实、自在，常聚常欢喜。"
+      },
+      {
+        "id": "A-U08",
+        "userId": "a-u08",
+        "name": "周兰",
+        "relationCodes": ["neighbor"],
+        "relationNote": "／",
+        "impressions": ["热心", "认真生活"],
+        "wishId": "A-W08",
+        "wish": "每次看见你们一起散步，都觉得平常日子也可以很动人。愿今后的路仍有人并肩，慢一点也没有关系。"
+      }
+    ],
+    "photos": [
+      {
+        "id": "A-P01",
+        "authorId": "A-U01",
+        "date": "2006",
+        "precision": "year",
+        "scene": "竖图，门口整齐并排的两双成年人步行鞋，家居光影",
+        "caption": "门口总有两双鞋。",
+        "path": "images/cases/anniversary/a-p01.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "A-P02",
+        "authorId": "A-U01",
+        "date": "2012",
+        "precision": "year",
+        "scene": "横图，虚构中年夫妻晚饭后在小路散步的背影",
+        "caption": "普通的话，也愿意一起说很多年。",
+        "path": "images/cases/anniversary/a-p02.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "A-P03",
+        "authorId": "A-U02",
+        "date": "2015",
+        "precision": "year",
+        "scene": "竖图，阳台花草和正在浇水的手，陶盆细节",
+        "caption": "出门前，还记得看看花。",
+        "path": "images/cases/anniversary/a-p03.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "A-P04",
+        "authorId": "A-U02",
+        "date": "2017-04",
+        "precision": "month",
+        "scene": "竖图，门边两把颜色不同的伞和准备出门的身影",
+        "caption": "也有人记得把伞带上。",
+        "path": "images/cases/anniversary/a-p04.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "A-P05",
+        "authorId": "A-U03",
+        "date": "2019",
+        "precision": "year",
+        "scene": "横图，成年家人围桌择菜，主角与儿媳自然交流",
+        "caption": "一起择把小葱，就慢慢熟悉了。",
+        "path": "images/cases/anniversary/a-p05.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "A-P06",
+        "authorId": "A-U04",
+        "date": "2021",
+        "precision": "year",
+        "scene": "横图，一家成年成员在公园野餐的合照，边缘人物完整",
+        "caption": "后来，我们也学会给生活留一点空。",
+        "path": "images/cases/anniversary/a-p06.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "A-P07",
+        "authorId": "A-U05",
+        "date": "2022-10",
+        "precision": "month",
+        "scene": "竖图，木餐桌边多摆的一副碗筷与空椅子",
+        "caption": "先留着，也许一会儿就来了。",
+        "path": "images/cases/anniversary/a-p07.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "A-P08",
+        "authorId": "A-U05",
+        "date": "2023",
+        "precision": "year",
+        "scene": "横图，老朋友进门时大家抬头笑的自然聚会场面",
+        "caption": "那个位置，一直都在。",
+        "path": "images/cases/anniversary/a-p08.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "A-P09",
+        "authorId": "A-U06",
+        "date": "2024-05",
+        "precision": "month",
+        "scene": "横图，成年老同学与夫妻在小院翻相册，避免可辨识其他照片人脸",
+        "caption": "旧朋友，也有新故事。",
+        "path": "images/cases/anniversary/a-p09.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "A-P10",
+        "authorId": "A-U07",
+        "date": "2026-06",
+        "precision": "month",
+        "scene": "横图，两家老友在阳台喝茶，植物、茶具与自然光",
+        "caption": "共事的年月过去，熟悉还在。",
+        "path": "images/cases/anniversary/a-p10.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "A-P11",
+        "authorId": "A-U08",
+        "date": "",
+        "precision": "unknown",
+        "scene": "竖图，邻里一起养护的花盆与工具，细节无品牌",
+        "caption": "花开的时候，总有人想分享。",
+        "path": "images/cases/anniversary/a-p11.jpg",
+        "source": "虚构情景重现"
+      },
+      {
+        "id": "A-P12",
+        "authorId": "A-U08",
+        "date": "",
+        "precision": "unknown",
+        "scene": "横图，两人并肩走在小区林荫路，远景留白",
+        "caption": "慢一点，也没有关系。",
+        "path": "images/cases/anniversary/a-p12.jpg",
+        "source": "虚构情景重现"
+      }
+    ],
+    "stories": [
+      {
+        "id": "A-S01",
+        "authorId": "A-U01",
+        "title": "门口总有两双鞋",
+        "body": "我小时候觉得，饭后散步是一件很无聊的事。长大后回家，看见门口总有两双并排放好的鞋，才慢慢懂得那是两个人给彼此留出的时间。你们并不总聊什么重要的事，有时只说今天菜价、阳台的新叶，或者我们小时候的笑话。原来相伴，就是愿意把这些普通的话，也一起说很多年。",
+        "photoIds": ["A-P01", "A-P02"],
+        "featured": true
+      },
+      {
+        "id": "A-S02",
+        "authorId": "A-U02",
+        "title": "一人记着花，一人记着伞",
+        "body": "有次出门前，姐姐还在惦记阳台的花，姐夫已经把两把伞装好了。我笑他们总能把对方没顾到的事情补上。后来想想，这种默契也不是一开始就有的，是很多年里一件件小事慢慢攒出来的。今天不想讲多大的道理，就想祝他们继续一个惦记花，一个记得带伞，安心地一起出门。",
+        "photoIds": ["A-P03", "A-P04"],
+        "featured": true
+      },
+      {
+        "id": "A-S03",
+        "authorId": "A-U03",
+        "title": "第一次留下来吃晚饭",
+        "body": "第一次在家里吃晚饭，我有些拘谨，想帮忙又不知道从哪儿开始。文澜阿姨递给我一把小葱，说一起择吧。正安叔叔在旁边问我平时喜欢什么口味。没有人急着把气氛弄得很隆重，我却因为这些小事慢慢放松下来。后来成为一家人，我一直记得那顿很普通的晚饭。",
+        "photoIds": ["A-P05"],
+        "featured": false
+      },
+      {
+        "id": "A-S04",
+        "authorId": "A-U05",
+        "title": "一直留着的位置",
+        "body": "老朋友聚会，总有一个人说这次不一定赶得来。正安和文澜还是会多摆一副碗筷，说先留着吧。有时候那个人真的在饭吃到一半时推门进来，我们就一起笑。这些年大家住得远了，但只要想到那张桌子，就觉得还有一个位置在等自己。愿这份热闹，我们还能一起享受很久。",
+        "photoIds": ["A-P07", "A-P08"],
+        "featured": false
+      }
+    ],
+    "shots": [
+      {
+        "id": "A-M01",
+        "layout": "triptych",
+        "photoIds": ["A-P01", "A-P02", "A-P03"],
+        "seconds": 8,
+        "caption": ""
+      },
+      {
+        "id": "A-M02",
+        "layout": "diptych",
+        "photoIds": ["A-P04", "A-P05"],
+        "seconds": 7,
+        "caption": ""
+      },
+      {
+        "id": "A-M03",
+        "layout": "hero",
+        "photoIds": ["A-P06"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "A-M04",
+        "layout": "quote_photo",
+        "photoIds": ["A-P07"],
+        "seconds": 7,
+        "caption": ""
+      },
+      {
+        "id": "A-M05",
+        "layout": "hero",
+        "photoIds": ["A-P08"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "A-M06",
+        "layout": "hero",
+        "photoIds": ["A-P09"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "A-M07",
+        "layout": "hero",
+        "photoIds": ["A-P10"],
+        "seconds": 6,
+        "caption": ""
+      },
+      {
+        "id": "A-M08",
+        "layout": "diptych",
+        "photoIds": ["A-P11", "A-P12"],
+        "seconds": 7,
+        "caption": ""
+      }
+    ],
+    "voices": [
+      {
+        "id": "A-A01",
+        "author": "许知远",
+        "blockId": "A-S01",
+        "text": "爸、妈，原来相伴，就是愿意把这些普通的话，也一起说很多年。四十周年快乐，往后的日子，我们也想多陪你们走走。",
+        "path": "audio/cases/anniversary/a-a01.m4a"
+      },
+      {
+        "id": "A-A02",
+        "author": "苏婉",
+        "blockId": "A-W02",
+        "text": "姐姐、姐夫，愿你们继续一起买菜、一起散步，也一起去看看没去过的地方。熟悉的陪伴，值得认真庆祝。",
+        "path": "audio/cases/anniversary/a-a02.m4a"
+      }
+    ],
+    "polished": {
+      "A-S01": "小时候不懂饭后散步有什么意思。后来回家，看见门口并排放好的两双鞋，才明白那是爸妈给彼此留下的时间。聊菜价、新叶，聊我们小时候的笑话，不必都是重要的事。相伴，就是愿意把普通的话，一起说很多年。"
+    }
+  }
+}

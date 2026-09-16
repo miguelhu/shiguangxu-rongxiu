@@ -1,0 +1,8 @@
+**/node_modules/
+**/dist/
+**/presentation/
+**/output/
+**/.vite/
+**/.DS_Store
+packages/
+web/DEPLOYMENT.md

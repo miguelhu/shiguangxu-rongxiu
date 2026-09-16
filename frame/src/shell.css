@@ -1,0 +1,13 @@
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: #f4f1e9; }
+.standalone-frame { min-height: 100vh; padding: 24px 20px 60px; }
+.extract-header { max-width: 1200px; margin: 0 auto 28px; display: flex; align-items: center; gap: 12px; color: #3f5e50; }
+.extract-header strong { font-size: 20px; }
+.extract-header label { margin-left: auto; display: flex; align-items: center; gap: 8px; color: #788a79; }
+.extract-header select { color: #3f5e50; border: 1px solid #d8deca; background: #fffaf2; border-radius: 9px; padding: 8px; font: inherit; }
+.activation-stage { max-width: 1200px; margin: auto; }
+.frame-sections { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+.frame-sections button { border: 1px solid #d8deca; background: #fffaf2; color: #5d705f; padding: 10px 20px; border-radius: 99px; cursor: pointer; }
+.frame-sections button.active { background: #3f5e50; color: white; }
+.extract-toast { position: fixed; z-index: 1000; bottom: 24px; left: 50%; transform: translateX(-50%); background: #354f42; color: white; padding: 12px 18px; border-radius: 10px; box-shadow: 0 8px 28px #0002; }
+@media(max-width: 650px) { .standalone-frame { padding: 12px 6px 36px; } .extract-header { padding: 0 12px; } .extract-header strong { font-size: 15px; } .frame-sections button { padding: 8px 12px; } }

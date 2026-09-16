@@ -1,0 +1,11 @@
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: #f4f1e9; }
+.standalone-miniapp { min-height: 100vh; padding: 22px 18px 52px; }
+.extract-header { max-width: 690px; margin: 0 auto 20px; display: flex; align-items: center; gap: 10px; color: #3f5e50; }
+.extract-header strong { font-size: 16px; font-weight: 650; }
+.extract-header label { margin-left: auto; display: flex; align-items: center; gap: 4px; padding: 6px 10px; border: 1px solid #d8deca; background: #fffaf2; border-radius: 99px; }
+.extract-header select { border: 0; background: transparent; color: inherit; appearance: none; cursor: pointer; font: inherit; }
+.standalone-miniapp .device-column { margin: 0 auto; }
+.extract-toast { position: fixed; z-index: 1000; bottom: 24px; left: 50%; transform: translateX(-50%); background: #354f42; color: white; padding: 12px 18px; border-radius: 10px; box-shadow: 0 8px 28px #0002; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+@media(max-width: 520px) { .standalone-miniapp { padding: 10px 0 24px; } .extract-header { padding: 0 14px; } .extract-header strong { font-size: 13px; } }

@@ -1,0 +1,188 @@
+[
+  {
+    "group": "工作",
+    "code": "leader",
+    "label": "领导",
+    "explain": "我曾经或现在是对方的领导"
+  },
+  {
+    "group": "工作",
+    "code": "subordinate",
+    "label": "下属",
+    "explain": "我曾经或现在是对方的下属"
+  },
+  {
+    "group": "工作",
+    "code": "colleague",
+    "label": "同事",
+    "explain": "我们在同一单位或团队共事"
+  },
+  {
+    "group": "工作",
+    "code": "project_partner",
+    "label": "项目伙伴",
+    "explain": "我们一起做过项目或跨团队合作"
+  },
+  {
+    "group": "工作",
+    "code": "business_partner",
+    "label": "业务伙伴",
+    "explain": "我们有长期业务协作关系"
+  },
+  {
+    "group": "工作",
+    "code": "client",
+    "label": "客户",
+    "explain": "我是对方服务过的客户"
+  },
+  {
+    "group": "工作",
+    "code": "service_partner",
+    "label": "服务伙伴",
+    "explain": "我曾向对方提供服务或支持"
+  },
+  {
+    "group": "工作",
+    "code": "mentor",
+    "label": "师父／带教老师",
+    "explain": "我曾指导或带教过对方"
+  },
+  {
+    "group": "工作",
+    "code": "mentee",
+    "label": "徒弟／被带教者",
+    "explain": "我曾接受过对方的指导或带教"
+  },
+  {
+    "group": "学习",
+    "code": "teacher",
+    "label": "老师",
+    "explain": "我教过对方"
+  },
+  {
+    "group": "学习",
+    "code": "student",
+    "label": "学生",
+    "explain": "我是对方教过的学生"
+  },
+  {
+    "group": "学习",
+    "code": "academic_advisor",
+    "label": "研究导师",
+    "explain": "我曾指导对方的研究或学业"
+  },
+  {
+    "group": "学习",
+    "code": "research_student",
+    "label": "研究生／受指导学生",
+    "explain": "我曾在对方指导下做研究或完成学业"
+  },
+  {
+    "group": "学习",
+    "code": "classmate",
+    "label": "同学",
+    "explain": "我和对方同班或一起学习过"
+  },
+  {
+    "group": "学习",
+    "code": "schoolmate",
+    "label": "校友",
+    "explain": "我和对方就读于同一学校"
+  },
+  {
+    "group": "家庭",
+    "code": "spouse",
+    "label": "配偶／伴侣",
+    "explain": "我是对方的配偶或伴侣"
+  },
+  {
+    "group": "家庭",
+    "code": "child",
+    "label": "子女",
+    "explain": "我是对方的孩子"
+  },
+  {
+    "group": "家庭",
+    "code": "parent",
+    "label": "父母",
+    "explain": "我是对方的父亲或母亲"
+  },
+  {
+    "group": "家庭",
+    "code": "sibling",
+    "label": "兄弟姐妹",
+    "explain": "我和对方是兄弟姐妹"
+  },
+  {
+    "group": "家庭",
+    "code": "grandchild",
+    "label": "孙辈／外孙辈",
+    "explain": "我是对方的孙辈或外孙辈"
+  },
+  {
+    "group": "家庭",
+    "code": "grandparent",
+    "label": "祖辈／外祖辈",
+    "explain": "我是对方的祖辈或外祖辈"
+  },
+  {
+    "group": "家庭",
+    "code": "child_in_law",
+    "label": "儿媳／女婿",
+    "explain": "我是对方子女的配偶"
+  },
+  {
+    "group": "家庭",
+    "code": "parent_in_law",
+    "label": "公婆／岳父母",
+    "explain": "我是对方配偶的父母"
+  },
+  {
+    "group": "家庭",
+    "code": "relative",
+    "label": "其他亲属",
+    "explain": "我们是亲属，可补充具体称呼"
+  },
+  {
+    "group": "家庭",
+    "code": "family",
+    "label": "家人",
+    "explain": "我希望以较宽泛的家人身份署名"
+  },
+  {
+    "group": "生活",
+    "code": "friend",
+    "label": "朋友",
+    "explain": "我和对方是朋友"
+  },
+  {
+    "group": "生活",
+    "code": "neighbor",
+    "label": "邻居",
+    "explain": "我和对方是邻居"
+  },
+  {
+    "group": "生活",
+    "code": "community_peer",
+    "label": "社区／社团伙伴",
+    "explain": "我们在社区、社团或志愿活动中相识"
+  },
+  {
+    "group": "生活",
+    "code": "hobby_friend",
+    "label": "兴趣伙伴",
+    "explain": "我们一起参加兴趣活动"
+  },
+  {
+    "group": "兜底",
+    "code": "other",
+    "label": "其他关系",
+    "explain": "可补充，但不强迫解释"
+  },
+  {
+    "group": "兜底",
+    "code": "unspecified",
+    "label": "暂不填写",
+    "explain": "仍可参与，使用通用引导"
+  }
+]

@@ -1,0 +1,457 @@
+[
+  {
+    "id": "T-P01",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p01.jpg",
+    "scene": "竖图，木桌上半展开的试卷和铅笔，手指轻点圈出的题目；情景重现",
+    "date": "2002"
+  },
+  {
+    "id": "T-P02",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p02.jpg",
+    "scene": "横图，旧教室窗边两把椅子和斜阳，书本留在桌面；无人环境",
+    "date": "2002-06"
+  },
+  {
+    "id": "T-P03",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p03.jpg",
+    "scene": "横图，虚构成年毕业生与中年老师的小组合影，完整半身，校园树下",
+    "date": "2004-06-30"
+  },
+  {
+    "id": "T-P04",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p04.jpg",
+    "scene": "竖图，办公室门口手持一本书的成年青年，脸部侧面，温暖自然",
+    "date": "2004-07"
+  },
+  {
+    "id": "T-P05",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p05.jpg",
+    "scene": "横图，两位成年教师在桌边讨论教材，窗边光，人物不摆拍",
+    "date": "2008"
+  },
+  {
+    "id": "T-P06",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p06.jpg",
+    "scene": "竖图，翻开的备课本、两支笔和茶杯细节，无需可读字",
+    "date": "2012-09"
+  },
+  {
+    "id": "T-P07",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p07.jpg",
+    "scene": "横图，成年研究生在教室白板前讨论，老师坐一旁倾听",
+    "date": "2015"
+  },
+  {
+    "id": "T-P08",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p08.jpg",
+    "scene": "横图，空下来的答辩教室，椅背上一本论文，柔光",
+    "date": "2016-06"
+  },
+  {
+    "id": "T-P09",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p09.jpg",
+    "scene": "竖图，父亲与成年女儿在阳台移栽绿植，侧面与双手为主",
+    "date": "2019"
+  },
+  {
+    "id": "T-P10",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p10.jpg",
+    "scene": "横图，窗边花盆、旧园艺剪与新叶，浅景深",
+    "date": "2021-05"
+  },
+  {
+    "id": "T-P11",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p11.jpg",
+    "scene": "横图，两位老友在树荫下下棋，完整棋盘，轻松笑意",
+    "date": "2022"
+  },
+  {
+    "id": "T-P12",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p12.jpg",
+    "scene": "竖图，成年校友回访时与老师站在书架旁聊天",
+    "date": "2023-04"
+  },
+  {
+    "id": "T-P13",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p13.jpg",
+    "scene": "横图，三位教师在会议后的桌边收拾教案，真实日常",
+    "date": "2024-09"
+  },
+  {
+    "id": "T-P14",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p14.jpg",
+    "scene": "竖图，一本泛黄笔记与刚拍下照片的手机，文字留模糊",
+    "date": "2025-12"
+  },
+  {
+    "id": "T-P15",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p15.jpg",
+    "scene": "横图，两位老友沿湖边步道慢走，背影，不摆拍",
+    "date": "2026-06"
+  },
+  {
+    "id": "T-P16",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p16.jpg",
+    "scene": "横图，小团队在窗前讨论资料的片段，自然手势",
+    "date": ""
+  },
+  {
+    "id": "T-P17",
+    "caseId": "teacher",
+    "path": "images/cases/teacher/t-p17.jpg",
+    "scene": "竖图，小区树荫中的长椅与一只保温杯，无人",
+    "date": ""
+  },
+  {
+    "id": "L-P01",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p01.jpg",
+    "scene": "横图，年轻工程师与中年负责人围桌讨论，图纸无机密文字",
+    "date": "2014"
+  },
+  {
+    "id": "L-P02",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p02.jpg",
+    "scene": "竖图，桌面便签、图纸、三只不同的笔，手部细节",
+    "date": "2014-06"
+  },
+  {
+    "id": "L-P03",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p03.jpg",
+    "scene": "横图，团队出发前在办公楼门口等齐人，虚构成年人物",
+    "date": "2017"
+  },
+  {
+    "id": "L-P04",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p04.jpg",
+    "scene": "竖图，活动准备桌上的车次卡片和水杯，不生成可读个人信息",
+    "date": "2018-09"
+  },
+  {
+    "id": "L-P05",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p05.jpg",
+    "scene": "横图，白板旁空椅子与讨论中的团队，人物完整",
+    "date": "2020"
+  },
+  {
+    "id": "L-P06",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p06.jpg",
+    "scene": "横图，两代团队负责人在窗边交流，便装与自然姿态",
+    "date": "2021"
+  },
+  {
+    "id": "L-P07",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p07.jpg",
+    "scene": "竖图，旧收音机与排列整齐的小螺丝盒，暖光",
+    "date": "2023"
+  },
+  {
+    "id": "L-P08",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p08.jpg",
+    "scene": "横图，父亲和成年女儿在家中桌边检查收音机，无危险操作",
+    "date": "2024-04"
+  },
+  {
+    "id": "L-P09",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p09.jpg",
+    "scene": "横图，师徒在安全整洁的工作台前讨论零件，护具合理",
+    "date": "2025"
+  },
+  {
+    "id": "L-P10",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p10.jpg",
+    "scene": "横图，两位朋友沿平缓步道行走，山景留白",
+    "date": "2026-05"
+  },
+  {
+    "id": "L-P11",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p11.jpg",
+    "scene": "竖图，两杯热茶与合上的文件夹，普通会议室",
+    "date": ""
+  },
+  {
+    "id": "L-P12",
+    "caseId": "leader",
+    "path": "images/cases/leader/l-p12.jpg",
+    "scene": "横图，小型合作团队的自然合照，不含品牌标识",
+    "date": ""
+  },
+  {
+    "id": "N-P01",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p01.jpg",
+    "scene": "横图，成年带教者和新人在空培训室核对物品，无病例文字",
+    "date": "2013"
+  },
+  {
+    "id": "N-P02",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p02.jpg",
+    "scene": "竖图，空走廊窗边柔和夜灯与整齐工作鞋，不出现病人",
+    "date": "2013-08"
+  },
+  {
+    "id": "N-P03",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p03.jpg",
+    "scene": "横图，两位同事在休息室短暂坐下喝水，自然表情",
+    "date": "2016"
+  },
+  {
+    "id": "N-P04",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p04.jpg",
+    "scene": "竖图，木托盘上一杯温水和一小束花，细节特写",
+    "date": "2018-03"
+  },
+  {
+    "id": "N-P05",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p05.jpg",
+    "scene": "横图，模拟培训区内成年新人向带教者提问，工具无危险细节",
+    "date": "2020"
+  },
+  {
+    "id": "N-P06",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p06.jpg",
+    "scene": "横图，职工活动中同事合影，便装、完整面孔、无单位真实标识",
+    "date": "2021"
+  },
+  {
+    "id": "N-P07",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p07.jpg",
+    "scene": "竖图，花市茉莉花和扶着花盆的手，自然光",
+    "date": "2023"
+  },
+  {
+    "id": "N-P08",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p08.jpg",
+    "scene": "横图，母亲与成年子女逛花市，轻松侧影",
+    "date": "2024-05"
+  },
+  {
+    "id": "N-P09",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p09.jpg",
+    "scene": "横图，几位女性朋友在家中喝茶、摆点心，自然生活感",
+    "date": "2025"
+  },
+  {
+    "id": "N-P10",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p10.jpg",
+    "scene": "横图，社区植栽活动中的成年志愿者，花草占前景",
+    "date": "2026-06"
+  },
+  {
+    "id": "N-P11",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p11.jpg",
+    "scene": "竖图，公园步道上的树影与落叶，不出现可识别路人",
+    "date": ""
+  },
+  {
+    "id": "N-P12",
+    "caseId": "nurse",
+    "path": "images/cases/nurse/n-p12.jpg",
+    "scene": "横图，湖边长椅上的两位朋友背影，平静自然",
+    "date": ""
+  },
+  {
+    "id": "B-P01",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p01.jpg",
+    "scene": "竖图，家常饭桌上一只单独盛菜的小碗，暖色旧木桌",
+    "date": "2010"
+  },
+  {
+    "id": "B-P02",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p02.jpg",
+    "scene": "横图，虚构成年家人围桌做饭，主角顾雅琴处于相应年龄",
+    "date": "2015-02"
+  },
+  {
+    "id": "B-P03",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p03.jpg",
+    "scene": "横图，一对中老年夫妻拎菜篮沿河边散步，生活纪实",
+    "date": "2018"
+  },
+  {
+    "id": "B-P04",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p04.jpg",
+    "scene": "竖图，河边新芽与停在旁边的菜篮子，浅景深",
+    "date": "2019-04"
+  },
+  {
+    "id": "B-P05",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p05.jpg",
+    "scene": "竖图，第一张植物水彩与用过的调色盘，不含署名字样",
+    "date": "2022"
+  },
+  {
+    "id": "B-P06",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p06.jpg",
+    "scene": "横图，婆婆与成年儿媳一起包饺子，手部和轻松表情",
+    "date": "2023-01"
+  },
+  {
+    "id": "B-P07",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p07.jpg",
+    "scene": "竖图，桌上摊开的旅行册与两杯茶，地图文字不要求清晰",
+    "date": "2024"
+  },
+  {
+    "id": "B-P08",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p08.jpg",
+    "scene": "横图，两位姐妹坐在窗边商量出游，笑容自然",
+    "date": "2025-03"
+  },
+  {
+    "id": "B-P09",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p09.jpg",
+    "scene": "横图，四位成年女性朋友在小庭院喝茶，绿植和阳光",
+    "date": "2025-10"
+  },
+  {
+    "id": "B-P10",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p10.jpg",
+    "scene": "横图，顾雅琴在明亮画室学习水彩，非专业摆拍",
+    "date": "2026-08"
+  },
+  {
+    "id": "B-P11",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p11.jpg",
+    "scene": "竖图，邻里共同养护的窗台花草，陶盆与光影",
+    "date": ""
+  },
+  {
+    "id": "B-P12",
+    "caseId": "birthday",
+    "path": "images/cases/birthday/b-p12.jpg",
+    "scene": "横图，两位邻居在阳台交换一小盆植物，完整自然姿态",
+    "date": ""
+  },
+  {
+    "id": "A-P01",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p01.jpg",
+    "scene": "竖图，门口整齐并排的两双成年人步行鞋，家居光影",
+    "date": "2006"
+  },
+  {
+    "id": "A-P02",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p02.jpg",
+    "scene": "横图，虚构中年夫妻晚饭后在小路散步的背影",
+    "date": "2012"
+  },
+  {
+    "id": "A-P03",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p03.jpg",
+    "scene": "竖图，阳台花草和正在浇水的手，陶盆细节",
+    "date": "2015"
+  },
+  {
+    "id": "A-P04",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p04.jpg",
+    "scene": "竖图，门边两把颜色不同的伞和准备出门的身影",
+    "date": "2017-04"
+  },
+  {
+    "id": "A-P05",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p05.jpg",
+    "scene": "横图，成年家人围桌择菜，主角与儿媳自然交流",
+    "date": "2019"
+  },
+  {
+    "id": "A-P06",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p06.jpg",
+    "scene": "横图，一家成年成员在公园野餐的合照，边缘人物完整",
+    "date": "2021"
+  },
+  {
+    "id": "A-P07",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p07.jpg",
+    "scene": "竖图，木餐桌边多摆的一副碗筷与空椅子",
+    "date": "2022-10"
+  },
+  {
+    "id": "A-P08",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p08.jpg",
+    "scene": "横图，老朋友进门时大家抬头笑的自然聚会场面",
+    "date": "2023"
+  },
+  {
+    "id": "A-P09",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p09.jpg",
+    "scene": "横图，成年老同学与夫妻在小院翻相册，避免可辨识其他照片人脸",
+    "date": "2024-05"
+  },
+  {
+    "id": "A-P10",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p10.jpg",
+    "scene": "横图，两家老友在阳台喝茶，植物、茶具与自然光",
+    "date": "2026-06"
+  },
+  {
+    "id": "A-P11",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p11.jpg",
+    "scene": "竖图，邻里一起养护的花盆与工具，细节无品牌",
+    "date": ""
+  },
+  {
+    "id": "A-P12",
+    "caseId": "anniversary",
+    "path": "images/cases/anniversary/a-p12.jpg",
+    "scene": "横图，两人并肩走在小区林荫路，远景留白",
+    "date": ""
+  }
+]
