@@ -35,7 +35,7 @@ export function stageOf(p: Page) {
   if (['invite', 'invite_manage'].includes(p)) return 1
   if (p === 'welcome') return 2
   if (['identity', 'impressions', 'photos', 'stories', 'wishes', 'preview'].includes(p)) return 3
-  if (['workspace', 'success', 'progress'].includes(p)) return 4
+  if (['workspace', 'success', 'progress', 'board', 'board_manage'].includes(p)) return 4
   if (
     ['organize', 'prepare', 'curate', 'review_photos', 'review_stories', 'review_wishes'].includes(
       p,
@@ -53,6 +53,7 @@ export function stageOf(p: Page) {
   return 10
 }
 export const managedPages: Page[] = [
+  'board_manage',
   'workspace',
   'organize',
   'letter',

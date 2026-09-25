@@ -336,6 +336,13 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
             ? '这份礼物已准备好。等长者正式打开后，我们会再告诉你。'
             : `统筹者${s.coordinatorName}正在把大家的心意整理成礼物。成品准备好后，会邀请你回来看看。`}
         </Note>
+        <button className="board-entry-card" onClick={() => go('board')}>
+          <span>
+            <b>看看共创看板</b>
+            <small>看见大家从哪些方向留下心意，也看看还有哪一块空白。</small>
+          </span>
+          <ArrowRight />
+        </button>
         <Button onClick={() => go('people')}>返回我参与过的人</Button>
         {s.openedAt && (
           <Button secondary onClick={() => go('share')}>

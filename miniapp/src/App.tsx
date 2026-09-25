@@ -6,6 +6,7 @@ import { Entry, Gifts, Preparation, ShareCard } from './v6/Preparation'
 import { Greeting, Guest } from './v6/Greeting'
 import { Welcome, SendChoose } from './v6/LifecyclePages'
 import Frame from './v6/Frame'
+import { CoCreationBoard } from './v6/CoCreationBoard'
 import { Context, type DemoContext } from './v6/context'
 import { cases, type CaseId, type Page, type Role } from './v6/data'
 import { available, initial, type State } from './v6/model'
@@ -102,6 +103,7 @@ export default function App() {
   let content: ReactNode
   if (page === 'welcome' || page === 'invite') content = <Welcome go={go} />
   else if (page === 'send') content = <SendChoose go={go} />
+  else if (page === 'board' || page === 'board_manage') content = <CoCreationBoard go={go} />
   else if (page === 'entry' || page === 'host') content = <Entry page={page} go={go} />
   else if (page === 'gifts') content = <Gifts go={go} />
   else if (managedPages.includes(page)) content = <Preparation page={page} go={go} />
@@ -116,6 +118,13 @@ export default function App() {
     <div className="phone-body">
       <h2>大家的心意，正在汇集。</h2>
       <Note>目前有 {available(c.id, s).length} 项内容。已提交内容可在“我的共创记录”管理。</Note>
+      <button className="board-entry-card" onClick={() => go('board')}>
+        <span>
+          <b>看看共创看板</b>
+          <small>看见大家从哪些方向留下心意，也看看还有哪一块空白。</small>
+        </span>
+        <span>→</span>
+      </button>
       <Button onClick={() => go('people')}>我参与的人</Button>
     </div>
   )

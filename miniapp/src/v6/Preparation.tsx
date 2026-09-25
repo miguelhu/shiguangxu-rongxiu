@@ -703,6 +703,7 @@ export function Preparation({
           {deadlineText(s)} · 还可邀请{Math.max(0, s.targetCount - count)}人
         </p>
         <button onClick={() => go('invite_manage')}>继续邀请 →</button>
+        <button onClick={() => go('board_manage')}>查看共创看板 →</button>
       </section>
       <div className="stats-grid five-stats">
         {stats.map(([t, n]) => (

@@ -22,6 +22,8 @@ export type Page =
   | 'waiting'
   | 'guest'
   | 'progress'
+  | 'board'
+  | 'board_manage'
   | 'invite_manage'
   | 'invite'
   | 'identity'

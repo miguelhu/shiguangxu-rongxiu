@@ -712,6 +712,15 @@ export function Messages({ go }: { go: (p: Page) => void }) {
           <b>查看最终成品 →</b>
         </button>
       )}
+      {s.openedAt && (
+        <button className="notification-card elder-response-card" onClick={() => go('person')}>
+          <span>长者回应 · 新的回应</span>
+          <h3>{s.host.address}回应了大家的心意</h3>
+          <PhotoImage path={s.host.cover} alt={s.host.name} />
+          <p>“谢谢你们还记得这些小事。看到那张老照片，我也想起了当时的你们。”</p>
+          <b>看看这份回应 <ArrowRight size={18} /></b>
+        </button>
+      )}
       <button
         className="notification-card"
         onClick={() => {

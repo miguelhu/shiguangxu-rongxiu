@@ -16,6 +16,8 @@ export interface Block {
   source: 'seed' | 'contribution' | 'onsite' | 'greeting'
   revision: number
   groupId: string
+  /** 独立授权：是否允许在礼前向同项目共创者展示摘要。 */
+  peerPreviewAllowed?: boolean
 }
 export interface Draft {
   authorId: string
@@ -73,6 +75,7 @@ export interface Host {
   showAge: boolean
   surprise: boolean
   strict: boolean
+  boardMode?: 'surprise' | 'open'
 }
 export interface Letter {
   text: string
@@ -258,6 +261,7 @@ export function newCase(id: CaseId): CaseState {
       age: id === 'birthday' ? '60' : '',
       surprise: false,
       strict: false,
+      boardMode: 'surprise',
     },
     version: null,
     onsite: false,
@@ -350,7 +354,7 @@ export function seedBlocks(id: CaseId): Block[] {
     const a = d.authors.find((a) => a.id === p.authorId)!
     blocks.push({ ...base(a), id: p.id, kind: 'photo', photoIds: [p.id], body: p.caption })
   }
-  for (const s of d.stories) {
+  for (const [storyIndex, s] of d.stories.entries()) {
     const a = d.authors.find((a) => a.id === s.authorId)!
     blocks.push({
       ...base(a),
@@ -361,6 +365,8 @@ export function seedBlocks(id: CaseId): Block[] {
       photoIds: [],
       audio: '',
       audioText: '',
+      // 演示数据中仅部分故事取得了独立的共创看板摘要授权。
+      peerPreviewAllowed: storyIndex < 3,
     })
   }
   return blocks
