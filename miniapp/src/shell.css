@@ -6,6 +6,24 @@ body { margin: 0; min-width: 320px; background: #f4f1e9; }
 .extract-header label { margin-left: auto; display: flex; align-items: center; gap: 4px; padding: 6px 10px; border: 1px solid #d8deca; background: #fffaf2; border-radius: 99px; }
 .extract-header select { border: 0; background: transparent; color: inherit; appearance: none; cursor: pointer; font: inherit; }
 .standalone-miniapp .device-column { margin: 0 auto; }
+.showcase-controls { max-width: 690px; margin: 0 auto 14px; display: flex; align-items: center; gap: 12px; }
+.showcase-role-tabs { display: flex; padding: 3px; border-radius: 999px; background: #e6eadf; }
+.showcase-role-tabs button { padding: 8px 16px; border: 0; border-radius: 999px; background: transparent; color: #697665; }
+.showcase-role-tabs button.active { background: #436655; color: white; box-shadow: 0 2px 8px #36564322; }
+.showcase-page-picker { margin-left: auto; display: flex; align-items: center; gap: 8px; color: #6c7767; font-size: 12px; }
+.showcase-page-picker select { max-width: 180px; padding: 8px 28px 8px 10px; border: 1px solid #d8deca; border-radius: 10px; background: #fffaf2; color: #3f5e50; }
 .extract-toast { position: fixed; z-index: 1000; bottom: 24px; left: 50%; transform: translateX(-50%); background: #354f42; color: white; padding: 12px 18px; border-radius: 10px; box-shadow: 0 8px 28px #0002; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
-@media(max-width: 520px) { .standalone-miniapp { padding: 10px 0 24px; } .extract-header { padding: 0 14px; } .extract-header strong { font-size: 13px; } }
+@media(max-width: 520px) {
+  body { background:#fbf3eb; }
+  .standalone-miniapp { padding: 8px 0 0; }
+  .extract-header { padding: 0 12px; margin-bottom:8px; }
+  .extract-header strong { font-size: 12px; }
+  .extract-header label { padding:5px 8px; font-size:12px; }
+  .showcase-controls { position:sticky; top:0; z-index:50; margin:0; padding:8px 10px; background:rgba(251,243,235,.96); backdrop-filter:blur(12px); border-bottom:1px solid #e8dfd2; }
+  .showcase-role-tabs button { padding:7px 12px; }
+  .showcase-page-picker span { display:none; }
+  .showcase-page-picker select { max-width:150px; }
+  .standalone-miniapp .device-column { width:100%; max-width:none; }
+  .standalone-miniapp .phone { width:100%; max-width:none; border-left:0; border-right:0; border-radius:0; box-shadow:none; }
+}

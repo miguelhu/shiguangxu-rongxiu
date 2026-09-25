@@ -19,17 +19,39 @@ import './shell.css'
 
 const STORE = 'sgx-rongxiu-miniapp-extract-v1'
 const honorCases = cases.filter((item) => item.category === '荣休礼')
+const contributorPages: Array<[Page, string]> = [
+  ['welcome', '共创欢迎'], ['identity', '身份关系'], ['impressions', '印象标签'],
+  ['photos', '时光照片'], ['stories', '话题故事'], ['wishes', '祝福心意'],
+  ['preview', '投稿预览'], ['success', '提交成功'], ['board', '共创看板'],
+  ['people', '我参与的人'], ['messages', '消息提醒'], ['send', '送时光'],
+  ['greeting', '单人问候'], ['guest', '现场共创'], ['share', '项目完成卡'],
+]
+const coordinatorPages: Array<[Page, string]> = [
+  ['entry', '发起礼物'], ['host', '填写发起信息'], ['gifts', '我的礼物'],
+  ['workspace', '统筹工作台'], ['board_manage', '共创看板'], ['invite_manage', '邀请共创'],
+  ['review_photos', '整理照片'], ['review_stories', '整理故事'], ['review_wishes', '整理祝福'],
+  ['letter', '大家写给你的一封信'], ['freeze', '确认仪式版本'], ['handover', '移交统筹'],
+]
 
 function readState(): State {
   try {
     const value = JSON.parse(localStorage.getItem(STORE) || 'null') as State | null
-    if (value?.schema === 5 && value.cases?.teacher) return value
+    if (value?.schema === 5 && value.cases?.teacher) {
+      const params = new URLSearchParams(location.search)
+      const caseId = params.get('case') as CaseId | null
+      const requested = params.get('page') as Page | null
+      if (caseId && value.cases[caseId]) value.caseId = caseId
+      if (requested) value.cases[value.caseId].page = requested
+      return value
+    }
   } catch {
     // A damaged local preview should not prevent the prototype from opening.
   }
   const value = initial()
   value.caseId = 'teacher'
-  value.cases.teacher.page = 'people'
+  const params = new URLSearchParams(location.search)
+  const requested = params.get('page') as Page | null
+  value.cases.teacher.page = requested || 'welcome'
   return value
 }
 
@@ -40,9 +62,9 @@ export default function App() {
   const c = cases.find((item) => item.id === state.caseId) || cases[0]
   const s = state.cases[c.id]
   const page = s.page
-  const role: Role = managedPages.includes(page) || ['entry', 'host', 'invite_manage'].includes(page)
-    ? 'coordinator'
-    : 'contributor'
+  const inferredRole: Role = coordinatorPages.some(([id]) => id === page) ? 'coordinator' : 'contributor'
+  const [viewRole, setViewRole] = useState<Role>(inferredRole)
+  const role = viewRole
 
   const patch: DemoContext['patch'] = (update) => {
     setState((old) => {
@@ -55,6 +77,8 @@ export default function App() {
   const go = (next: Page) => {
     stopMedia()
     setDialog(null)
+    if (coordinatorPages.some(([id]) => id === next)) setViewRole('coordinator')
+    else if (contributorPages.some(([id]) => id === next)) setViewRole('contributor')
     setState((old) => {
       const id = old.caseId
       const current = old.cases[id]
@@ -78,6 +102,7 @@ export default function App() {
     setState((old) => ({ ...old, caseId: id }))
   }
   const setRole = (next: Role) => {
+    setViewRole(next)
     go(next === 'coordinator' ? 'workspace' : 'people')
   }
   const notify = (message: string) => setNotice(message)
@@ -94,6 +119,12 @@ export default function App() {
       setNotice('本机空间不足，当前更改可能无法保存。')
     }
   }, [state])
+  useEffect(() => {
+    const url = new URL(location.href)
+    url.searchParams.set('case', c.id)
+    url.searchParams.set('page', page)
+    history.replaceState(null, '', url)
+  }, [c.id, page])
   useEffect(() => {
     if (!notice) return
     const timer = setTimeout(() => setNotice(''), 4000)
@@ -144,6 +175,19 @@ export default function App() {
             <CaretDown size={14} />
           </label>
         </header>
+        <nav className="showcase-controls" aria-label="小程序角色与页面">
+          <div className="showcase-role-tabs">
+            <button className={role === 'contributor' ? 'active' : ''} onClick={() => { setViewRole('contributor'); go('welcome') }}>共创者</button>
+            <button className={role === 'coordinator' ? 'active' : ''} onClick={() => { setViewRole('coordinator'); go('gifts') }}>统筹者</button>
+          </div>
+          <label className="showcase-page-picker">
+            <span>当前页面</span>
+            <select value={(role === 'coordinator' ? coordinatorPages : contributorPages).some(([id]) => id === page) ? page : ''} onChange={(event) => go(event.target.value as Page)}>
+              <option value="" disabled>选择页面</option>
+              {(role === 'coordinator' ? coordinatorPages : contributorPages).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+            </select>
+          </label>
+        </nav>
         <Phone page={page} go={go} title={managedPages.includes(page) ? '整理成礼' : '拾光叙'}>
           {content}
         </Phone>
