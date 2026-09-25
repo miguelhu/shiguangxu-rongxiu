@@ -37,18 +37,18 @@ export function Entry({ page, go }: { page: Page; go: (p: Page) => void }) {
   if (page === 'entry')
     return (
       <div className="phone-body">
-        <div className="eyebrow">一份礼物，从你开始</div>
+        <div className="eyebrow">这份礼物，从你开始</div>
         <h2>
-          想为谁，
+          这次，想为谁
           <br />
-          留下一份纪念？
+          准备一份礼物？
         </h2>
-        <p className="prose">选择一种发起方式，先介绍人物和这次相聚。</p>
+        <p className="prose">先告诉我们，这份礼物送给谁，为什么准备。</p>
         {(
           [
-            ['organization', '代表单位或团队主办', '工会、人事、部门或团队代表'],
-            ['personal', '我想为一个人张罗', '为家人、老师或同行的人'],
-            ['self', '我想为自己留一份纪念', '邀请亲友，一起留住记得的片段'],
+            ['organization', '单位 / 团队来发起', '适合工会、人事、部门负责人等'],
+            ['personal', '我来为一个人张罗', '适合家人、老师、前辈、朋友'],
+            ['self', '我也想为自己留一份纪念', '邀请熟悉我的人，一起留下照片和故事'],
           ] as const
         ).map(([role, title, sub]) => (
           <button
@@ -74,9 +74,6 @@ export function Entry({ page, go }: { page: Page; go: (p: Page) => void }) {
             <ArrowRight />
           </button>
         ))}
-        <button className="text-button" onClick={() => go('invite')}>
-          我收到邀请来参与
-        </button>
       </div>
     )
   const titles = [
@@ -508,12 +505,6 @@ export function Preparation({
             </button>
           </div>
         )}
-        <Toggle
-          label="现场专用入口（可选）"
-          checked={s.onsite}
-          onChange={() => patch({ onsite: !s.onsite })}
-        />
-        <Note>没有专用入口，也能使用原共创邀请。此前没有参与的人同样可以加入。</Note>
       </div>
     )
   if (page === 'letter' && !reviewsDone(s))
@@ -631,10 +622,10 @@ export function Preparation({
             )
           }}
         >
-          打开相框成品预览
+          大屏端成品预览
         </Button>
         <Toggle
-          label="长者拆封后，把最终成品发送给所有共创者"
+          label="确认后，在长者拆封时推送全员"
           checked={s.notifyAfterOpen !== false}
           onChange={() => patch({ notifyAfterOpen: s.notifyAfterOpen === false })}
         />
@@ -673,7 +664,7 @@ export function Preparation({
           </Button>
         )}
         <button className="text-button" onClick={() => go('review_photos')}>
-          返回整理内容
+          返回修改
         </button>
       </div>
     )
@@ -705,6 +696,11 @@ export function Preparation({
         <button onClick={() => go('invite_manage')}>继续邀请 →</button>
         <button onClick={() => go('board_manage')}>查看共创看板 →</button>
       </section>
+      <Toggle
+        label="现场继续共创（可选）"
+        checked={s.onsite}
+        onChange={() => patch({ onsite: !s.onsite })}
+      />
       <div className="stats-grid five-stats">
         {stats.map(([t, n]) => (
           <div key={t}>
@@ -774,7 +770,7 @@ export function Preparation({
   )
 }
 export function ShareCard() {
-  const { c, s, role, modal } = useDemo()
+  const { c, s, role, modal, notify } = useDemo()
   return (
     <div className="phone-body">
       <div className="eyebrow">一起完成的一份礼物</div>
@@ -789,11 +785,22 @@ export function ShareCard() {
           <p>{new Set(s.version.blocks.map((b) => b.authorId)).size}位朋友 · 许多值得记住的瞬间</p>
           <p>故事留在这里，问候还会继续。</p>
           <small>项目完成卡 · 不公开联系方式</small>
+          <PhotoImage path="images/binding-demo-qr.svg" alt="项目完成卡二维码" className="completion-qr" />
           {s.openedAt && (
             <Button onClick={() => modal('大家共同完成的礼物', <Frame compact />)}>
               查看最终成品
             </Button>
           )}
+          <div className="completion-card-actions">
+            <Button secondary onClick={() => notify('项目完成卡已准备为图片，可长按保存（演示）。')}>点击保存</Button>
+            <Button onClick={async () => {
+              const url = location.href
+              try {
+                if (navigator.share) await navigator.share({ title: `${s.host.address}的${c.category}`, url })
+                else { await navigator.clipboard.writeText(url); notify('分享链接已复制。') }
+              } catch { notify('暂未分享，可稍后重试。') }
+            }}>一键分享</Button>
+          </div>
         </div>
       ) : (
         <Note>礼物准备好后，等长者正式拆封，我们会再告诉你。</Note>

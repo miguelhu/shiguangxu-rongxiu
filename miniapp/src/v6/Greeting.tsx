@@ -8,13 +8,6 @@ import { Button, Field, Note, Upload, Avatar } from './ui'
 import { PhotoImage } from './media'
 export function Guest({ go }: { go: (p: Page) => void }) {
   const { c, s, patch } = useDemo()
-  const known = s.submission > 0 || !!s.submittedDraftSignature
-  useEffect(() => {
-    if (known) {
-      patch({ guestName: s.draft.name, guestRelation: s.draft.primary })
-      go('onsite')
-    }
-  }, [])
   return (
     <div className="phone-body">
       <div className="eyebrow">来到现场的人，也可以一起留下心意</div>
@@ -24,7 +17,7 @@ export function Guest({ go }: { go: (p: Page) => void }) {
         留一份心意？
       </h2>
       <p className="prose">
-        补一张照片，或一句祝福。之前没有参与过也可以，不需要补完礼前的四个步骤。
+        约10分钟即可完成；有的内容可以跳过，也可以稍后继续。现场入口复用完整共创流程，让此刻的视角也进入礼物。
       </p>
       <PhotoImage path={s.host.cover} alt={s.host.name} className="host-cover" />
       <Field label="现场署名">
@@ -43,8 +36,11 @@ export function Guest({ go }: { go: (p: Page) => void }) {
           ))}
         </select>
       </Field>
-      <Button disabled={!s.guestName.trim()} onClick={() => go('onsite')}>
-        留下现场心意
+      <Button disabled={!s.guestName.trim() && !s.draft.name.trim()} onClick={() => {
+        patch((old) => ({ draft: { ...old.draft, name: old.guestName || old.draft.name, primary: old.guestRelation || old.draft.primary, codes: [old.guestRelation || old.draft.primary] } }))
+        go('impressions')
+      }}>
+        开始完整共创
         <ArrowRight />
       </Button>
       <Note>{c.category} · 同一个共创邀请，在现场仍然可用。</Note>
@@ -81,7 +77,7 @@ export function Greeting({ onsite = false, go }: { onsite?: boolean; go: (p: Pag
   }, [body, images, textOnly, done])
   const add = (p: Photo) => {
     patch((old) => ({ assets: [...old.assets, p] }))
-    setImages((old) => [...old, p.id].slice(0, 3))
+    setImages((old) => [...old, p.id].slice(0, onsite ? 10 : 6))
   }
   if (done)
     return (
@@ -130,11 +126,11 @@ export function Greeting({ onsite = false, go }: { onsite?: boolean; go: (p: Pag
           ? '之前没参与过也没有关系，一张现场照片或一句话就很好。'
           : '拍一张你此刻看到的风景，带 TA 看看你的近况。照片不必和节日有关。'}
       </p>
-      <Upload onPhoto={add} maxFiles={3 - images.length}>
+      <Upload onPhoto={add} maxFiles={(onsite ? 10 : 6) - images.length}>
         <Camera size={30} />
         <span>
           {onsite ? '留一张现场照片' : '放一张最近的照片'}
-          <small>最多3张 · 让对方看看你此刻的生活</small>
+          <small>{onsite ? '最多10张' : '同一段近况最多6张'} · 让对方看看你此刻的生活</small>
         </span>
         <Plus />
       </Upload>
@@ -161,14 +157,14 @@ export function Greeting({ onsite = false, go }: { onsite?: boolean; go: (p: Pag
         <WritingArea
           aria-label={onsite ? '现场祝福' : '近况短话'}
           value={body}
-          maxLength={100}
+          maxLength={1000}
           placeholder={
             onsite ? '今天在这里，最想对您说……' : '我现在在……今天看到这个画面，又想起您。'
           }
           onChange={(e) => setBody(e.target.value)}
         />
       </Field>
-      <small className="helper">{body.length}/100字</small>
+      <small className="helper">照片和文字都可以独立送出。</small>
       <button
         className="text-button"
         onClick={() =>

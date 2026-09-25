@@ -108,8 +108,8 @@ export default function App() {
   else if (page === 'gifts') content = <Gifts go={go} />
   else if (managedPages.includes(page)) content = <Preparation page={page} go={go} />
   else if (page === 'share') content = <ShareCard />
-  else if (page === 'guest') content = <Guest go={go} />
-  else if (page === 'greeting' || page === 'onsite') content = <Greeting onsite={page === 'onsite'} go={go} />
+  else if (page === 'guest' || page === 'onsite') content = <Guest go={go} />
+  else if (page === 'greeting') content = <Greeting go={go} />
   else if (page === 'messages') content = <Messages go={go} />
   else if (['people', 'person', 'me', 'settings', 'profile', 'relations', 'records', 'preferences'].includes(page))
     content = <Account page={page} go={go} />

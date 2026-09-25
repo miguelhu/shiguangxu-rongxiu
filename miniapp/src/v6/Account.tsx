@@ -24,7 +24,6 @@ import { birthdays } from './workflow'
 export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
   const { c, s, state, setState, patch, switchCase, modal, closeModal, notify } = useDemo()
   const [query, setQuery] = useState('')
-  const [completion, setCompletion] = useState('completed')
   const [personFilter, setPersonFilter] = useState('all')
   const [kind, setKind] = useState('all')
   const [selected, setSelected] = useState<string[]>([])
@@ -75,6 +74,9 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
           </small>
           <small>最近送出 · {cs.lastSent || '参与过这份礼物'}</small>
         </div>
+        <em className={`person-status ${cs.contributionStarted && !cs.submission ? 'unfinished' : 'completed'}`}>
+          {cs.contributionStarted && !cs.submission ? '未完成' : '已完成'}
+        </em>
         <ArrowRight size={20} />
       </button>
     )
@@ -88,40 +90,13 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
           <br />
           值得一直惦记。
         </h2>
-        <div className="segmented completion-tabs">
-          {[
-            ['completed', '已完成'],
-            ['unfinished', '未完成'],
-          ].map(([v, t]) => (
-            <button
-              key={v}
-              className={completion === v ? 'active' : ''}
-              aria-pressed={completion === v}
-              onClick={() => setCompletion(v)}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
         <div className="people-list">
           {related
-            .filter((x) => {
-              const cs = state.cases[x.id]
-              const unfinished = cs.contributionStarted && !cs.submission
-              return completion === 'unfinished' ? unfinished : !unfinished
-            })
+            .slice()
+            .sort((a, b) => (state.cases[b.id].lastSent || state.cases[b.id].host.date).localeCompare(state.cases[a.id].lastSent || state.cases[a.id].host.date))
             .map(personCard)}
         </div>
-        {!related.some((x) =>
-          completion === 'unfinished'
-            ? state.cases[x.id].contributionStarted && !state.cases[x.id].submission
-            : !(state.cases[x.id].contributionStarted && !state.cases[x.id].submission),
-        ) && (
-          <Note>
-            {completion === 'unfinished' ? '没有待完成的共创邀请。' : '还没有已完成的共创。'}
-          </Note>
-        )}
-        <Note>按人物记住你的参与。仪式结束后，也能从这里送去新的心意。</Note>
+        <Note>你参与过的人都会留在这里，以后可以直接给他们发照片或问候。</Note>
       </div>
     )
   if (page === 'person')

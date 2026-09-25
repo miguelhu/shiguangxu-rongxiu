@@ -100,6 +100,7 @@ export interface CaseState {
   collectionEnded?: boolean
   storyOrder?: string[]
   excludedWishes?: string[]
+  excludedStories?: string[]
   activated?: boolean
   openedAt?: string
   notifyAfterOpen?: boolean
@@ -390,6 +391,7 @@ export function ceremonyBlocks(id: CaseId, s: CaseState) {
             b.source !== 'onsite' &&
             b.source !== 'greeting' &&
             !s.excludedPhotos.includes(b.id) &&
+            !(s.excludedStories || []).includes(b.id) &&
             !(s.excludedWishes || []).includes(b.id),
         )
   ).filter(

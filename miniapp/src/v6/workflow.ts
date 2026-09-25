@@ -89,6 +89,7 @@ export function collected(id: CaseId, s: CaseState) {
     (b) =>
       !['onsite', 'greeting'].includes(b.source) &&
       !s.excludedPhotos.includes(b.id) &&
+      !(s.excludedStories || []).includes(b.id) &&
       !(s.excludedWishes || []).includes(b.id),
   )
 }

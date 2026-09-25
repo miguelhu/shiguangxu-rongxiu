@@ -45,6 +45,13 @@ export function WritingArea(props: Props) {
   return (
     <div className="writing-assist">
       <textarea {...props} ref={ref} />
+      <div className="writing-inline-tools" aria-label="文字辅助工具">
+        <button type="button" aria-label="语音转文字" title="语音转文字" onClick={() => ref.current?.focus()}>🎙</button>
+        <button type="button" aria-label="AI优化" title="AI优化" onClick={start}>✦</button>
+        <button type="button" aria-label="撤销" title="撤销" disabled={previous === null} onClick={() => {
+          if (previous !== null) { write(previous); setPrevious(null) }
+        }}>↶</button>
+      </div>
       <div className="xiaoxu-perch">
         <button
           type="button"

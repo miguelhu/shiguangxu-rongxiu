@@ -24,13 +24,23 @@ export function RelationChooser({
   primary,
   onChange,
   onPrimary,
+  mode,
 }: {
   codes: string[]
   primary: string
   onChange: (v: string[]) => void
   onPrimary: (v: string) => void
+  mode?: string
 }) {
   const [other, setOther] = useState(codes.filter((c) => c !== primary).length > 0)
+  const allowed = mode === 'teacher'
+    ? ['student', 'research_student', 'mentee', 'colleague', 'friend', 'family', 'leader', 'subordinate', 'other', 'unspecified']
+    : mode === 'leader' || mode === 'nurse'
+      ? ['leader', 'subordinate', 'colleague', 'project_partner', 'friend', 'family', 'other', 'unspecified']
+      : mode === 'anniversary'
+        ? ['child', 'grandchild', 'friend', 'colleague', 'family', 'other', 'unspecified']
+        : relations.map((r) => r.code)
+  const options = relations.filter((r) => allowed.includes(r.code))
   return (
     <div className="relationship-picker">
       <Field label="你与 TA 最主要的关系是什么？">
@@ -46,20 +56,20 @@ export function RelationChooser({
           <option value="" disabled>
             请选择主要关系
           </option>
-          {relations.map((r) => (
+          {options.map((r) => (
             <option key={r.code} value={r.code}>
               {r.label}
             </option>
           ))}
         </select>
       </Field>
-      <p className="helper">{relations.find((r) => r.code === primary)?.explain}</p>
+      <p className="helper">{options.find((r) => r.code === primary)?.explain}</p>
       <button className="text-button" onClick={() => setOther(!other)} aria-expanded={other}>
         你们还有其他关系吗？{other ? '收起' : '（可选）'}
       </button>
       {other && (
         <div className="chips other-relations">
-          {relations
+          {options
             .filter((r) => r.code !== primary && r.code !== 'unspecified')
             .map((r) => (
               <button
@@ -144,6 +154,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
   const [customWish, setCustomWish] = useState(!!d.wish && !wishSuggestions.includes(d.wish))
   const [wishBatch, setWishBatch] = useState(0)
   const [round, setRound] = useState(0)
+  const [peerVisible, setPeerVisible] = useState<Record<string, boolean>>({})
   const submitting = useRef(false)
   const change = (v: Partial<Draft>) => patch((old) => ({ draft: { ...old.draft, ...v } }))
   const sample = () => {
@@ -188,7 +199,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
         ? {}
         : {
             assets: [...old.assets, p],
-            draft: { ...old.draft, photos: [...old.draft.photos, p.id] },
+            draft: { ...old.draft, photos: [p.id, ...old.draft.photos] },
           },
     )
   }
@@ -241,24 +252,34 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
       <div className="phone-body">
         <div className="eyebrow">先认识一下</div>
         <h2>
-          这份心意，
+          让时光深处的相逢，
           <br />
-          让对方知道来自谁。
+          在此处留下落款。
         </h2>
         <Field label="我的署名">
           <input value={d.name} maxLength={20} onChange={(e) => change({ name: e.target.value })} />
         </Field>
         {c.id === 'anniversary' && <h3>与{s.host.name}的关系</h3>}
         <RelationChooser
+          mode={c.id}
           codes={d.codes}
           primary={d.primary}
           onChange={(codes) => change({ codes })}
           onPrimary={(primary) => change({ primary })}
         />
+        <Field label="其他值得铭记的关系（可选）">
+          <input
+            value={d.note}
+            maxLength={30}
+            placeholder="例如：一起做过项目的伙伴"
+            onChange={(e) => change({ note: e.target.value })}
+          />
+        </Field>
         {c.id === 'anniversary' && (
           <>
             <h3>与{s.host.secondName}的关系</h3>
             <RelationChooser
+              mode={c.id}
               codes={d.secondaryCodes}
               primary={d.secondaryCodes[0] || ''}
               onChange={(secondaryCodes) => change({ secondaryCodes })}
@@ -270,7 +291,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
         )}
         <Field
           label="留下联系方式"
-          hint="用于帮助你以后还能找到曾经关怀过的人，不会公开展示给其他共创者。"
+          hint="方便以后继续联系和接收提醒，不会展示给其他参与者。"
         >
           <input
             type="tel"
@@ -279,7 +300,6 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
             onChange={(e) => change({ phone: e.target.value })}
           />
         </Field>
-        <small className="tiny">演示页面不发送验证码。</small>
         {error && <p className="error">{error}</p>}
         <Button
           onClick={() => {
@@ -302,7 +322,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
                   codes: d.codes,
                   primary: d.primary,
                   secondaryCodes: d.secondaryCodes,
-                  note: '',
+                  note: d.note,
                   period: '',
                 },
               },
@@ -321,20 +341,24 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
         <div className="success-mark">
           <Check size={36} />
         </div>
-        <div className="eyebrow">每一份心意，都让礼物更完整</div>
+        <div className="eyebrow">这一页岁月，因你而更丰富</div>
         <h2>{s.submission ? '你的心意，\n已经收到了。' : '大家的心意，\n正在慢慢相聚。'}</h2>
         <p className="prose">
           已经有 <strong>{count}</strong> 位朋友和你一起，为{s.host.address}留下了心意。
         </p>
-        <div className="mini-people">
-          {data.authors.slice(0, 5).map((a) => (
-            <Avatar key={a.id} name={a.name} />
+        <div className="submission-route" aria-label="礼物准备进度">
+          {['仪式发起', '亲友共创', 'AI整理', '整体验收', '惊喜揭幕'].map((label, index) => (
+            <span className={index <= 1 ? 'done' : ''} key={label}><i>{index < 1 ? '✓' : index + 1}</i><small>{label}</small></span>
           ))}
+        </div>
+        <div className="submission-summary">
+          <b>{data.authors.slice(0, 5).map((a) => a.name.slice(0, 1)).join('、')}等朋友正在参与</b>
+          <span>{d.photos.length}个时光碎片 · {d.tags.length}个印象 · {d.stories.length}个故事 · {d.wish || d.audio ? 1 : 0}个祝福</span>
         </div>
         <Note>
           {s.version
             ? '这份礼物已准备好。等长者正式打开后，我们会再告诉你。'
-            : `统筹者${s.coordinatorName}正在把大家的心意整理成礼物。成品准备好后，会邀请你回来看看。`}
+            : `${s.coordinatorName}正在把大家的心意整理成礼物。成品准备好后，会邀请你回来看看。`}
         </Note>
         <button className="board-entry-card" onClick={() => go('board')}>
           <span>
@@ -343,6 +367,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
           </span>
           <ArrowRight />
         </button>
+        <label className="notify-reservation"><input type="checkbox" defaultChecked /> 惊喜完成后请推送给我</label>
         <Button onClick={() => go('people')}>返回我参与过的人</Button>
         {s.openedAt && (
           <Button secondary onClick={() => go('share')}>
@@ -399,7 +424,19 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
               <button onClick={() => go(p)}>修改</button>
             </header>
             {blocks.filter((b) => b.kind === kind).length ? (
-              blocks.filter((b) => b.kind === kind).map((b) => <BlockCard block={b} key={b.id} />)
+              <div className="preview-carousel">
+              {blocks.filter((b) => b.kind === kind).map((b) => (
+                <div className="preview-card-wrap" key={b.id}>
+                  <BlockCard block={b} />
+                  {(kind === 'photo' || kind === 'story') && (
+                    <div className="preview-visibility">
+                      <button className={peerVisible[b.id] ? 'active' : ''} onClick={() => setPeerVisible((old) => ({ ...old, [b.id]: true }))}>公开展示</button>
+                      <button className={!peerVisible[b.id] ? 'active' : ''} onClick={() => setPeerVisible((old) => ({ ...old, [b.id]: false }))}>仅TA查看</button>
+                    </div>
+                  )}
+                </div>
+              ))}
+              </div>
             ) : (
               <p className="helper">这一步暂时没有内容</p>
             )}
@@ -407,7 +444,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
         ))}
         <div className="submit-sticky">
           <p className="tiny">
-            确认送出即同意用于本次礼物和对应仪式，不含公开宣传。之后仍可管理或撤回自己的内容。
+            提交后仍可管理或撤回自己的内容。公开展示权限可按每个片段单独调整。
           </p>
           {error && <p className="error">{error}</p>}
           <Button
@@ -434,7 +471,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
               submitting.current = true
               patch((old) => ({
                 hiddenSeed: [...new Set([...old.hiddenSeed, d.authorId])],
-                blocks: [...old.blocks, ...blocks.map((b) => ({ ...b, scope: { ...allScope } }))],
+                blocks: [...old.blocks, ...blocks.map((b) => ({ ...b, scope: { ...allScope }, peerPreviewAllowed: peerVisible[b.id] === true }))],
                 submission: old.submission + 1,
                 submittedDraftSignature: signature,
                 stage: Math.max(old.stage, 3),
@@ -449,7 +486,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
               go('success')
             }}
           >
-            确认送出
+            提交这份心意
             <ArrowRight />
           </Button>
         </div>
@@ -488,7 +525,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
         <h2>
           {
             {
-              impressions: '说起对方，\n你先想到什么？',
+              impressions: '提起对方，\n你先想到什么？',
               photos: '留下一张，\n值得记住的照片。',
               stories: '不用配图，\n认真讲一件事就好。',
               wishes: '有些祝福，\n简单说也很动人。',
@@ -549,10 +586,17 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
         )}
         {page === 'photos' && (
           <>
-            <p className="helper">推荐选1—2张照片，最多10张。给每张照片留一两句话，100字以内。</p>
+            <p className="helper">推荐选1—2张照片，最多10张。每张照片和它的故事会组成一张拾光碎片。</p>
             {d.photos.length > 3 && (
               <Note>照片已经很丰富了，精选最想留下的几张，故事会更清楚。</Note>
             )}
+            <div className="photo-upload-sticky">
+              {d.photos.length < 10 ? (
+                <Upload onPhoto={addPhoto} maxFiles={10 - d.photos.length}>
+                  <Camera /><span>上传照片<small>{d.photos.length}/10 张 · 新上传的排在最前</small></span><Plus />
+                </Upload>
+              ) : <Note>已达到10张上限，可以先移除一张再替换。</Note>}
+            </div>
             <div className="uploaded-grid">
               {d.photos.map((id, i) => {
                 const p = media.find((p) => p.id === id)
@@ -579,7 +623,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
                       aria-label={`照片${i + 1}说明`}
                       maxLength={100}
                       value={p.caption}
-                      placeholder="给这张照片留一句话"
+                      placeholder={`拾光碎片 · ${String(i + 1).padStart(2, '0')}｜当时发生了什么？你有什么感受？`}
                       onChange={(e) => update({ caption: e.target.value })}
                     />
                     <small>{p.caption.length}/100</small>
@@ -588,39 +632,30 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
                       label="照片说明"
                       onText={(caption) => update({ caption: caption.slice(0, 100) })}
                     />
-                    <button
-                      className="text-button"
-                      disabled={!i}
-                      onClick={() => {
-                        const ids = [...d.photos]
-                        ;[ids[i], ids[i - 1]] = [ids[i - 1], ids[i]]
-                        change({ photos: ids })
-                      }}
-                    >
-                      前移
-                    </button>
+                    <div className="photo-order-actions">
+                      <button disabled={!i} aria-label="上移" onClick={() => {
+                        const ids = [...d.photos]; [ids[i], ids[i - 1]] = [ids[i - 1], ids[i]]; change({ photos: ids })
+                      }}>↑</button>
+                      <button disabled={i === d.photos.length - 1} aria-label="下移" onClick={() => {
+                        const ids = [...d.photos]; [ids[i], ids[i + 1]] = [ids[i + 1], ids[i]]; change({ photos: ids })
+                      }}>↓</button>
+                      <button aria-label="删除" onClick={() => change({ photos: d.photos.filter((x) => x !== id) })}><Trash size={16} /></button>
+                    </div>
                   </div>
                 )
               })}
             </div>
-            {d.photos.length < 10 ? (
-              <Upload onPhoto={addPhoto} maxFiles={10 - d.photos.length}>
-                <Camera />
-                <span>
-                  上传照片<small>{d.photos.length}/10 张 · 推荐1—2张</small>
-                </span>
-                <Plus />
-              </Upload>
-            ) : (
-              <Note>已达到10张上限，可以先移除一张再替换。</Note>
-            )}
           </>
         )}
         {page === 'stories' && (
           <>
-            <div className="topic-cards topic-gallery">
-              {(round % 2 ? topics([d.primary]).slice().reverse() : topics([d.primary])).map(
-                (t, idx) => {
+            <div className="topic-cards topic-gallery text-topic-grid">
+              {(() => {
+                const pool = topics([d.primary]), group = round % 5
+                const choices = group === 0 ? pool.slice(0, 3) : pool.slice(3 + (group - 1) * 4, 3 + group * 4)
+                return ['自定义话题', ...choices]
+              })().map(
+                (t) => {
                   const existing = d.stories.find((st) => st.title === t)
                   return (
                     <button
@@ -656,10 +691,6 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
                         )
                       }}
                     >
-                      <PhotoImage
-                        path={data.photos[(idx + round * 3) % data.photos.length].path}
-                        alt="话题配图"
-                      />
                       <h3>{t}</h3>
                       <span>{existing ? '查看故事' : '开始聊'}</span>
                     </button>
@@ -668,13 +699,17 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
               )}
             </div>
             <button className="text-button" onClick={() => setRound((x) => x + 1)}>
-              换一组话题
+              换一组话题 · {(round % 5) + 1}/5
             </button>
             {d.stories.map((story, i) => {
               const update = (v: Partial<typeof story>) =>
                 change({ stories: d.stories.map((x, k) => (k === i ? { ...x, ...v } : x)) })
               return (
                 <div className="story-editor" id={'story-' + story.id} key={story.id}>
+                  <div className="story-card-tools">
+                    <button aria-label="拖动故事排序">⠿</button>
+                    <button aria-label="删除故事" onClick={() => change({ stories: d.stories.filter((x) => x.id !== story.id) })}><Trash size={16} /></button>
+                  </div>
                   <WritingArea
                     rows={1}
                     aria-label={`故事${i + 1}标题`}
@@ -743,21 +778,29 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
                       恢复原文
                     </button>
                   )}
-                  <button
-                    className="text-button"
-                    onClick={() => change({ stories: d.stories.filter((x) => x.id !== story.id) })}
-                  >
-                    移除这篇故事
-                  </button>
                 </div>
               )
             })}
-            <small className="helper">最多3篇，没有照片也能讲一个完整故事。</small>
+            <small className="helper">有些事没有照片，你却一直记得。最多选择3个话题。</small>
           </>
         )}
         {page === 'wishes' && (
           <>
-            <h3>方式一 · 写一句祝福</h3>
+            <h3>方式一 · 留一段影音</h3>
+            <div className="voice-message-box">
+              <div className="capture-guide" aria-label="拍摄辅助线示意"><i /><i /><i /><i /><span>照片／短视频取景辅助线</span></div>
+              <VoiceInput path={d.audio} text={d.audioText} onChange={(audio, audioText) => change({ audio, audioText })} />
+              <Upload maxFiles={3 - d.wishPhotos.length} onPhoto={(photo) => patch((old) => ({
+                assets: [...old.assets, photo],
+                draft: { ...old.draft, wishPhotos: [...old.draft.wishPhotos, photo.id].slice(0, 3) },
+              }))}>＋ 加一段照片或现场画面</Upload>
+              {!!d.wishPhotos.length && <div className="photo-strip">{d.wishPhotos.map((id) => {
+                const photo = media.find((p) => p.id === id)
+                return photo && <PhotoImage key={id} path={photo.path} alt={photo.caption} />
+              })}</div>}
+              <small>像微信一样按住说话，也可以用＋补充照片或画面。</small>
+            </div>
+            <h3>方式二 · 写一句祝福</h3>
             {!customWish && (
               <div className="wish-presets">
                 {Array.from(
@@ -795,14 +838,6 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
                 onChange={(e) => change({ wish: e.target.value })}
               />
             )}
-            <h3>方式二 · 留一段声音</h3>
-            <div>
-              <VoiceInput
-                path={d.audio}
-                text={d.audioText}
-                onChange={(audio, audioText) => change({ audio, audioText })}
-              />
-            </div>
             <p className="helper">一句文字和一段声音可以一起送出，也可以只选一种。</p>
           </>
         )}

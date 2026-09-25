@@ -327,20 +327,30 @@ export function resource(path: string) {
 }
 export function topics(codes: string[]) {
   const code = codes[0]
+  const common = [
+    '第一次真正记住TA，是因为什么？', '相处时，哪件小事你一直记得？', 'TA哪句话后来一直留在心里？',
+    '多年以后，你还会和别人提起哪件事？', '哪一次，你感到自己被认真听见？', '你们一起笑得最开心的一次',
+    '一个只有熟悉的人才知道的习惯', '哪一刻让你觉得TA很温柔？', '你从TA身上学会的一件事',
+    '如果重回某一天，你想回到什么时候？', '哪张照片最能代表你们的关系？', '一次没有说出口的谢谢',
+    '后来某个时刻，你忽然想起了TA', 'TA退休以后，你最想约TA做什么？', '想替年轻时的自己补说哪句话？',
+    '你希望这段记忆以后被怎样讲起？',
+  ]
+  let specific: string[]
   if (['student', 'research_student', 'mentee'].includes(code))
-    return ['哪一次，你从紧张变得安心？', '他（她）说过哪句话？', '后来，你把什么传给了别人？']
-  if (['leader', 'teacher', 'academic_advisor', 'mentor'].includes(code))
-    return ['第一次看见对方独当一面', '曾让你放心的一件事', '你欣赏的变化']
-  if (code === 'subordinate')
-    return ['第一次得到信任', '被接住的一次失误', '带新人时，你会想起什么？']
-  if (
+    specific = ['哪一次，你从紧张变得安心？', '他（她）说过哪句话？', '后来，你把什么传给了别人？']
+  else if (['leader', 'teacher', 'academic_advisor', 'mentor'].includes(code))
+    specific = ['第一次看见对方独当一面', '曾让你放心的一件事', '你欣赏的变化']
+  else if (code === 'subordinate')
+    specific = ['第一次得到信任', '被接住的一次失误', '带新人时，你会想起什么？']
+  else if (
     ['colleague', 'project_partner', 'business_partner', 'client', 'service_partner'].includes(code)
   )
-    return ['一起解决过的一个难题', '不在汇报里的小事', '一次难忘的合作']
-  if (code === 'spouse') return ['两个人的一个日常习惯', '一起完成的小愿望', '一直记得的一句普通话']
-  if (['child', 'grandchild', 'child_in_law'].includes(code))
-    return ['家里哪个场景最让你安心？', '一道菜或一个习惯', '长大以后才明白的事']
-  if (['parent', 'grandparent', 'parent_in_law'].includes(code))
-    return ['第一次看见对方照顾别人', '让你开心的变化', '现在最想对他说什么？']
-  return ['你记得的一件小事', '第一次熟悉起来的场景', '一张照片背后的故事']
+    specific = ['一起解决过的一个难题', '不在汇报里的小事', '一次难忘的合作']
+  else if (code === 'spouse') specific = ['两个人的一个日常习惯', '一起完成的小愿望', '一直记得的一句普通话']
+  else if (['child', 'grandchild', 'child_in_law'].includes(code))
+    specific = ['家里哪个场景最让你安心？', '一道菜或一个习惯', '长大以后才明白的事']
+  else if (['parent', 'grandparent', 'parent_in_law'].includes(code))
+    specific = ['第一次看见对方照顾别人', '让你开心的变化', '现在最想对他说什么？']
+  else specific = ['你记得的一件小事', '第一次熟悉起来的场景', '一张照片背后的故事']
+  return [...specific, ...common].slice(0, 19)
 }

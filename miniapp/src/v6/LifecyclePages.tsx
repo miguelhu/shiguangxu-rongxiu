@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDemo } from './context'
-import { Button, Field, Note, Upload } from './ui'
+import { Button, Field, Upload } from './ui'
 import { PhotoImage } from './media'
 import { Page, Photo, CaseId, cases, datasets, relationLabel } from './data'
 import { WritingArea } from './WritingAssist'
@@ -19,7 +19,10 @@ export function Welcome({ go }: { go: (p: Page) => void }) {
           <br />
           一起送给{s.host.address}。
         </h2>
-        <p>一张照片、一个故事或一句祝福，都能成为这份{c.category}里独属于你的心意。</p>
+        <p>
+          放一张老照片、讲一件小事，或者写一句祝福都可以。大家会把这些记得的片段，
+          一起送给{s.host.address}。
+        </p>
         <div className="welcome-cost">
           大约 10 分钟<small>不需要一次写完，可随时回来继续</small>
         </div>
@@ -29,12 +32,7 @@ export function Welcome({ go }: { go: (p: Page) => void }) {
             {s.host.organizer} · 主办情景示例
           </div>
         )}
-        {s.host.bio && (
-          <details className="welcome-bio">
-            <summary>认识一下{s.host.address}</summary>
-            <p>{s.host.bio}</p>
-          </details>
-        )}
+        {s.host.bio && <p className="welcome-bio-copy">{s.host.bio}</p>}
         <p className="deadline">共创截止 · {s.host.deadline}</p>
         <Button
           onClick={() => {
@@ -45,7 +43,7 @@ export function Welcome({ go }: { go: (p: Page) => void }) {
           {s.contributionStarted && !s.submission ? '继续留下心意' : '开始留下心意'}
         </Button>
         <button className="text-button" onClick={() => go('people')}>
-          稍后再来
+          先看看，晚点再填
         </button>
         <small className="tiny">参与内容用于本次礼物和仪式，不包含公开宣传。</small>
       </div>
@@ -189,8 +187,13 @@ export function SendChoose({ go }: { go: (p: Page) => void }) {
           送给{recipients.map((id) => state.cases[id].host.address).join('、')}
           的近况已加入各自相框的待接收列表。
         </p>
-        <Note>网页演示，不发送真实消息。</Note>
-        <Button onClick={() => go('people')}>回到我参与的人</Button>
+        <p className="prose">今天的{s.host.address}一定会因为你的惦念而多一份开心。</p>
+        <Button onClick={() => { setDone(false); setStep(0); setPhotos([]); setBody(''); setRecipients([]) }}>继续分享拾光</Button>
+        <div className="send-success-actions">
+          <button onClick={() => go('person')}>关注TA</button>
+          <button onClick={() => { setDone(false); setStep(0) }}>分享拾光</button>
+        </div>
+        <button className="text-button" onClick={() => go('people')}>回到我参与的人</button>
       </div>
     )
   const next = () => {
@@ -210,10 +213,10 @@ export function SendChoose({ go }: { go: (p: Page) => void }) {
         <>
           <p className="helper">像分享一张生活照片那样，轻轻说一声想起你。</p>
           <Upload
-            maxFiles={3 - photos.length}
-            onPhoto={(p) => setPhotos((old) => [...old, p].slice(0, 3))}
+            maxFiles={6 - photos.length}
+            onPhoto={(p) => setPhotos((old) => [...old, p].slice(0, 6))}
           >
-            ＋ 选择照片<small>最多3张</small>
+            ＋ 选择照片<small>同一段近况最多6张</small>
           </Upload>
           <div className="dm-photo-picker">
             {datasets[c.id].photos.slice(-6).map((p) => (
@@ -225,7 +228,7 @@ export function SendChoose({ go }: { go: (p: Page) => void }) {
                   setPhotos((old) =>
                     old.some((x) => x.id === p.id)
                       ? old.filter((x) => x.id !== p.id)
-                      : old.length < 3
+                      : old.length < 6
                         ? [...old, p]
                         : old,
                   )
@@ -250,12 +253,12 @@ export function SendChoose({ go }: { go: (p: Page) => void }) {
             <WritingArea
               aria-label="送时光短话"
               value={body}
-              maxLength={100}
+              maxLength={1000}
               onChange={(e) => setBody(e.target.value)}
               placeholder="我今天看到了……想和您分享。"
             />
           </Field>
-          <p className="helper">{body.length}/100字 · 照片和文字都可以独立送出。</p>
+          <p className="helper">照片和文字都可以独立送出。</p>
           <Button onClick={next}>下一步 · 选择收件人</Button>
         </>
       )}
