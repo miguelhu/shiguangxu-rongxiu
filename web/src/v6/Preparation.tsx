@@ -92,6 +92,7 @@ export function Entry({ page, go }: { page: Page; go: (p: Page) => void }) {
         发起{c.category} · {step + 1}/5
       </div>
       <h2>{titles[step]}</h2>
+      {step === 0 && <p className="helper form-intro">发起人负责统筹，小叙协助整理；之后也可以移交给其他人。</p>}
       <div className="form-progress">
         {titles.map((t, i) => (
           <i key={t} className={i <= step ? 'active' : ''} />
@@ -119,9 +120,6 @@ export function Entry({ page, go }: { page: Page; go: (p: Page) => void }) {
               }
             />
           </Field>
-          <Note>
-            发起人默认负责统筹。小叙帮助整理，最终成品由统筹者确认；之后可以移交给更适合的人。
-          </Note>
         </>
       )}
       {step === 1 && (

@@ -47,7 +47,7 @@ export function Guest({ go }: { go: (p: Page) => void }) {
         留下现场心意
         <ArrowRight />
       </Button>
-      <Note>{c.category} · 同一个共创邀请，在现场仍然可用。</Note>
+      <p className="helper">{c.category} · 同一个共创邀请，在现场仍然可用。</p>
     </div>
   )
 }
@@ -95,9 +95,7 @@ export function Greeting({ onsite = false, go }: { onsite?: boolean; go: (p: Pag
           已经送出。
         </h2>
         <p className="prose">相框收到后，对方就能看到你这次想分享的画面。</p>
-        <Note>
-          {onsite ? '现场心意独立保留，不改写已经确认的仪式与总信。' : '这份关系，又多了一次想起。'}
-        </Note>
+        <p className="helper">{onsite ? '现场心意独立保留，不改写已经确认的仪式与总信。' : '这份关系，又多了一次想起。'}</p>
         <Button onClick={() => go('people')}>回到我参与的人</Button>
         <button
           className="text-button"

@@ -121,7 +121,7 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
             {completion === 'unfinished' ? '没有待完成的共创邀请。' : '还没有已完成的共创。'}
           </Note>
         )}
-        <Note>按人物记住你的参与。仪式结束后，也能从这里送去新的心意。</Note>
+        <p className="helper">你参与过的人都会留在这里，以后可以直接给他们发照片或问候。</p>
       </div>
     )
   if (page === 'person')
@@ -202,6 +202,7 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
       <div className="phone-body">
         <div className="eyebrow">我的设置</div>
         <h2>把自己的信息，安心收好。</h2>
+        <p className="helper">每一段关系、每一次提醒，都可以按人调整。</p>
         <div className="account-menu">
           {(
             [
@@ -218,7 +219,6 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
             </button>
           ))}
         </div>
-        <Note>每一段关系、每一次提醒，都可以按人调整。</Note>
       </div>
     )
   if (page === 'profile')
@@ -382,7 +382,7 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
               })}
           </>
         )}
-        <Note>主要关系用于署名和话题推荐，不会自动改写以前的投稿。</Note>
+        <p className="helper">主要关系用于署名和话题推荐，不会自动改写以前的投稿。</p>
       </div>
     )
   }

@@ -1,5 +1,4 @@
 import { PhotoDate } from './PhotoDate'
-import { Dictation } from './Dictation'
 import { WritingArea } from './WritingAssist'
 import { validPhotoDate } from './workflow'
 import { useRef, useState } from 'react'
@@ -63,9 +62,8 @@ export function RelationChooser({
           ))}
         </select>
       </Field>
-      <p className="helper">{options.find((r) => r.code === primary)?.explain}</p>
       <button className="text-button" onClick={() => setOther(!other)} aria-expanded={other}>
-        你们还有其他关系吗？{other ? '收起' : '（可选）'}
+        {other ? '收起更多关系 ↑' : '展开更多关系（可选） ↓'}
       </button>
       {other && (
         <div className="chips other-relations">
@@ -230,6 +228,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
             </span>
           </div>
           {c.id === 'teacher' && <p className="tiny">虚构人物与活动示例 · 非学校实际主办活动</p>}
+          <p className="helper">一句话、一张照片或一个故事都可以。内容会用于这份礼物和仪式。</p>
           {s.host.showPhoto && (
             <div className="photo-strip">
               {s.host.introPhotos.map((path) => (
@@ -241,9 +240,6 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
             {s.version ? '现场也想留一份心意？' : '留下我的一份心意'}
             <ArrowRight />
           </Button>
-          <Note>
-            一句话、一张照片或一个故事，都可以。参与内容将用于这份礼物及对应仪式，不包含公开宣传。
-          </Note>
         </div>
       </>
     )
@@ -628,10 +624,6 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
                     />
                     <small>{p.caption.length}/100</small>
                     <PhotoDate photo={p} index={i + 1} onChange={update} />
-                    <Dictation
-                      label="照片说明"
-                      onText={(caption) => update({ caption: caption.slice(0, 100) })}
-                    />
                     <div className="photo-order-actions">
                       <button disabled={!i} aria-label="上移" onClick={() => {
                         const ids = [...d.photos]; [ids[i], ids[i - 1]] = [ids[i - 1], ids[i]]; change({ photos: ids })
@@ -649,11 +641,30 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
         )}
         {page === 'stories' && (
           <>
+            <div className="topic-custom">
+              <button
+                className={d.stories.some((story) => story.id.startsWith('custom-')) ? 'has-story' : ''}
+                disabled={d.stories.length >= 3 && !d.stories.some((story) => story.id.startsWith('custom-'))}
+                onClick={() => {
+                  const existing = d.stories.find((story) => story.id.startsWith('custom-'))
+                  if (existing) {
+                    document.getElementById('story-' + existing.id)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                    return
+                  }
+                  const id = 'custom-' + crypto.randomUUID()
+                  change({ stories: [...d.stories, { id, title: '自定义话题', body: '', original: '', photoIds: [], audio: '', audioText: '' }] })
+                  requestAnimationFrame(() => document.getElementById('story-' + id)?.scrollIntoView({ behavior: 'smooth', block: 'center' }))
+                }}
+              >
+                <span><b>自定义话题</b><small>想说什么，就从这里开始</small></span>
+                <Plus size={20} />
+              </button>
+            </div>
             <div className="topic-cards topic-gallery text-topic-grid">
               {(() => {
                 const pool = topics([d.primary]), group = round % 5
                 const choices = group === 0 ? pool.slice(0, 3) : pool.slice(3 + (group - 1) * 4, 3 + group * 4)
-                return ['自定义话题', ...choices]
+                return choices
               })().map(
                 (t) => {
                   const existing = d.stories.find((st) => st.title === t)
@@ -723,10 +734,6 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
                     maxLength={2000}
                     placeholder="从你真正记得的那件事说起…"
                     onChange={(e) => update({ body: e.target.value })}
-                  />
-                  <Dictation
-                    label="故事"
-                    onText={(body) => update({ body: body.slice(0, 2000) })}
                   />
                   <div className="editor-meta">
                     <span>{story.body.length}/2000</span>

@@ -1,4 +1,5 @@
-import { useState, useRef, TextareaHTMLAttributes, ChangeEvent } from 'react'
+import { useState, useRef, useLayoutEffect, TextareaHTMLAttributes, ChangeEvent } from 'react'
+import { Microphone, Sparkle, ArrowCounterClockwise } from '@phosphor-icons/react'
 import { resource } from './data'
 
 type Props = TextareaHTMLAttributes<HTMLTextAreaElement>
@@ -26,10 +27,17 @@ export function WritingArea(props: Props) {
   const [baseline, setBaseline] = useState('')
   const [previous, setPrevious] = useState<string | null>(null)
   const [applied, setApplied] = useState('')
+  const [voiceOpen, setVoiceOpen] = useState(false)
+  const [spoken, setSpoken] = useState('')
   const ref = useRef<HTMLTextAreaElement>(null)
   const value = String(props.value ?? '')
   const limit = props.maxLength && props.maxLength > 0 ? props.maxLength : 3000
   const label = props['aria-label'] || props.placeholder || '这段文字'
+  useLayoutEffect(() => {
+    if (!ref.current) return
+    ref.current.style.height = 'auto'
+    ref.current.style.height = `${Math.max(46, ref.current.scrollHeight)}px`
+  }, [value])
   const write = (text: string) => {
     props.onChange?.({
       target: { value: text },
@@ -44,8 +52,8 @@ export function WritingArea(props: Props) {
   }
   return (
     <div className="writing-assist">
-      <textarea {...props} ref={ref} />
-      <div className="xiaoxu-perch">
+      <textarea {...props} rows={props.rows ?? 1} ref={ref} />
+      <div className="writing-toolbar" aria-label="文字辅助工具">
         <button
           type="button"
           className="xiaoxu-invite"
@@ -54,24 +62,27 @@ export function WritingArea(props: Props) {
           onClick={start}
         >
           <img src={resource('images/xiaoxu-helper.png')} alt="小叙" />
-          <span>
-            <b>AI 小叙</b>
-            <small>{value.trim() ? '需要帮忙优化吗？' : '不知道怎么写？我陪你。'}</small>
-          </span>
+          <span>AI 小叙</span>
         </button>
-        {previous !== null && value === applied && (
-          <button
-            type="button"
-            className="xiaoxu-undo"
-            onClick={() => {
-              write(previous)
-              setPrevious(null)
-            }}
-          >
-            撤销优化
-          </button>
-        )}
+        <div className="writing-toolbar-actions">
+          <button type="button" aria-label="语音转文字" title="语音转文字" aria-expanded={voiceOpen} onClick={() => setVoiceOpen(!voiceOpen)}><Microphone size={18} /></button>
+          <button type="button" aria-label="AI优化" title="AI优化" onClick={start}><Sparkle size={18} /></button>
+          <button type="button" aria-label="撤销优化" title="撤销优化" disabled={previous === null || value !== applied} onClick={() => {
+            if (previous !== null) { write(previous); setPrevious(null) }
+          }}><ArrowCounterClockwise size={18} /></button>
+        </div>
       </div>
+      {voiceOpen && (
+        <section className="xiaoxu-panel writing-voice-panel" aria-label={`语音转文字：${label}`}>
+          <div className="xiaoxu-panel-head"><b>口述成文 · 演示</b><button type="button" aria-label="收起口述成文" onClick={() => setVoiceOpen(false)}>×</button></div>
+          <p className="xiaoxu-disclaimer">在这里模拟语音识别。确认后文字会放入上方输入框。</p>
+          <textarea aria-label="口述识别文字" value={spoken} onChange={(e) => setSpoken(e.target.value)} placeholder="说出你想留下的话……" />
+          <div className="writing-voice-actions">
+            <button type="button" onClick={() => setSpoken('那天您耐心听我讲完，我一直记得这份温暖。')}>模拟口述</button>
+            <button type="button" disabled={!spoken.trim()} onClick={() => { write((value ? value + '\n' : '') + spoken.trim()); setSpoken(''); setVoiceOpen(false) }}>放入文字</button>
+          </div>
+        </section>
+      )}
       {open && (
         <section className="xiaoxu-panel" aria-label={`小叙建议：${label}`}>
           <div className="xiaoxu-panel-head">
