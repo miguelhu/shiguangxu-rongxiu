@@ -8,8 +8,6 @@ import {
   UsersThree,
   Bell,
   UserCircle,
-  WifiHigh,
-  BatteryFull,
   Plus,
 } from '@phosphor-icons/react'
 import { Page, coSteps, coLabels, Photo, stickers, resource } from './data'
@@ -187,14 +185,6 @@ export function Phone({
         </div>
       )}
       <div className="phone">
-        <div className="statusbar">
-          <b>9:41</b>
-          <span className="island" />
-          <span>
-            <WifiHigh size={17} />
-            <BatteryFull size={21} />
-          </span>
-        </div>
         <div className="phone-header">
           <button aria-label="返回" onClick={() => go(back[page] || 'people')}>
             <ArrowLeft size={21} />

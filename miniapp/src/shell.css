@@ -25,7 +25,7 @@ body { margin: 0; min-width: 320px; background: #f4f1e9; }
   body { background:#fbf3eb; }
   .standalone-miniapp { padding: 0; display:block; min-height:100dvh; }
   .standalone-miniapp .device-column { width:100%; max-width:none; }
-  .standalone-miniapp .phone { width:100%; max-width:none; height:100dvh; min-height:0; padding-top:max(10px, env(safe-area-inset-top)); border:0; border-radius:0; box-shadow:none; }
+  .standalone-miniapp .phone { width:100%; max-width:none; height:100dvh; min-height:0; padding:0; border:0; border-radius:0; box-shadow:none; }
   .role-landing { place-items: start center; padding: max(28px, env(safe-area-inset-top)) 22px max(28px, env(safe-area-inset-bottom)); }
   .role-landing-card { padding-top: 10px; }
   .role-landing-brand { margin-bottom: min(12vh, 82px); }
