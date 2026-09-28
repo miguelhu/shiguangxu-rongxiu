@@ -145,6 +145,11 @@ export function Activate({ go }: { go: (p: Page) => void }) {
                 shareReady: old.notifyAfterOpen !== false,
               }))
               go('ceremony')
+              window.setTimeout(() => {
+                window.location.assign(
+                  '/photoframe/#/frame?scenario=teacher-retirement&variant=new',
+                )
+              }, 0)
             }}
           >
             {s.openedAt ? '再次看看' : '打开看看'}
