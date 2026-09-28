@@ -79,7 +79,7 @@ export function WritingArea(props: Props) {
           <textarea aria-label="口述识别文字" value={spoken} onChange={(e) => setSpoken(e.target.value)} placeholder="说出你想留下的话……" />
           <div className="writing-voice-actions">
             <button type="button" onClick={() => setSpoken('那天您耐心听我讲完，我一直记得这份温暖。')}>模拟口述</button>
-            <button type="button" disabled={!spoken.trim()} onClick={() => { write((value ? value + '\n' : '') + spoken.trim()); setSpoken(''); setVoiceOpen(false) }}>放入文字</button>
+            <button type="button" disabled={!spoken.trim()} onClick={() => { write(((value ? value + '\n' : '') + spoken.trim()).slice(0, limit)); setSpoken(''); setVoiceOpen(false) }}>放入文字</button>
           </div>
         </section>
       )}
