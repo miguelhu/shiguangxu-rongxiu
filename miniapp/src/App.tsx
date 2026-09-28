@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { FrameCorners, CaretDown } from '@phosphor-icons/react'
+import { UsersThree, ClipboardText } from '@phosphor-icons/react'
 import { Account, Messages } from './v6/Account'
 import { Contributor } from './v6/Contributor'
 import { Entry, Gifts, Preparation, ShareCard } from './v6/Preparation'
@@ -18,7 +18,6 @@ import './v6/v5.css'
 import './shell.css'
 
 const STORE = 'sgx-rongxiu-miniapp-extract-v1'
-const honorCases = cases.filter((item) => item.category === '荣休礼')
 const contributorPages: Array<[Page, string]> = [
   ['welcome', '共创欢迎'], ['identity', '身份关系'], ['impressions', '印象标签'],
   ['photos', '时光照片'], ['stories', '话题故事'], ['wishes', '祝福心意'],
@@ -63,7 +62,12 @@ export default function App() {
   const s = state.cases[c.id]
   const page = s.page
   const inferredRole: Role = coordinatorPages.some(([id]) => id === page) ? 'coordinator' : 'contributor'
-  const [viewRole, setViewRole] = useState<Role>(inferredRole)
+  const urlRole = new URLSearchParams(location.search).get('role') as Role | null
+  const [viewRole, setViewRole] = useState<Role>(urlRole || inferredRole)
+  const [showRoleLanding, setShowRoleLanding] = useState(() => {
+    const params = new URLSearchParams(location.search)
+    return !params.has('role') && !params.has('page')
+  })
   const role = viewRole
 
   const patch: DemoContext['patch'] = (update) => {
@@ -105,6 +109,17 @@ export default function App() {
     setViewRole(next)
     go(next === 'coordinator' ? 'workspace' : 'people')
   }
+  const enterRole = (next: Role) => {
+    const nextPage: Page = next === 'coordinator' ? 'gifts' : 'welcome'
+    const url = new URL(location.href)
+    url.searchParams.set('role', next)
+    url.searchParams.set('case', 'teacher')
+    url.searchParams.set('page', nextPage)
+    history.pushState(null, '', url)
+    setViewRole(next)
+    setShowRoleLanding(false)
+    go(nextPage)
+  }
   const notify = (message: string) => setNotice(message)
   const modal = (title: string, content: ReactNode) => setDialog({ title, content })
   const closeModal = () => setDialog(null)
@@ -120,11 +135,27 @@ export default function App() {
     }
   }, [state])
   useEffect(() => {
+    if (showRoleLanding) return
     const url = new URL(location.href)
+    url.searchParams.set('role', role)
     url.searchParams.set('case', c.id)
     url.searchParams.set('page', page)
     history.replaceState(null, '', url)
-  }, [c.id, page])
+  }, [c.id, page, role, showRoleLanding])
+  useEffect(() => {
+    const syncFromHistory = () => {
+      const params = new URLSearchParams(location.search)
+      if (!params.has('role') && !params.has('page')) {
+        setShowRoleLanding(true)
+        return
+      }
+      const nextRole = params.get('role') as Role | null
+      if (nextRole === 'contributor' || nextRole === 'coordinator') setViewRole(nextRole)
+      setShowRoleLanding(false)
+    }
+    addEventListener('popstate', syncFromHistory)
+    return () => removeEventListener('popstate', syncFromHistory)
+  }, [])
   useEffect(() => {
     if (!notice) return
     const timer = setTimeout(() => setNotice(''), 4000)
@@ -161,33 +192,36 @@ export default function App() {
   )
   else content = <Contributor page={page} go={go} />
 
+  if (showRoleLanding) return (
+    <main className="role-landing">
+      <section className="role-landing-card">
+        <div className="role-landing-brand" aria-label="拾光叙">
+          <span>拾</span>
+          <strong>拾光叙</strong>
+        </div>
+        <p className="role-landing-eyebrow">荣休礼 · 小程序体验</p>
+        <h1>想从哪个身份<br />开始体验？</h1>
+        <p className="role-landing-intro">选择后进入对应的小程序首页。返回这一页，可以随时切换身份。</p>
+        <div className="role-choice-list">
+          <button onClick={() => enterRole('contributor')}>
+            <span className="role-choice-icon"><UsersThree size={27} weight="light" /></span>
+            <span><b>我是共创者</b><small>受邀留下照片、故事与祝福</small></span>
+            <i>→</i>
+          </button>
+          <button onClick={() => enterRole('coordinator')}>
+            <span className="role-choice-icon"><ClipboardText size={27} weight="light" /></span>
+            <span><b>我是统筹者</b><small>发起礼物、邀请大家并整理成品</small></span>
+            <i>→</i>
+          </button>
+        </div>
+        <p className="role-landing-note">演示内容不会真实发送</p>
+      </section>
+    </main>
+  )
+
   return (
     <Context.Provider value={context}>
       <div className="standalone-miniapp app-v5">
-        <header className="extract-header">
-          <FrameCorners size={24} />
-          <strong>拾光叙 · 荣休礼小程序</strong>
-          <label>
-            <span className="sr-only">选择人物</span>
-            <select value={c.id} onChange={(event) => switchCase(event.target.value as CaseId)}>
-              {honorCases.map((item) => <option key={item.id} value={item.id}>{item.address}</option>)}
-            </select>
-            <CaretDown size={14} />
-          </label>
-        </header>
-        <nav className="showcase-controls" aria-label="小程序角色与页面">
-          <div className="showcase-role-tabs">
-            <button className={role === 'contributor' ? 'active' : ''} onClick={() => { setViewRole('contributor'); go('welcome') }}>共创者</button>
-            <button className={role === 'coordinator' ? 'active' : ''} onClick={() => { setViewRole('coordinator'); go('gifts') }}>统筹者</button>
-          </div>
-          <label className="showcase-page-picker">
-            <span>当前页面</span>
-            <select value={(role === 'coordinator' ? coordinatorPages : contributorPages).some(([id]) => id === page) ? page : ''} onChange={(event) => go(event.target.value as Page)}>
-              <option value="" disabled>选择页面</option>
-              {(role === 'coordinator' ? coordinatorPages : contributorPages).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
-            </select>
-          </label>
-        </nav>
         <Phone page={page} go={go} title={managedPages.includes(page) ? '整理成礼' : '拾光叙'}>
           {content}
         </Phone>
