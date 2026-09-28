@@ -20,6 +20,7 @@ import { Entry, Preparation, Gifts, ShareCard } from './Preparation'
 import { Account, Messages } from './Account'
 import { Greeting, Guest } from './Greeting'
 import Frame from './Frame'
+import { CoCreationBoard } from './CoCreationBoard'
 import { PhotoImage, stopMedia } from './media'
 import { roles, lifecycle, stageOf, stageEnabled, managedPages, isManager } from './workflow'
 import './styles.css'
@@ -52,6 +53,8 @@ const allPages: Page[] = [
   'waiting',
   'guest',
   'progress',
+  'board',
+  'board_manage',
   'invite_manage',
   'gifts',
   'ceremony',
@@ -260,7 +263,7 @@ export default function App() {
     if (managedPages.includes(p) && r !== 'coordinator')
       return (
         <div className="phone-body">
-          <Note>这一步由统筹者负责。你的心意已经在礼物中，稍后可以回来查看成果。</Note>
+          <Note>你的心意已经在礼物中，稍后可以回来查看成果。</Note>
           <Button onClick={() => navigate('people')}>我参与的人</Button>
         </div>
       )
@@ -276,6 +279,7 @@ export default function App() {
         </div>
       )
     if (p === 'send') return <SendChoose go={navigate} />
+    if (p === 'board' || p === 'board_manage') return <CoCreationBoard go={navigate} />
     if (p === 'gifts') return <Gifts go={navigate} />
     if (managedPages.includes(p)) return <Preparation page={p} go={navigate} />
     if (p === 'share') return <ShareCard />
@@ -304,8 +308,8 @@ export default function App() {
           </button>
         </div>
       )
-    if (p === 'onsite' || p === 'greeting')
-      return <Greeting onsite={p === 'onsite'} go={navigate} />
+    if (p === 'onsite') return <Guest go={navigate} />
+    if (p === 'greeting') return <Greeting go={navigate} />
     if (p === 'messages' && r === 'coordinator')
       return (
         <div className="phone-body">

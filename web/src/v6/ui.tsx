@@ -149,6 +149,8 @@ export function Phone({
     wishes: 'stories',
     preview: 'wishes',
     success: 'people',
+    board: 'progress',
+    board_manage: 'workspace',
     person: 'people',
     workspace: 'gifts',
     review_photos: 'workspace',

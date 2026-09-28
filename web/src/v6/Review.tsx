@@ -94,18 +94,18 @@ export function Review({ page, go }: { page: Page; go: (p: Page) => void }) {
   return (
     <div className="phone-body">
       <div className="eyebrow">
-        整理成品 · {type === 'photos' ? '照片' : type === 'stories' ? '故事' : '祝福'}
+        整理成礼 · {type === 'photos' ? '照片' : type === 'stories' ? '故事' : '祝福'}
       </div>
       <h2>
         {type === 'photos'
-          ? '让照片，按时光展开。'
+          ? '让照片，顺着时光长河铺开。'
           : type === 'stories'
             ? '每个故事，都值得被听见。'
             : '把每一句祝福，认真留下。'}
       </h2>
       {type !== 'wishes' && (
         <p className="helper">
-          默认按时间从早到晚，不记得时间的放在后面。按住拖动柄上下移动；键盘可用方向键调整。
+          这些内容已经按时间初步排好了。不确定日期的放在后面，你也可以拖动调整。
         </p>
       )}
       {type === 'photos' &&
@@ -125,7 +125,7 @@ export function Review({ page, go }: { page: Page; go: (p: Page) => void }) {
             <p>{p.caption}</p>
             <small>{p.date || '时间未记录'}</small>
             <button
-              className="text-button"
+              className="text-button exclude-control"
               onClick={() =>
                 mutate({
                   excludedPhotos: [
@@ -135,7 +135,7 @@ export function Review({ page, go }: { page: Page; go: (p: Page) => void }) {
                 })
               }
             >
-              从成品移除
+              这张先不放进成品
             </button>
           </ReorderItem>
         ))}
@@ -153,8 +153,14 @@ export function Review({ page, go }: { page: Page; go: (p: Page) => void }) {
             onOrder={(storyOrder) => mutate({ storyOrder })}
           >
             <BlockCard block={b} />
+            <button className="text-button exclude-control" onClick={() => mutate({ excludedStories: [...(s.excludedStories || []), b.id] })}>
+              这篇先不放进成品
+            </button>
           </ReorderItem>
         ))}
+      {type === 'stories' && !!s.excludedStories?.length && (
+        <button className="text-button" onClick={() => mutate({ excludedStories: [] })}>恢复移除的故事</button>
+      )}
       {type === 'wishes' && (
         <>
           <h3>文字与语音祝福</h3>
@@ -178,7 +184,7 @@ export function Review({ page, go }: { page: Page; go: (p: Page) => void }) {
           )}
         </>
       )}
-      <Note>调整只影响待确认成品，作者原投稿仍保留。</Note>
+      <Note>这里只调整最终送出的内容，原投稿会继续保留。</Note>
       <Button
         onClick={() => {
           patch((old) => ({ review: { ...old.review, [type]: true, previewed: false } }))

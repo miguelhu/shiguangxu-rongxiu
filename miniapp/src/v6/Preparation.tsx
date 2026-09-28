@@ -23,7 +23,7 @@ const tasks = [
   '看照片',
   '看故事',
   '看祝福',
-  '大家写给你的一封信',
+  'AI祝福信 · 大家写给你的一封信',
   '预览相框成品',
   '确认仪式版本',
 ]
@@ -508,6 +508,7 @@ export function Preparation({
   if (page === 'letter' && !reviewsDone(s))
     return (
       <div className="phone-body">
+        <div className="eyebrow">AI祝福信 · 大家写给你的一封信</div>
         <h2>先把大家的心意检查一遍。</h2>
         <Note>照片、故事、祝福全部检查完成后，小叙再整理总信。</Note>
         <Button onClick={() => go('review_photos')}>开始检查内容</Button>
@@ -516,7 +517,7 @@ export function Preparation({
   if (page === 'letter')
     return (
       <div className="phone-body coordinator-letter">
-        <div className="eyebrow">整理成品 · 05</div>
+        <div className="eyebrow">AI祝福信 · 小叙协助整理</div>
         <h2>
           大家写给你的
           <br />
@@ -730,7 +731,7 @@ export function Preparation({
           return (
             <button
               key={t}
-              disabled={i === 4 && !reviewsDone(s)}
+
               onClick={() => {
                 go(
                   (

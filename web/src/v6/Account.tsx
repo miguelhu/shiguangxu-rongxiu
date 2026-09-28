@@ -24,7 +24,6 @@ import { birthdays } from './workflow'
 export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
   const { c, s, state, setState, patch, switchCase, modal, closeModal, notify } = useDemo()
   const [query, setQuery] = useState('')
-  const [completion, setCompletion] = useState('completed')
   const [personFilter, setPersonFilter] = useState('all')
   const [kind, setKind] = useState('all')
   const [selected, setSelected] = useState<string[]>([])
@@ -75,6 +74,9 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
           </small>
           <small>最近送出 · {cs.lastSent || '参与过这份礼物'}</small>
         </div>
+        <em className={`person-status ${cs.contributionStarted && !cs.submission ? 'unfinished' : 'completed'}`}>
+          {cs.contributionStarted && !cs.submission ? '未完成' : '已完成'}
+        </em>
         <ArrowRight size={20} />
       </button>
     )
@@ -88,40 +90,13 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
           <br />
           值得一直惦记。
         </h2>
-        <div className="segmented completion-tabs">
-          {[
-            ['completed', '已完成'],
-            ['unfinished', '未完成'],
-          ].map(([v, t]) => (
-            <button
-              key={v}
-              className={completion === v ? 'active' : ''}
-              aria-pressed={completion === v}
-              onClick={() => setCompletion(v)}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
+        <p className="helper">你参与过的人都会留在这里，以后可以直接给他们发照片或问候。</p>
         <div className="people-list">
           {related
-            .filter((x) => {
-              const cs = state.cases[x.id]
-              const unfinished = cs.contributionStarted && !cs.submission
-              return completion === 'unfinished' ? unfinished : !unfinished
-            })
+            .slice()
+            .sort((a, b) => (state.cases[b.id].lastSent || state.cases[b.id].host.date).localeCompare(state.cases[a.id].lastSent || state.cases[a.id].host.date))
             .map(personCard)}
         </div>
-        {!related.some((x) =>
-          completion === 'unfinished'
-            ? state.cases[x.id].contributionStarted && !state.cases[x.id].submission
-            : !(state.cases[x.id].contributionStarted && !state.cases[x.id].submission),
-        ) && (
-          <Note>
-            {completion === 'unfinished' ? '没有待完成的共创邀请。' : '还没有已完成的共创。'}
-          </Note>
-        )}
-        <p className="helper">你参与过的人都会留在这里，以后可以直接给他们发照片或问候。</p>
       </div>
     )
   if (page === 'person')
@@ -194,7 +169,7 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
           <b>为重要的人，准备一份大家共同完成的礼物。</b>
           <span>看看拾光叙可以怎么送 →</span>
         </button>
-        {state.role === 'coordinator' && <Gifts go={go} embedded />}
+        <Gifts go={go} embedded />
       </div>
     )
   if (page === 'settings')
@@ -710,6 +685,15 @@ export function Messages({ go }: { go: (p: Page) => void }) {
           <h3>{s.host.address}已经打开大家一起准备的礼物</h3>
           <p>谢谢你的参与，一起看看最终成品。</p>
           <b>查看最终成品 →</b>
+        </button>
+      )}
+      {s.openedAt && (
+        <button className="notification-card elder-response-card" onClick={() => go('person')}>
+          <span>长者回应 · 新的回应</span>
+          <h3>{s.host.address}回应了大家的心意</h3>
+          <PhotoImage path={s.host.cover} alt={s.host.name} />
+          <p>“谢谢你们还记得这些小事。看到那张老照片，我也想起了当时的你们。”</p>
+          <b>看看这份回应 <ArrowRight size={18} /></b>
         </button>
       )}
       <button
