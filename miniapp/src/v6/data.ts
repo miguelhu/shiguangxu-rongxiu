@@ -323,7 +323,14 @@ export const stickers = [
 export function resource(path: string) {
   if (/^(data:|blob:|https?:)/.test(path)) return path
   const embedded = (window as Window & { __DEMO_MEDIA__?: Record<string, string> }).__DEMO_MEDIA__
-  return embedded?.[path] || `${import.meta.env.BASE_URL}${path}`
+  if (embedded?.[path]) return embedded[path]
+  // The showcase is deployed below /mini-program-showcase/, while its media library
+  // is shared with the main site at the domain root. Keeping one canonical copy
+  // prevents a release switch from leaving the mini-program with missing media.
+  if (location.pathname.startsWith('/mini-program-showcase/')) {
+    return new URL(path.replace(/^\.\//, ''), `${location.origin}/`).href
+  }
+  return `${import.meta.env.BASE_URL}${path}`
 }
 export function topics(codes: string[]) {
   const code = codes[0]
