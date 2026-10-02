@@ -3,7 +3,6 @@ import { Microphone, Stop } from '@phosphor-icons/react'
 import { useDemo } from './context'
 import { AudioPlayer, saveMedia } from './media'
 import { Button } from './ui'
-import { PhotoImage } from './media'
 export function VoiceInput({
   path,
   text,
@@ -74,31 +73,15 @@ export function VoiceInput({
   }
   return (
     <div className="voice-input">
-      <div className="xiaoxu-voice-template">
-        <div className="xiaoxu-voice-heading">
-          <PhotoImage path="images/xiaoxu-helper.png" alt="AI小叙" />
-          <div>
-            <b>AI 小叙</b>
-            <span>你也可以这么说</span>
-          </div>
-        </div>
-        <p>
-          我是____，想对您说……
-          <br />
-          最想谢谢您的是……
-          <br />
-          接下来的日子，希望您……
-        </p>
-      </div>
       {recording ? (
         <Button onClick={() => recorder.current?.stop()}>
           <Stop />
-          结束录音 · {seconds}秒
+          完成录音 · {seconds}秒
         </Button>
       ) : (
         <Button secondary onClick={record}>
           <Microphone />
-          开始录音 · 最长60秒
+          开始录音
         </Button>
       )}
       {path && (

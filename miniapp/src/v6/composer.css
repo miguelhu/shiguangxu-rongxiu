@@ -1,0 +1,29 @@
+/* Shared compact writing controls for every contribution field. */
+.writing-assist .writing-input-row>textarea:placeholder-shown{white-space:nowrap}
+.writing-assist .writing-input-row{display:flex;align-items:flex-end;gap:8px;padding:7px 8px;border:1px solid #dedfd4;border-radius:12px;background:#fffcf7;min-height:58px}
+.writing-assist .writing-input-row>textarea{flex:1;min-width:0;width:100%;min-height:44px!important;max-height:144px!important;margin:0!important;padding:10px 0!important;border:0!important;border-radius:0;background:transparent!important;font:16px/24px -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif!important;resize:none;overflow-y:auto;box-shadow:none!important}
+.writing-assist .writing-input-row>button{flex:0 0 36px;display:grid;place-items:center;width:36px;height:44px;min-height:0;padding:0!important;border:0!important;background:transparent!important;color:#3f6558}
+.writing-assist .writing-input-row>.xiaoxu-invite{margin:0!important;border-radius:0!important;position:static!important;box-shadow:none!important}
+.writing-assist .writing-input-row>.xiaoxu-invite img{width:32px!important;height:32px!important;border-radius:50%;object-fit:cover}
+.composer-undo{display:flex;align-items:center;gap:5px;margin:7px 0 12px;font-size:12px;color:#61725e}
+.contributor-body .topic-custom{margin:20px 0 14px}
+.contributor-body .topic-custom>button{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;padding:12px 16px;border:1px solid #cbd6c3;border-radius:12px;background:#edf1e5;color:#3f6558;font-size:16px;line-height:24px;text-align:center}
+.contributor-body .topic-gallery.text-topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.contributor-body .text-topic-grid>button{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;min-height:146px;padding:17px 14px;text-align:left;border:1px solid #e0e2d6;border-radius:15px;background:#fffbf4;box-shadow:0 5px 15px #3f655808}
+.contributor-body .text-topic-grid h3{font-size:18px;line-height:1.65;margin:0 0 16px}
+.contributor-body .text-topic-grid>button>span{font-size:13px;padding:4px 10px;background:#edf1e5;border-radius:20px;color:#3f6558}
+.contributor-body .story-editor{padding:16px;margin:16px 0;border:1px solid #e0e2d6;border-radius:14px;background:#fffcf7}
+.contributor-body .story-editor>.story-title-input{display:block;width:100%;height:44px;min-height:44px;margin:0 0 12px;padding:7px 0;border:0;border-bottom:1px solid #e3e3d9;border-radius:0;background:transparent;font:17px/28px -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif}
+.contributor-body .story-card-tools{display:flex;justify-content:flex-end;margin:0}
+.contributor-body .story-card-tools button{width:30px;height:30px;padding:4px;border:0;background:none;color:#7b8475}
+.before-writing-example{margin:18px 0;padding:14px 16px;border-left:3px solid #c4d0b8;background:#f0f2e8;border-radius:0 12px 12px 0}
+.before-writing-example b{display:block;font-size:13px;font-weight:500;color:#567157}
+.before-writing-example p{margin:7px 0 0;font-size:14px;line-height:1.8;color:#66705f}
+.wish-attachments{display:flex;gap:10px;align-items:center;margin:12px 0 18px}
+.wish-attachments>button,.wish-attachments .upload{min-height:42px!important;margin:0!important;padding:8px 18px!important;border:1px solid #d9dfd0!important;border-radius:10px!important;background:#f2f4eb!important;color:#3f6558;font-size:14px;flex:1;text-align:center}
+.contributor-body .voice-input{padding:12px;margin:12px 0;background:#f2f4eb;border:0;border-radius:12px}
+.contributor-body .voice-input>.btn{margin:0;min-height:44px;font-size:15px}
+.contributor-body .wish-presets{margin-top:18px}
+.contributor-body .photo-strip>div{position:relative;flex:0 0 90px}
+.contributor-body .photo-strip>div>img{width:90px;height:90px;object-fit:cover}
+.contributor-body .photo-strip>div>button{display:block;margin:5px auto;font-size:12px;color:#677462}

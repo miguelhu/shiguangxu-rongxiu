@@ -1,6 +1,7 @@
 import { useState, useRef, useLayoutEffect, TextareaHTMLAttributes, ChangeEvent } from 'react'
-import { Microphone, Sparkle, ArrowCounterClockwise } from '@phosphor-icons/react'
+import { Microphone, ArrowCounterClockwise } from '@phosphor-icons/react'
 import { resource } from './data'
+import './composer.css'
 
 type Props = TextareaHTMLAttributes<HTMLTextAreaElement>
 export function polishWriting(text: string, mode: string, limit: number) {
@@ -36,7 +37,7 @@ export function WritingArea(props: Props) {
   useLayoutEffect(() => {
     if (!ref.current) return
     ref.current.style.height = 'auto'
-    ref.current.style.height = `${Math.max(46, ref.current.scrollHeight)}px`
+    ref.current.style.height = value ? `${Math.min(144, Math.max(44, ref.current.scrollHeight))}px` : '44px'
   }, [value])
   const write = (text: string) => {
     props.onChange?.({
@@ -48,12 +49,15 @@ export function WritingArea(props: Props) {
   const start = () => {
     setBaseline(value)
     setSuggestion(polishWriting(value, 'natural', limit))
+    setVoiceOpen(false)
     setOpen(!open)
   }
   return (
     <div className="writing-assist">
-      <textarea {...props} rows={props.rows ?? 1} ref={ref} />
-      <div className="writing-toolbar" aria-label="文字辅助工具">
+      <div className="writing-input-row">
+      <button className="composer-mic" type="button" aria-label="语音转文字" onClick={() => { setVoiceOpen(!voiceOpen); setOpen(false) }}><Microphone size={21} /></button>
+      <textarea {...props} rows={1} ref={ref} />
+
         <button
           type="button"
           className="xiaoxu-invite"
@@ -62,16 +66,10 @@ export function WritingArea(props: Props) {
           onClick={start}
         >
           <img src={resource('images/xiaoxu-helper.png')} alt="小叙" />
-          <span>AI 小叙</span>
+
         </button>
-        <div className="writing-toolbar-actions">
-          <button type="button" aria-label="语音转文字" title="语音转文字" aria-expanded={voiceOpen} onClick={() => setVoiceOpen(!voiceOpen)}><Microphone size={18} /></button>
-          <button type="button" aria-label="AI优化" title="AI优化" onClick={start}><Sparkle size={18} /></button>
-          <button type="button" aria-label="撤销优化" title="撤销优化" disabled={previous === null || value !== applied} onClick={() => {
-            if (previous !== null) { write(previous); setPrevious(null) }
-          }}><ArrowCounterClockwise size={18} /></button>
-        </div>
       </div>
+      {previous !== null && value === applied && <button className="composer-undo" type="button" onClick={() => { write(previous); setPrevious(null) }}><ArrowCounterClockwise size={16}/>撤销优化</button>}
       {voiceOpen && (
         <section className="xiaoxu-panel writing-voice-panel" aria-label={`语音转文字：${label}`}>
           <div className="xiaoxu-panel-head"><b>口述成文 · 演示</b><button type="button" aria-label="收起口述成文" onClick={() => setVoiceOpen(false)}>×</button></div>

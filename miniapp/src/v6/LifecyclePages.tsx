@@ -5,6 +5,7 @@ import { PhotoImage } from './media'
 import { Page, Photo, CaseId, cases, datasets, relationLabel } from './data'
 import { WritingArea } from './WritingAssist'
 import { Block } from './model'
+import { WritingExample } from './WritingExample'
 export function Welcome({ go }: { go: (p: Page) => void }) {
   const { c, s, patch } = useDemo()
   return (
@@ -34,6 +35,7 @@ export function Welcome({ go }: { go: (p: Page) => void }) {
         )}
         {s.host.bio && <p className="welcome-bio-copy">{s.host.bio}</p>}
         <p className="deadline">共创截止 · {s.host.deadline}</p>
+        {!s.submission && <WritingExample />}
         <Button
           onClick={() => {
             patch({ contributionStarted: true })

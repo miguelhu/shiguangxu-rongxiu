@@ -2,7 +2,8 @@ import { PhotoDate } from './PhotoDate'
 import { WritingArea } from './WritingAssist'
 import { validPhotoDate } from './workflow'
 import { useRef, useState } from 'react'
-import { ArrowRight, Check, Camera, Plus, Sparkle, Trash } from '@phosphor-icons/react'
+import { ArrowRight, Check, Camera, Plus, Trash } from '@phosphor-icons/react'
+import { WritingExample } from './WritingExample'
 import { useDemo } from './context'
 import { Page, relations, relationLabel, datasets, topics, coSteps, coLabels, Photo } from './data'
 import {
@@ -141,7 +142,7 @@ export const wishSuggestions = [
   '新的一程，愿您有书可读、有景可看、有人相伴。',
 ]
 export function Contributor({ page, go }: { page: Page; go: (p: Page) => void }) {
-  const { c, s, patch, modal, closeModal, notify } = useDemo()
+  const { c, s, patch, notify } = useDemo()
   const d = s.draft
   const data = datasets[c.id]
   const actor = data.authors.find((a) => a.id === d.authorId) || data.authors[0]
@@ -153,6 +154,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
   const [wishBatch, setWishBatch] = useState(0)
   const [round, setRound] = useState(0)
   const [peerVisible, setPeerVisible] = useState<Record<string, boolean>>({})
+  const [wishVoice, setWishVoice] = useState(false)
   const submitting = useRef(false)
   const change = (v: Partial<Draft>) => patch((old) => ({ draft: { ...old.draft, ...v } }))
   const sample = () => {
@@ -178,7 +180,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
           ? d.photos.length
           : page === 'stories'
             ? d.stories.some((x) => x.body.trim())
-            : d.wish.trim() || d.audio
+            : d.wish.trim() || d.audio || d.wishPhotos.length
     patch((old) => ({
       draft: {
         ...old.draft,
@@ -523,11 +525,14 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
             {
               impressions: '提起对方，\n你先想到什么？',
               photos: '留下一张，\n值得记住的照片。',
-              stories: '不用配图，\n认真讲一件事就好。',
+              stories: '有些事没有照片，\n你却一直记得。',
               wishes: '有些祝福，\n简单说也很动人。',
             }[page as 'impressions']
           }
         </h2>
+        {page === 'stories' && !d.stories.some(story => story.body.trim()) && (
+          <WritingExample />
+        )}
         {examples && (
           <div className="example-panel">
             <p>可以参考{actor.name}的表达，再改成属于你的心意。</p>
@@ -656,14 +661,13 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
                   requestAnimationFrame(() => document.getElementById('story-' + id)?.scrollIntoView({ behavior: 'smooth', block: 'center' }))
                 }}
               >
-                <span><b>自定义话题</b><small>想说什么，就从这里开始</small></span>
-                <Plus size={20} />
+                <span>写一个自己的话题</span>
               </button>
             </div>
             <div className="topic-cards topic-gallery text-topic-grid">
               {(() => {
-                const pool = topics([d.primary]), group = round % 5
-                const choices = group === 0 ? pool.slice(0, 3) : pool.slice(3 + (group - 1) * 4, 3 + group * 4)
+                const pool = topics([d.primary]), group = round % Math.ceil(pool.length / 4)
+                const choices = Array.from({ length: 4 }, (_, i) => pool[(group * 4 + i) % pool.length])
                 return choices
               })().map(
                 (t) => {
@@ -710,7 +714,7 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
               )}
             </div>
             <button className="text-button" onClick={() => setRound((x) => x + 1)}>
-              换一组话题 · {(round % 5) + 1}/5
+              换一组话题
             </button>
             {d.stories.map((story, i) => {
               const update = (v: Partial<typeof story>) =>
@@ -718,11 +722,11 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
               return (
                 <div className="story-editor" id={'story-' + story.id} key={story.id}>
                   <div className="story-card-tools">
-                    <button aria-label="拖动故事排序">⠿</button>
+
                     <button aria-label="删除故事" onClick={() => change({ stories: d.stories.filter((x) => x.id !== story.id) })}><Trash size={16} /></button>
                   </div>
-                  <WritingArea
-                    rows={1}
+                  <input
+                    className="story-title-input"
                     aria-label={`故事${i + 1}标题`}
                     value={story.title}
                     maxLength={40}
@@ -735,48 +739,6 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
                     placeholder="从你真正记得的那件事说起…"
                     onChange={(e) => update({ body: e.target.value })}
                   />
-                  <div className="editor-meta">
-                    <span>{story.body.length}/2000</span>
-                    <small>草稿保存在本机</small>
-                  </div>
-                  <button
-                    className="ai-button"
-                    disabled={!story.body.trim()}
-                    onClick={() => {
-                      const exact = data.stories.find((x) => x.id === story.id)?.body === story.body
-                      const text =
-                        exact && data.polished[story.id]
-                          ? data.polished[story.id]
-                          : story.body
-                              .trim()
-                              .replace(/[ \t]+/g, ' ')
-                              .replace(/\n{3,}/g, '\n\n')
-                      modal(
-                        '小叙帮我把这段话理顺',
-                        <div className="polish-compare">
-                          <small>{exact ? '示例整理稿' : '本机格式整理 · 保留你的原意'}</small>
-                          <h3>你的原文</h3>
-                          <p>{story.body}</p>
-                          <h3>整理后</h3>
-                          <p>{text}</p>
-                          <Button
-                            onClick={() => {
-                              update({ original: story.body, body: text })
-                              closeModal()
-                            }}
-                          >
-                            使用整理后的文字
-                          </Button>
-                        </div>,
-                      )
-                    }}
-                  >
-                    <Sparkle size={21} />
-                    <span>
-                      小叙帮我整理<small>保留原意，整理后由你确认</small>
-                    </span>
-                    <ArrowRight />
-                  </button>
                   {story.original && story.original !== story.body && (
                     <button
                       className="text-button"
@@ -788,26 +750,30 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
                 </div>
               )
             })}
-            <small className="helper">有些事没有照片，你却一直记得。最多选择3个话题。</small>
+
           </>
         )}
         {page === 'wishes' && (
           <>
-            <h3>方式一 · 留一段影音</h3>
-            <div className="voice-message-box">
-              <div className="capture-guide" aria-label="拍摄辅助线示意"><i /><i /><i /><i /><span>照片／短视频取景辅助线</span></div>
-              <VoiceInput path={d.audio} text={d.audioText} onChange={(audio, audioText) => change({ audio, audioText })} />
+            <WritingArea
+              aria-label="自定义祝福"
+              maxLength={300}
+              placeholder="写一句想对TA说的话…"
+              value={d.wish}
+              onChange={(e) => change({ wish: e.target.value })}
+            />
+            <div className="wish-attachments">
+              <button className="wish-voice-toggle" onClick={() => setWishVoice(!wishVoice)} aria-expanded={wishVoice}>语音</button>
               <Upload maxFiles={3 - d.wishPhotos.length} onPhoto={(photo) => patch((old) => ({
                 assets: [...old.assets, photo],
                 draft: { ...old.draft, wishPhotos: [...old.draft.wishPhotos, photo.id].slice(0, 3) },
-              }))}>＋ 加一段照片或现场画面</Upload>
-              {!!d.wishPhotos.length && <div className="photo-strip">{d.wishPhotos.map((id) => {
-                const photo = media.find((p) => p.id === id)
-                return photo && <PhotoImage key={id} path={photo.path} alt={photo.caption} />
-              })}</div>}
-              <small>像微信一样按住说话，也可以用＋补充照片或画面。</small>
+              }))}>添加照片</Upload>
             </div>
-            <h3>方式二 · 写一句祝福</h3>
+            {(wishVoice || !!d.audio) && <VoiceInput path={d.audio} text={d.audioText} onChange={(audio, audioText) => change({ audio, audioText })} />}
+            {!!d.wishPhotos.length && <div className="photo-strip">{d.wishPhotos.map((id) => {
+              const photo = media.find((p) => p.id === id)
+              return photo && <div key={id}><PhotoImage path={photo.path} alt={photo.caption} /><button aria-label="移除祝福照片" onClick={() => change({ wishPhotos: d.wishPhotos.filter(p => p !== id) })}>移除</button></div>
+            })}</div>}
             {!customWish && (
               <div className="wish-presets">
                 {Array.from(
@@ -834,18 +800,8 @@ export function Contributor({ page, go }: { page: Page; go: (p: Page) => void })
               </button>
             )}
             <button className="text-button" onClick={() => setCustomWish(!customWish)}>
-              {customWish ? '看看参考祝福' : '自己写一句'}
+              {customWish ? '看看参考祝福' : '收起参考祝福'}
             </button>
-            {customWish && (
-              <WritingArea
-                className="wish-editor"
-                aria-label="自定义祝福"
-                maxLength={300}
-                value={d.wish}
-                onChange={(e) => change({ wish: e.target.value })}
-              />
-            )}
-            <p className="helper">一句文字和一段声音可以一起送出，也可以只选一种。</p>
           </>
         )}
         {error && <p className="error">{error}</p>}
