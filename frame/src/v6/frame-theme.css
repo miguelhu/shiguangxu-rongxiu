@@ -1,0 +1,85 @@
+/* Shared visual language: everyday photo frame → ceremony → mobile → journey. */
+:root {
+  --cream: #fbf3eb;
+  --paper: #fffaf4;
+  --green: #72543d; /* legacy semantic name: primary action */
+  --muted: #786c60;
+  --line: #e8d9c8;
+  --serif: 'Nunito Sans', 'Source Han Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--serif);
+  color: #2f2a24;
+  background: #fbf3eb;
+}
+body { background: #fbf3eb; color: #2f2a24; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -.025em; }
+.app-header, .sidebar, .phone-header, .bottom-tabs {
+  background: rgba(255, 250, 244, .94);
+  border-color: var(--line);
+}
+.sidebar nav button.active { background: #f3e4d5; color: #624631; border-radius: 16px; }
+.stage-heading h1 { color: #3d332b; font-weight: 600; }
+.stage-heading > p, .phone-body .prose { color: #75695e; }
+.phone { border-color: #d9c8b7; background: #e9ddce; box-shadow: 0 20px 55px #7052371c; }
+.phone-screen, .phone-scroll { background: #fbf3eb; }
+.phone-body h2 { color: #3d332b; }
+.btn { border-radius: 18px; background: #72543d; color: #fffaf4; font-weight: 600; }
+.btn.secondary { background: #fbe8d5; color: #634a37; border-color: #e8d9c8; }
+.btn:focus-visible, button:focus-visible { outline-color: #bc7650; }
+.topic-card, .card, .person-card, .gift-card, .writing-example {
+  border-color: #e8d9c8;
+  box-shadow: 0 8px 24px rgba(112,78,47,.055);
+}
+.role-landing, .role-landing h1, .role-choice-list b, .role-landing-brand strong { font-family: var(--serif); }
+.role-choice-icon { background: #fbe8d5; color: #72543d; }
+.physical-frame {
+  background: linear-gradient(125deg,#e6d5c1,#fcf3e7 48%,#d7c4af);
+  border-color: #cbbbA8;
+  border-radius: 24px;
+  box-shadow: 0 22px 48px #49382b26, inset 0 1px 0 #fffaf4;
+}
+.frame-screen { background: #352d26; border-color: #c8b5a1; border-radius: 12px; color: #fffaf4; }
+.cover-shade { background: linear-gradient(90deg,rgba(36,29,23,.78),rgba(36,29,23,.25) 65%,rgba(36,29,23,.05)); }
+.cover-copy h2, .cover-copy > p, .cover-copy .eyebrow, .frame-host, .frame-host small { color: #fffaf4; }
+.cover-copy h2 { font-weight: 600; }
+.frame-screen.chapter-1, .blessing-stage, .ending-stage {
+  background: radial-gradient(ellipse at top,#fffaf4,#f2e4d5);
+  color: #3d332b;
+}
+.chapter-1 .frame-brand, .chapter-1 .frame-brand small,
+.chapter-5 .frame-brand, .chapter-5 .frame-brand small,
+.chapter-6 .frame-brand, .chapter-6 .frame-brand small { color: #756454; }
+.impressions-frame h2, .tag-cloud button, .blessing-center h2, .ending-stage h2 { color: #493a2f; }
+.impressions-frame .eyebrow, .frame-helper, .blessing-center small, .blessing-center > span,
+.ending-stage .eyebrow, .names-ribbon, .ending-stage p { color: #7a6858; }
+.memory-stage, .montage.hero .memory-photo, .montage.quote_photo .memory-photo { background: #352d26; }
+.memory-photo { border-radius: 14px; background: #f5eade; }
+.montage-caption > span { color: #fffaf4; }
+.montage-caption small { color: #dfcdbb; }
+.featured-stage, .letter-frame { background: #fffaf4; color: #493a2f; }
+.featured-copy, .featured-copy h2, .letter-frame h2 { color: #493a2f; }
+.featured-copy > p, .letter-paper, .full-letter { color: #655548; }
+.letter-frame > button { border-color: #dbc5af; background: #fbe8d5; color: #634a37; }
+.blessing-bubble { background: rgba(255,250,244,.94); color: #534234; border: 1px solid #e4d1bd; border-radius: 20px; box-shadow: 0 10px 28px #70523712; }
+.frame-controls .play-memory, .connected-frame-toolbar button.active { background: #fbe8d5; color: #634a37; border-color: #e4cfb9; }
+.chapter-nav button.active { color: #634a37; border-color: #b78761; }
+.connected-frame { background: #f3e9dc; border-color: #e2d1bf; }
+.frame-screen .eyebrow, .frame-helper, .blessing-center small, .blessing-center > span {
+  font-size: clamp(11px, 1.35cqw, 17px);
+}
+.frame-brand, .frame-brand small { font-size: clamp(10px, 1.15cqw, 15px); letter-spacing: .08em; }
+.cover-copy > p, .featured-copy > p, .letter-paper { font-size: clamp(15px, 1.8cqw, 23px); line-height: 1.75; }
+.blessing-bubble b { font-size: clamp(12px, 1.35cqw, 18px); }
+.blessing-bubble p { font-size: clamp(13px, 1.5cqw, 20px); line-height: 1.6; }
+.frame-controls button, .chapter-nav button { font-size: 13px; }
+.chapter-nav button span { font-size: 11px; }
+.montage-caption small { font-size: clamp(11px, 1.3cqw, 16px); }
+.blessing-center { inset: 34% 31% auto; }
+.frame-screen.chapter-6 { background: #fbf3eb; }
+.ending-stage { border-radius: 24px; }
+.ending-stage .names-ribbon span, .ending-stage > small, .ending-stage > button {
+  color: #786452; font-size: clamp(12px, 1.35cqw, 17px);
+}
+.frame-screen.chapter-4 .frame-brand, .frame-screen.chapter-4 .frame-brand small { color: #786452; }
+@media (prefers-reduced-motion: reduce) {
+  .is-playing .memory-photo img, .is-playing .memory-photo, .blessing-bubble { animation: none; }
+}

@@ -16,6 +16,7 @@ import { Button, Modal, Note, Phone } from './v6/ui'
 import './v6/styles.css'
 import './v6/v5.css'
 import './shell.css'
+import './v6/frame-theme.css'
 
 const STORE = 'sgx-rongxiu-miniapp-extract-v1'
 const contributorPages: Array<[Page, string]> = [

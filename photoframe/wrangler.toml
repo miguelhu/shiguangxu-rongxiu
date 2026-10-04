@@ -1,0 +1,7 @@
+name = "ai-frame-prototype-v12"
+compatibility_date = "2026-07-04"
+pages_build_output_dir = "dist"
+
+[[kv_namespaces]]
+binding = "INVITE_KV"
+id = "15bc39ac55bf459381c7cf47cb0ae9d1"

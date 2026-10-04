@@ -1,0 +1,29 @@
+{
+  "name": "ai-frame-prototype-v1-2",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5175",
+    "dev:https": "vite --host 0.0.0.0 --port 5175 --config vite.https.config.ts",
+    "build": "tsc && vite build",
+    "build:photoframe": "tsc && vite build --config vite.photoframe.config.ts",
+    "deploy:cloudbase": "npm run build && tcb hosting deploy dist -e shiguangxu-d7gh7wl4ebbed4d6f",
+    "deploy:cf": "npm run build && npx wrangler pages deploy dist --project-name ai-frame-prototype-v12 --commit-dirty=true",
+    "deploy:all": "npm run build && tcb hosting deploy dist -e shiguangxu-d7gh7wl4ebbed4d6f && npx wrangler pages deploy dist --project-name ai-frame-prototype-v12 --commit-dirty=true",
+    "preview": "vite preview --host 0.0.0.0 --port 4175"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.0"
+  }
+}

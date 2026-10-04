@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preload" as="image" href="/frame-gallery/optimized/01-grandchildren-drawing-dinner.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" href="/perf/frame/elder-message-envelope-front-rect-balanced.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+    <title>拾光叙 · 智能相框</title>
+    <style>
+      html,
+      body,
+      #root {
+        background: #fbf3eb;
+        margin: 0;
+        min-height: 100%;
+      }
+
+      #root:empty::before {
+        background:
+          radial-gradient(circle at 50% 38%, rgba(255, 255, 246, 0.9), transparent 32%),
+          linear-gradient(135deg, #fff8ef 0%, #f7e7d4 48%, #ead3ba 100%);
+        content: "";
+        display: block;
+        min-height: 100vh;
+      }
+    </style>
+    <script>
+      (() => {
+        if (!window.location.hash.startsWith('#/')) {
+          window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#/frame`)
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -25,6 +25,7 @@ import { PhotoImage, stopMedia } from './media'
 import { roles, lifecycle, stageOf, stageEnabled, managedPages, isManager } from './workflow'
 import './styles.css'
 import './v5.css'
+import './frame-theme.css'
 const allPages: Page[] = [
   'settings',
   'invite',

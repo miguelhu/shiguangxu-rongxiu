@@ -11,6 +11,7 @@ import { stopMedia } from './v6/media'
 import './v6/styles.css'
 import './v6/v5.css'
 import './shell.css'
+import './v6/frame-theme.css'
 
 const STORE = 'sgx-rongxiu-frame-extract-v1'
 const honorCases = cases.filter((item) => item.category === '荣休礼')
