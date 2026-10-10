@@ -45,3 +45,9 @@ cd frame && npm ci && npm run dev
 - `frame/src/App.tsx` 只装配绑定、仪式和新心意，不使用网站的角色切换。`frame/src/v6/BlockCard.tsx` 抽出相框需要的内容卡，避免相框播放器依赖整页共创表单。
 
 这次没有改线上域名部署；目录供研发交接、独立审阅与后续移植使用。
+
+## 长者 App
+
+独立代码：[elder-app](elder-app/README.md)。在线预览：https://shiguangxu.miguelhuchen.space/app/ 。
+
+产品规格：[长者App完整PRD V1](docs/PRD/07_拾光叙长者App完整PRD_V1.md)，含小叙对话添加家谱的确认流程和当前实现差距。
