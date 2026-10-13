@@ -50,4 +50,4 @@ cd frame && npm ci && npm run dev
 
 独立代码：[elder-app](elder-app/README.md)。在线预览：https://shiguangxu.miguelhuchen.space/app/ 。
 
-产品规格：[长者App完整PRD V1](docs/PRD/07_拾光叙长者App完整PRD_V1.md)，含小叙对话添加家谱的确认流程和当前实现差距。
+当前产品规格：[长者App全语音Agent PRD V3](docs/PRD/09_长者App全语音Agent完整交互PRD_V3.md)，包含持续对话、相机直发、语音执行所有自有操作、AI选项、权限边界及实际实现差距。
