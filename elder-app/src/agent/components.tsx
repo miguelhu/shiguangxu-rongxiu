@@ -1,7 +1,7 @@
 import {Plus,SpeakerHigh} from '@phosphor-icons/react'
 import {Facts,level,Media,Message} from './model'
 export function HomeNavigation({mine,onHome,onMine}:{mine:boolean,onHome:()=>void,onMine:()=>void}){return <nav className="home-navigation" aria-label="主导航"><button aria-current={!mine?'page':undefined} onClick={onHome}>拾光</button><button aria-current={mine?'page':undefined} onClick={onMine}>我的</button></nav>}
-export function XiaoxuAssistant({compact=false}:{compact?:boolean}){return <div className={`agent-character ${compact?'compact':''}`}><img src="./xiaoxu-helper.png" alt="小叙"/>{compact&&<span>小叙陪您记着</span>}</div>}
+export function XiaoxuAssistant({compact=false}:{compact?:boolean}){return <div className={`agent-character ${compact?'compact':''}`}><img src={compact?"./xiaoxu-helper.png":"./xiaoxu-perch.png"} alt="小叙"/>{compact&&<span>小叙陪您记着</span>}</div>}
 export function WelcomeMessage({name}:{name:string}){return <div className="agent-welcome"><XiaoxuAssistant/><span>我是小叙</span><h1>{name==='陈明远'?'陈老师':name}，您好呀。</h1><p>今天有什么想跟我分享？</p></div>}
 export function UploadTrigger({onClick}:{onClick:()=>void}){return <button className="agent-plus" aria-label="添加照片或录音" onClick={onClick}><Plus size={28}/></button>}
 export function MediaPreview({media}:{media:Media[]}){return <div className="agent-media">{media.map(m=>m.type==='image'?<img key={m.id} src={m.url} alt={m.name}/>:m.type==='video'?<video key={m.id} controls playsInline src={m.url}/>:<audio key={m.id} controls src={m.url}/>)}</div>}

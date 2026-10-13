@@ -448,7 +448,7 @@ export default function App() {
               </button>
             ))}
           </nav>
-          <div className="header-actions">
+          <div className="header-actions"><a href="/app-cases/" style={{fontSize:14,color:'#72543d',whiteSpace:'nowrap'}}>长者 App 案例</a>
             <button
               className="icon-button notes-toggle"
               aria-label="讲解备注"
