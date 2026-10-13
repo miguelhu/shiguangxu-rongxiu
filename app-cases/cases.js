@@ -30,3 +30,5 @@ $('prev').onclick=()=>{if(step){step--;complete=false;render()}};$('next').oncli
 function openLiveApp(view){const screen=document.querySelector('.screen');screen.querySelector('.live-app')?.remove();const frame=document.createElement('iframe');frame.className='live-app';frame.title='拾光叙 App · 我的';frame.src='/app/?view='+view;frame.allow='microphone; camera';screen.classList.add('show-live');screen.insertBefore(frame,screen.querySelector('.home-indicator'));}
 $('appMine').onclick=()=>openLiveApp('me');
 $('appHome').onclick=()=>render();
+
+$('appCamera').onclick=()=>openLiveApp('camera');

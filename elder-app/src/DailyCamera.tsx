@@ -1,0 +1,11 @@
+import {useEffect,useRef,useState} from 'react'
+import {Camera,Images,ArrowsClockwise} from '@phosphor-icons/react'
+export function DailyCamera({onPhoto,onWrite}:{onPhoto:(file:File)=>void,onWrite:()=>void}){
+ const video=useRef<HTMLVideoElement>(null),stream=useRef<MediaStream>(),picker=useRef<HTMLInputElement>(null),mounted=useRef(true)
+ const [ready,setReady]=useState(false),[error,setError]=useState(''),[busy,setBusy]=useState(false),[front,setFront]=useState(false)
+ const stop=()=>{stream.current?.getTracks().forEach(t=>t.stop());stream.current=undefined}
+ useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;stop()}},[])
+ async function open(f=front){stop();setReady(false);setError('');setBusy(true);try{const s=await navigator.mediaDevices.getUserMedia({video:{facingMode:f?'user':'environment'},audio:false});if(!mounted.current){s.getTracks().forEach(t=>t.stop());return}stream.current=s;video.current!.srcObject=s;await video.current!.play();setReady(true)}catch{if(mounted.current)setError('暂时打不开相机，您可以从相册选一张。')}finally{if(mounted.current)setBusy(false)}}
+ function take(){const v=video.current;if(!v?.videoWidth)return;const c=document.createElement('canvas');c.width=v.videoWidth;c.height=v.videoHeight;c.getContext('2d')!.drawImage(v,0,0);c.toBlob(b=>{if(b&&mounted.current){stop();onPhoto(new File([b],'日常照片.jpg',{type:'image/jpeg'}))}},'image/jpeg',.9)}
+ return <section className="daily-camera"><div className="camera-view"><video ref={video} muted playsInline aria-label="相机取景"/>{!ready&&<div className="camera-prompt"><Camera size={48}/><h1>拍下这一刻</h1><button disabled={busy} onClick={()=>void open()}>{busy?'正在打开…':'打开相机'}</button>{error&&<p role="alert">{error}</p>}</div>}<span className="camera-caption">发个日常</span>{ready&&<button className="camera-flip" aria-label="切换前后摄像头" disabled={busy} onClick={()=>{setFront(!front);void open(!front)}}><ArrowsClockwise size={28}/></button>}</div><div className="camera-controls"><button onClick={()=>picker.current?.click()}><Images size={29}/><span>相册</span></button><button className="camera-shutter" aria-label="拍照" disabled={!ready} onClick={take}><span/></button><button onClick={onWrite}>说句话</button></div><input hidden ref={picker} type="file" accept="image/*" onChange={e=>{const f=e.target.files?.[0];if(f)onPhoto(f);e.target.value=''}}/></section>
+}
