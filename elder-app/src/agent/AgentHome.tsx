@@ -3,7 +3,7 @@ import {Camera,Images,Microphone,VideoCamera,X,Check,SpeakerHigh} from '@phospho
 import {ChatComposer} from '../ChatComposer'
 import {ACCOUNTS} from '../Contacts'
 import {Facts,Media,Message,extract,questions,storeMemory} from './model'
-import {AgentSuggestion,ConversationArea,MediaPreview,MemoryActions,MemoryProgress,UploadTrigger,WelcomeMessage,XiaoxuAssistant} from './components'
+import {AgentSuggestion,ConversationArea,MediaPreview,MemoryActions,MemoryProgress,UploadTrigger,WelcomeMessage} from './components'
 import './agent.css'
 type Stage='welcome'|'choice'|'memory'|'share'|'confirm'|'saved'|'conversation'
 export function AgentHome({name,active,recipient}:{name:string,active:boolean,recipient?:string}){
@@ -36,7 +36,7 @@ export function AgentHome({name,active,recipient}:{name:string,active:boolean,re
  function pick(accept:string,capture=false){mediaMode.current=accept;const el=input.current!;el.accept=accept;if(capture)el.setAttribute('capture','environment');else el.removeAttribute('capture');setUpload(false);el.click()}
  function uploadFiles(files:FileList|null){if(!files?.length)return;const items=Array.from(files);if(media.length+items.length>6){setError('这份记录最多放6份内容。您可以先存下，我们继续聊。');return}if(items.some(f=>!(/^(image|video|audio)\//.test(f.type))||f.size>50*1024*1024)){setError('请选择50MB以内的照片、视频或声音文件。');return}const added=items.map(f=>({id:crypto.randomUUID(),type:f.type.split('/')[0] as Media['type'],url:objectURL(f),blob:f,name:f.name}));setMedia(m=>[...m,...added]);setError('');setMessages(m=>[...m,{id:crypto.randomUUID(),role:'user',text:'',media:added}]);if(stage==='share')ai('收到了。选好亲友，我们再确认一下。');else if(stage==='memory'||stage==='saved'){setStage('memory');ai('这份内容也一起留下了。您可以继续讲，或现在存下。')}else{setStage('choice');ai('收到了，您想存起来，还是发给亲友？')}}
  return <div className={`agent-home ${stage==='welcome'&&!voiceStarted?'welcoming':'in-conversation'}`}>
- {stage==='welcome'&&!voiceStarted?<WelcomeMessage name={name}/>:<><XiaoxuAssistant compact/><ConversationArea messages={messages} speak={speak}/></>}
+ {stage==='welcome'&&!voiceStarted?<><WelcomeMessage name={name}/><div className="welcome-intents"><button onClick={()=>choose('memory')}>聊聊以前的事</button><button onClick={()=>choose('share')}>给亲友发个日常</button></div></>:<><ConversationArea messages={messages} speak={speak}/></>}
  {stage==='choice'&&<AgentSuggestion options={[{text:'存起来',action:()=>choose('memory')},{text:'发出去',action:()=>choose('share')}]}/>}
  {stage==='memory'&&<><button className="agent-add-inline" onClick={()=>setUpload(true)}>补充照片或声音</button><MemoryProgress facts={facts}/><MemoryActions busy={busy} onSave={()=>void save('fragment')} onDiscard={()=>setDiscard(true)}/></>}
  {stage==='share'&&<div className="agent-share"><button className="agent-add-inline" onClick={()=>setUpload(true)}>选择照片或其他内容</button><div className="agent-recipients">{ACCOUNTS.map(a=><button key={a.id} aria-pressed={recipients.includes(a.id)} onClick={()=>setRecipients(r=>r.includes(a.id)?r.filter(x=>x!==a.id):[...r,a.id])}><span className={`contact-avatar ${a.tone}`}>{a.initial}</span><span>{a.name}<small>{a.relation}</small></span>{recipients.includes(a.id)&&<Check size={23}/>}</button>)}</div><button className="primary" disabled={!hasContent||!recipients.length} onClick={()=>{setStage('confirm');ai('再看一眼，确认是这些内容和亲友。')}}>看看要发的内容</button></div>}

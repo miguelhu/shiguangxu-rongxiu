@@ -11,7 +11,7 @@ type Photo={id:string,url:string}
 function App(){
  const legacy=new URLSearchParams(location.search).get('legacy')==='1'
  const [agentRecipient,setAgentRecipient]=useState<string>()
- const[page,setPage]=useState<Page>('fragment'),[kind,setKind]=useState<'fragment'|'daily'>('fragment'),[photos,setPhotos]=useState<Photo[]>([]),[words,setWords]=useState(''),[tags,setTags]=useState<string[]>([]),[people,setPeople]=useState<string[]>([]),[error,setError]=useState(''),[recording,setRecording]=useState(false),[voice,setVoice]=useState(''),[chat,setChat]=useState<{who:string,text:string,audio?:string}[]>([{who:'ai',text:'您好，我是小叙。哪里不会用，可以问我。'}]),[busy,setBusy]=useState(false)
+ const[page,setPage]=useState<Page>(new URLSearchParams(location.search).get('view')==='me'?'me':'fragment'),[kind,setKind]=useState<'fragment'|'daily'>('fragment'),[photos,setPhotos]=useState<Photo[]>([]),[words,setWords]=useState(''),[tags,setTags]=useState<string[]>([]),[people,setPeople]=useState<string[]>([]),[error,setError]=useState(''),[recording,setRecording]=useState(false),[voice,setVoice]=useState(''),[chat,setChat]=useState<{who:string,text:string,audio?:string}[]>([{who:'ai',text:'您好，我是小叙。哪里不会用，可以问我。'}]),[busy,setBusy]=useState(false)
  const [history,setHistory]=useState<any[]>([]),[writing,setWriting]=useState(false)
  const readLocal=(key:string,fallback:any)=>{try{return JSON.parse(localStorage.getItem(key)||'null')??fallback}catch{return fallback}}
  const [profile,setProfile]=useState(()=>readLocal('elder-profile',{name:'陈明远',avatar:'./images/teacher.png'})),[profileName,setProfileName]=useState(''),[profileAvatar,setProfileAvatar]=useState('')
