@@ -6,7 +6,7 @@ import {Facts,Media,Message,extract,questions,storeMemory} from './model'
 import {AgentSuggestion,ConversationArea,MediaPreview,MemoryActions,MemoryProgress,UploadTrigger,WelcomeMessage} from './components'
 import './agent.css'
 type Stage='welcome'|'choice'|'memory'|'share'|'confirm'|'saved'|'conversation'
-export function AgentHome({name,active,recipient}:{name:string,active:boolean,recipient?:string}){
+export function AgentHome({name,active,recipient,memoryRequest=0}:{name:string,active:boolean,recipient?:string,memoryRequest?:number}){
  const [stage,setStage]=useState<Stage>('welcome'),[messages,setMessages]=useState<Message[]>([]),[media,setMedia]=useState<Media[]>([]),[facts,setFacts]=useState<Facts>({}),[story,setStory]=useState<string[]>([]),[asked,setAsked]=useState<(keyof Facts)[]>([]),[recipients,setRecipients]=useState<string[]>([]),[upload,setUpload]=useState(false),[discard,setDiscard]=useState(false),[error,setError]=useState(''),[busy,setBusy]=useState(false),[autoSpeak,setAutoSpeak]=useState(false),[voiceStarted,setVoiceStarted]=useState(false)
  const input=useRef<HTMLInputElement>(null),end=useRef<HTMLDivElement>(null),urls=useRef<string[]>([]),lock=useRef(false),recordId=useRef(crypto.randomUUID()),lastRecipient=useRef(''),mediaMode=useRef('image/*')
  const objectURL=(b:Blob)=>{const u=URL.createObjectURL(b);urls.current.push(u);return u}
@@ -16,6 +16,7 @@ export function AgentHome({name,active,recipient}:{name:string,active:boolean,re
  useEffect(()=>()=>{urls.current.forEach(URL.revokeObjectURL);window.speechSynthesis?.cancel()},[])
  useEffect(()=>{if(!active)window.speechSynthesis?.cancel()},[active])
  useEffect(()=>{if(recipient&&recipient!==lastRecipient.current){lastRecipient.current=recipient;setRecipients([recipient]);setStage('share');ai('好，我们给这位亲友发个日常。先选内容，或者说一句想说的话。')}},[recipient])
+ useEffect(()=>{if(memoryRequest){setStage('memory');ai('想起哪段往事了？您慢慢说，也可以先放一张照片。')}},[memoryRequest])
  const hasContent=media.length>0||story.some(t=>t.trim())
  function nextQuestion(f:Facts,previous:(keyof Facts)[]){const q=(Object.keys(questions) as (keyof Facts)[]).find(k=>!f[k]&&!previous.includes(k));if(q)setAsked([...previous,q]);return q?questions[q]:'这段回忆已经慢慢清楚了。您还有想说的吗？也可以先存下，哪天想起来再补。'}
  function choose(intent:'memory'|'share'){setStage(intent);if(intent==='memory')ai(hasContent?nextQuestion(facts,asked):'好呀，您想起了什么？说一句也行，咱们慢慢聊。也可以先挑张照片给我看看。');else ai(media.length?'想发给谁？您可以点选，也可以告诉我。':'先挑一张照片，或者说一句想分享的话。')}
