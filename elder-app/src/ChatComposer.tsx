@@ -1,7 +1,7 @@
 import {useEffect,useRef,useState} from 'react'
-import {Keyboard,Microphone,PaperPlaneTilt} from '@phosphor-icons/react'
+import {Keyboard,Microphone,PaperPlaneTilt,Plus} from '@phosphor-icons/react'
 type Session={held:boolean,cancel:boolean,y:number,started:number,stream?:MediaStream,recorder?:MediaRecorder,speech?:any,text:string,chunks:Blob[],timer?:ReturnType<typeof setTimeout>}
-export function ChatComposer({onText,onVoice,onStart,disabled=false}:{onStart?:()=>void,disabled?:boolean,onText:(text:string)=>void,onVoice:(blob:Blob,text:string)=>void}){
+export function ChatComposer({onText,onVoice,onStart,onAdd,disabled=false}:{onAdd?:()=>void,onStart?:()=>void,disabled?:boolean,onText:(text:string)=>void,onVoice:(blob:Blob,text:string)=>void}){
  const [mode,setMode]=useState<'voice'|'text'>('voice'),[text,setText]=useState(''),[status,setStatus]=useState<'idle'|'permission'|'recording'|'cancel'>('idle'),[error,setError]=useState('')
  const current=useRef<Session|null>(null),alive=useRef(true)
  function finish(cancel=false){const s=current.current;if(!s)return;s.held=false;s.cancel=s.cancel||cancel;clearTimeout(s.timer);s.speech?.stop();if(s.recorder?.state==='recording')s.recorder.stop();else s.stream?.getTracks().forEach(t=>t.stop());if(alive.current)setStatus('idle')}
@@ -15,5 +15,6 @@ export function ChatComposer({onText,onVoice,onStart,disabled=false}:{onStart?:(
  {error&&<div className="composer-error" role="alert">{error}<button type="button" aria-label="关闭提示" onClick={()=>setError('')}>×</button></div>}
  <button type="button" className="input-mode" disabled={disabled||status!=='idle'} aria-label={mode==='voice'?'切换打字':'切换语音'} onClick={()=>{setMode(mode==='voice'?'text':'voice');setError('')}}>{mode==='voice'?<Keyboard size={29}/>:<Microphone size={29}/>}</button>
  {mode==='text'?<><input aria-label="给小叙留言" placeholder="问问小叙" value={text} onChange={e=>setText(e.target.value)}/><button className="send-text" aria-label="发送问题" disabled={!text.trim()}><PaperPlaneTilt size={26}/></button></>:<button type="button" className={`hold-to-talk ${status}`} disabled={disabled} aria-label="按住说话" onContextMenu={e=>e.preventDefault()} onPointerDown={e=>{if(e.button!==0)return;e.preventDefault();e.currentTarget.setPointerCapture(e.pointerId);void begin(e.clientY)}} onPointerMove={e=>{const s=current.current;if(!s?.held||!s.started)return;s.cancel=s.y-e.clientY>65;setStatus(s.cancel?'cancel':'recording')}} onPointerUp={()=>finish()} onPointerCancel={()=>finish(true)} onLostPointerCapture={()=>{if(current.current?.held)finish(true)}} onKeyDown={e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();void begin(0)}}} onKeyUp={e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();finish()}}}>{status==='permission'?'正在打开麦克风…':status==='cancel'?'松开取消':status==='recording'?'松开发送':'按住说话'}</button>}
+ {onAdd&&<button type="button" className="composer-add" aria-label="添加照片或录音" disabled={disabled||status!=='idle'} onClick={onAdd}><Plus size={29}/></button>}
  </form>{status==='recording'||status==='cancel'?<div className={`voice-overlay ${status}`} role="status"><Microphone size={40}/><strong>{status==='cancel'?'松开，取消这条语音':'正在听您说'}</strong><span>{status==='cancel'?'移回按钮可继续':'松开发送 · 上滑取消'}</span></div>:null}</>
 }
