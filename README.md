@@ -1,5 +1,7 @@
 # 荣休礼三端代码拆分
 
+当前产品文档入口：[PRD目录](docs/PRD/README.md)。跨端AI开发请先读[完整AI PRD](docs/PRD/10_跨端AI能力完整PRD_V1.md)及[页面能力映射](docs/PRD/11_跨端AI页面与能力映射.md)：小程序、统筹、相框、长者App相同功能共用AI编号；文档定义不代表生产功能已实现。
+
 ## 当前交付目录
 
 最新代码另包含 [photoframe](photoframe/README.md)：当前线上 `/photoframe/` 的日常相框完整前端，含本轮小叙形象及显示条件修改。原 `frame` 是早期拆分的仪式／相框原型，不应将它误认为当前线上日常相框的部署源码。
