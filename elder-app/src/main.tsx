@@ -11,7 +11,9 @@ import {ChatComposer} from './ChatComposer'
 type Page='camera'|'fragment'|'daily'|'people'|'review'|'done'|'ai'|'history'|'me'|'sent'|'contacts'|'settings'|'profile'|'privacy'
 type Photo={id:string,url:string}
 function App(){
- const [selectedChat,setSelectedChat]=useState(-1),[visitedChats,setVisitedChats]=useState<number[]>([-1])
+ const initialExample=Number(new URLSearchParams(location.search).get('example')??-1)
+ const validExample=Number.isInteger(initialExample)&&initialExample>=0&&initialExample<8?initialExample:-1
+ const [selectedChat,setSelectedChat]=useState(validExample),[visitedChats,setVisitedChats]=useState<number[]>(validExample<0?[-1]:[-1,validExample])
  const [chatHistoryOpen,setChatHistoryOpen]=useState(false)
  const alternate=location.pathname.includes('/app-plus/')
  const [createOpen,setCreateOpen]=useState(false),[memoryRequest,setMemoryRequest]=useState(0)
