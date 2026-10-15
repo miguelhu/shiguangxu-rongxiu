@@ -147,3 +147,11 @@
 .plus-shell > div > section:not(.agent-home) { padding-bottom:120px; }
 .plus-shell .direct-compose:not(.greeting-compose) > h1 { display:none; }
 .agent-shell button, .agent-shell input, .agent-shell textarea { scroll-margin-block:90px 210px; }
+/* Small, actionable prompts under the greeting. */
+.agent-shell .welcoming .agent-welcome{padding-top:28px;padding-bottom:22px}
+.agent-shell .welcoming .agent-character:not(.compact) img{height:112px;width:72px;margin-bottom:8px}
+.agent-shell .welcoming .agent-welcome h1{margin-top:12px;font-size:27px}
+.agent-shell .welcome-shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:390px;margin:0 auto 20px}
+.agent-shell .welcome-shortcuts button{display:flex;align-items:center;gap:10px;min-height:66px;text-align:left;font-size:17px;line-height:1.5;padding:12px;border-radius:18px;font-weight:500}
+.agent-shell .welcome-shortcuts button svg{flex-shrink:0;color:#9a8058}
+@media(max-width:360px){.agent-shell .welcome-shortcuts{gap:9px}.agent-shell .welcome-shortcuts button{font-size:16px;gap:7px;padding:10px}}

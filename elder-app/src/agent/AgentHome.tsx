@@ -1,5 +1,5 @@
 import {useEffect,useRef,useState} from 'react'
-import {Camera,Images,Microphone,VideoCamera,X,Check,SpeakerHigh} from '@phosphor-icons/react'
+import {Camera,Images,Microphone,VideoCamera,X,Check,SpeakerHigh,ChatCircle,PaperPlaneTilt,BookOpen,UsersThree} from '@phosphor-icons/react'
 import {ChatComposer} from '../ChatComposer'
 import {ACCOUNTS} from '../Contacts'
 import {Facts,Media,Message,extract,questions,storeMemory} from './model'
@@ -7,7 +7,7 @@ import {AgentSuggestion,ConversationArea,MediaPreview,MemoryActions,UploadTrigge
 import './agent.css'
 import examples from './history-examples.json'
 type Stage='welcome'|'choice'|'memory'|'share'|'confirm'|'saved'|'conversation'
-export function AgentHome({name,active,recipient,memoryRequest=0,exampleIndex=-1}:{exampleIndex?:number,name:string,active:boolean,recipient?:string,memoryRequest?:number}){
+export function AgentHome({name,active,recipient,memoryRequest=0,exampleIndex=-1,onShortcut}:{onShortcut?:(action:'daily'|'greeting'|'memories'|'contacts')=>void,exampleIndex?:number,name:string,active:boolean,recipient?:string,memoryRequest?:number}){
  const [caseOptionsVisible,setCaseOptionsVisible]=useState(true)
  const caseStep=Number(new URLSearchParams(location.search).get('through'))
  const caseOptions=exampleIndex>=0&&new URLSearchParams(location.search).has('through')?(examples[exampleIndex].steps[caseStep] as {choices?:Array<string|{label:string,next?:number,caseIndex?:number,reply?:string,view?:string}>})?.choices:undefined
@@ -44,7 +44,7 @@ export function AgentHome({name,active,recipient,memoryRequest=0,exampleIndex=-1
  function uploadFiles(files:FileList|null){if(!files?.length)return;const items=Array.from(files);if(media.length+items.length>6){setError('这份记录最多放6份内容。您可以先存下，我们继续聊。');return}if(items.some(f=>!(/^(image|video|audio)\//.test(f.type))||f.size>50*1024*1024)){setError('请选择50MB以内的照片、视频或声音文件。');return}const added=items.map(f=>({id:crypto.randomUUID(),type:f.type.split('/')[0] as Media['type'],url:objectURL(f),blob:f,name:f.name}));setMedia(m=>[...m,...added]);setError('');setMessages(m=>[...m,{id:crypto.randomUUID(),role:'user',text:'',media:added}]);if(stage==='share')ai('收到了。选好亲友，我们再确认一下。');else if(stage==='memory'||stage==='saved'){setStage('memory');ai('这份也放进刚才的回忆里了。您想从哪里接着说？也可以先帮您存下。')}else{setStage('choice');ai('收到了，您想存起来，还是发给亲友？')}}
  return <div className={`agent-home ${stage==='welcome'&&!voiceStarted?'welcoming':'in-conversation'}`}>
  {exampleIndex>=0&&<div className="continued-chat-title"><span>示例会话 · 可以接着聊</span><h2>{examples[exampleIndex].title}</h2></div>}
- {stage==='welcome'&&!voiceStarted?<><WelcomeMessage name={name}/><div className="welcome-intents"><button onClick={()=>choose('memory')}>聊聊以前的事</button><button onClick={()=>choose('share')}>给亲友发个日常</button></div></>:<><ConversationArea messages={messages} speak={speak}/></>}
+ {stage==='welcome'&&!voiceStarted?<><WelcomeMessage name={name}/><div className="welcome-intents welcome-shortcuts" aria-label="小叙快捷帮忙"><button onClick={()=>choose('memory')}><ChatCircle size={25}/>聊聊以前的事</button><button onClick={()=>setUpload(true)}><Images size={25}/>聊聊老照片</button><button onClick={()=>onShortcut?onShortcut('daily'):choose('share')}><Camera size={25}/>给亲友发日常</button><button onClick={()=>onShortcut?onShortcut('greeting'):choose('share')}><PaperPlaneTilt size={25}/>捎一句问候</button><button onClick={()=>onShortcut?.('memories')}><BookOpen size={25}/>翻翻我的拾光</button><button onClick={()=>onShortcut?.('contacts')}><UsersThree size={25}/>找一位亲友</button></div></>:<><ConversationArea messages={messages} speak={speak}/></>}
  {caseOptionsVisible&&caseOptions&&<AgentSuggestion options={caseOptions.map(option=>({text:typeof option==='string'?option:option.label,action:()=>{if(typeof option!=='string'&&option.reply){setCaseOptionsVisible(false);setMessages(m=>[...m,{id:crypto.randomUUID(),role:'user',text:option.label}]);ai(option.reply)}else if(window.parent!==window){window.parent.postMessage({type:'sgx-case-choice',option},location.origin)}else{setCaseOptionsVisible(false);ai('您可以接着告诉我，想怎么做。')}}}))}/>}
  {stage==='choice'&&<AgentSuggestion options={[{text:'存起来',action:()=>choose('memory')},{text:'发出去',action:()=>choose('share')}]}/>}
  {stage==='memory'&&<><button className="agent-add-inline" onClick={()=>setUpload(true)}><Images size={23}/>补充照片或声音</button><MemoryActions busy={busy} onSave={()=>void save('fragment')} onDiscard={()=>setDiscard(true)}/></>}

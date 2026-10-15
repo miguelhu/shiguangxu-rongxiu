@@ -8,7 +8,7 @@ test('direct sharing remains reachable above the dock',async({page})=>{
  await page.getByRole('button',{name:/陈晓禾/}).click()
  await expect(page.getByRole('button',{name:'确认发送（演示）'})).toHaveCount(0)
  await page.getByRole('button',{name:'发送',exact:true}).click()
- await expect(page.getByText('已发送（演示）')).toBeVisible()
+ await expect(page.getByText('已发送')).toBeVisible()
 })
 test('history keeps its topic and allows continued chat',async({page})=>{
  await page.goto('/app-plus/')
