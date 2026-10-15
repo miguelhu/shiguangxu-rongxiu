@@ -3,7 +3,7 @@ import {Camera,Images,Microphone,VideoCamera,X,Check,SpeakerHigh} from '@phospho
 import {ChatComposer} from '../ChatComposer'
 import {ACCOUNTS} from '../Contacts'
 import {Facts,Media,Message,extract,questions,storeMemory} from './model'
-import {AgentSuggestion,ConversationArea,MediaPreview,MemoryActions,MemoryProgress,UploadTrigger,WelcomeMessage} from './components'
+import {AgentSuggestion,ConversationArea,MediaPreview,MemoryActions,UploadTrigger,WelcomeMessage} from './components'
 import './agent.css'
 import examples from './history-examples.json'
 type Stage='welcome'|'choice'|'memory'|'share'|'confirm'|'saved'|'conversation'
@@ -47,7 +47,7 @@ export function AgentHome({name,active,recipient,memoryRequest=0,exampleIndex=-1
  {stage==='welcome'&&!voiceStarted?<><WelcomeMessage name={name}/><div className="welcome-intents"><button onClick={()=>choose('memory')}>聊聊以前的事</button><button onClick={()=>choose('share')}>给亲友发个日常</button></div></>:<><ConversationArea messages={messages} speak={speak}/></>}
  {caseOptionsVisible&&caseOptions&&<AgentSuggestion options={caseOptions.map(option=>({text:typeof option==='string'?option:option.label,action:()=>{if(typeof option!=='string'&&option.reply){setCaseOptionsVisible(false);setMessages(m=>[...m,{id:crypto.randomUUID(),role:'user',text:option.label}]);ai(option.reply)}else if(window.parent!==window){window.parent.postMessage({type:'sgx-case-choice',option},location.origin)}else{setCaseOptionsVisible(false);ai('您可以接着告诉我，想怎么做。')}}}))}/>}
  {stage==='choice'&&<AgentSuggestion options={[{text:'存起来',action:()=>choose('memory')},{text:'发出去',action:()=>choose('share')}]}/>}
- {stage==='memory'&&<><button className="agent-add-inline" onClick={()=>setUpload(true)}>补充照片或声音</button><MemoryProgress facts={facts}/><MemoryActions busy={busy} onSave={()=>void save('fragment')} onDiscard={()=>setDiscard(true)}/></>}
+ {stage==='memory'&&<><button className="agent-add-inline" onClick={()=>setUpload(true)}>补充照片或声音</button><MemoryActions busy={busy} onSave={()=>void save('fragment')} onDiscard={()=>setDiscard(true)}/></>}
  {stage==='share'&&<div className="agent-share"><button className="agent-add-inline" onClick={()=>setUpload(true)}>选择照片或其他内容</button><div className="agent-recipients">{ACCOUNTS.map(a=><button key={a.id} aria-pressed={recipients.includes(a.id)} onClick={()=>setRecipients(r=>r.includes(a.id)?r.filter(x=>x!==a.id):[...r,a.id])}><span className={`contact-avatar ${a.tone}`}>{a.initial}</span><span>{a.name}<small>{a.relation}</small></span>{recipients.includes(a.id)&&<Check size={23}/>}</button>)}</div><button className="primary" disabled={!hasContent||!recipients.length} onClick={()=>{setStage('confirm');ai('再看一眼，确认是这些内容和亲友。')}}>看看要发的内容</button></div>}
  {stage==='confirm'&&<div className="agent-confirm"><p>发给：{recipients.map(id=>ACCOUNTS.find(a=>a.id===id)?.name).join('、')}</p><MediaPreview media={media}/><p>{story.join('\n')}</p><small>当前演示不会实际发送。</small><button className="primary" disabled={busy} onClick={()=>void save('daily')}>确认发送（演示）</button><button className="secondary" onClick={()=>setStage('share')}>再改一下</button></div>}
  {(stage==='saved'||stage==='conversation')&&<button className="agent-add-inline" onClick={()=>setUpload(true)}>补充照片或声音</button>}
