@@ -19,3 +19,27 @@ test('article upload persists title, body and source in the article category',as
  await expect(page.locator('.library-card')).toHaveCount(1)
  await expect(page.locator('.library-card')).toContainText('读到的一篇文章')
 })
+
+test('empty categories offer the matching creation action',async({page})=>{
+ await page.goto('/app-plus/')
+ await page.getByRole('button',{name:'翻翻我的拾光'}).click()
+ for(const [category,label,accept] of [['照片','上传照片','image/*'],['声音','上传声音','audio/*'],['视频','上传视频','video/*']]){
+  await page.getByRole('group',{name:'内容分类'}).getByRole('button',{name:new RegExp(category)}).click()
+  await expect(page.locator('.library-empty button')).toHaveText(label)
+  const picker=page.waitForEvent('filechooser');await page.locator('.library-empty button').click();await picker
+  await expect(page.locator('.memory-library input[type=file]')).toHaveAttribute('accept',accept)
+ }
+ await page.getByRole('group',{name:'内容分类'}).getByRole('button',{name:/照片/}).click()
+ await page.locator('.library-empty button').click()
+ await page.locator('.memory-library input[type=file]').setInputFiles('public/images/t-p03.jpg')
+ await expect(page.locator('.library-card')).toHaveCount(1)
+ await page.getByRole('group',{name:'内容分类'}).getByRole('button',{name:/文字/}).click()
+ await page.locator('.library-empty button').click()
+ await page.getByRole('textbox',{name:'拾光文字'}).fill('今天和老朋友散步，很开心。')
+ await page.getByRole('button',{name:'保存文字',exact:true}).click()
+ await expect(page.locator('.library-card')).toContainText('今天和老朋友散步')
+ await page.getByRole('group',{name:'内容分类'}).getByRole('button',{name:/文章/}).click()
+ await expect(page.locator('.library-empty button')).toHaveText('收藏一篇文章')
+ await page.locator('.library-empty button').click()
+ await expect(page.locator('.article-editor')).toBeVisible()
+})
