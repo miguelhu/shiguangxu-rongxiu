@@ -14,6 +14,7 @@ import {ChatComposer} from './ChatComposer'
 import './app-design.css'
 import {MemoryLibrary} from './MemoryLibrary'
 import {ArticleEditor} from './ArticleEditor'
+import {SentDaily} from './SentDaily'
 type Page='article'|'inbox'|'camera'|'fragment'|'daily'|'people'|'review'|'done'|'ai'|'history'|'me'|'sent'|'contacts'|'settings'|'profile'|'privacy'
 type Photo={id:string,url:string}
 function App(){
@@ -68,7 +69,7 @@ function App(){
  {page==='done'&&<section className="success"><div className="success-icon"><Check size={48}/></div><h1>{kind==='daily'?(greeting?'这份问候准备好了':'已发送'):'这段时光已保存'}</h1>{kind!=='daily'&&<p>照片、录音和文字已留在这台设备上。</p>}<button className="primary" onClick={reset}>完成</button></section>}
  {page==='history'&&<MemoryLibrary items={history} onRefresh={()=>openHistory()} onArticle={()=>go('article')}/>}
  {page==='article'&&<ArticleEditor onSaved={()=>void openHistory()}/>}
- {(page==='sent')&&<section><h1>{'发过的日常'}</h1><p className="hint">仅保存在当前浏览器。清除浏览器数据后，这些内容也会清除。</p>{!history.some(item=>item.kind===('daily'))&&<p>还没有留下内容。选一张照片，或说几句话试试吧。</p>}{history.filter(item=>item.kind===('daily')).map(item=><article className="preview" key={item.id}><h2>{item.kind==='daily'?'日常 · 演示记录':'拾光碎片'}</h2><p className="hint">{new Date(item.createdAt).toLocaleString('zh-CN')}</p>{item.kind==='daily'&&<p>收件人：{item.people.join('、')}（未实际发送）</p>}{item.photos.map((url:string,i:number)=><img src={url} key={i} alt="保存的照片"/>)}{item.media?.map((m:any,i:number)=>m.type==='video'?<video key={i} controls src={m.url} style={{width:'100%'}}/>:<audio key={i} controls src={m.url}/>)}{item.words&&<p>{item.words}</p>}{item.voice&&<audio controls src={item.voice}/>}<div className="tags">{item.tags.map((tag:string)=><span key={tag}>{tag}</span>)}</div></article>)}</section>}
+ {page==='sent'&&<SentDaily items={history} onNew={()=>beginDirect(false)}/>}
  {page==='ai'&&<section className="chat"><p className="demo">小叙使用指南 · 当前为引导演示，未接通AI服务</p><div className="messages">{chat.map((m,i)=><div className={`message ${m.who}`} key={i}>{m.who==='ai'&&<img src="./xiaoxu-helper.png" alt="小叙"/>}<div className="chat-bubble">{m.audio&&<audio controls src={m.audio} aria-label="我的语音"/>}{m.text&&<p>{m.text}</p>}</div></div>)}</div><div className="quick">{['怎么存照片？','怎么发给亲友？'].map(t=><button key={t} onClick={()=>ask(t)}>{t}</button>)}</div><ChatComposer onText={ask} onVoice={(blob,text)=>{const audio=blobUrl(blob);setChat(c=>[...c,{who:'me',text,audio}]);if(text)ask(text,true);else setChat(c=>[...c,{who:'ai',text:'语音已留下，但这次没有识别出文字。您可以打字，或点上面的常用问题。'}])}}/></section>}
  {legacy&&<nav className="bottom-tabs" aria-label="主要导航">{([{page:'fragment',label:'拾光碎片',Icon:Images},{page:'daily',label:'发日常',Icon:PaperPlaneTilt},{page:'ai',label:'小叙',Icon:Images},{page:'me',label:'我的',Icon:UserCircle}] as const).map(t=><button key={t.page} className={tab===t.page?'active':''} aria-current={tab===t.page?'page':undefined} onClick={()=>switchTab(t.page)}>{t.page==='ai'?<img className="tab-xiaoxu" src="./xiaoxu-helper.png" alt=""/>:<t.Icon size={29} weight={tab===t.page?'fill':'regular'}/>}<span>{t.label}</span></button>)}</nav>}
  {error&&<p role="alert" className="error">{error}</p>}

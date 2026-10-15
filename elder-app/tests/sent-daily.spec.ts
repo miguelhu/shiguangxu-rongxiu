@@ -1,0 +1,32 @@
+import {test,expect} from '@playwright/test'
+test('sent page has a useful empty state and starts a new daily',async({page})=>{
+ await page.goto('/app-plus/')
+ await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'我的',exact:true}).click()
+ await page.getByRole('button',{name:'发过的日常',exact:true}).click()
+ await expect(page.locator('.sent-empty')).toBeVisible()
+ await expect(page.locator('.sent-daily')).not.toContainText('浏览器')
+ await page.getByRole('button',{name:'发个日常',exact:true}).click()
+ await expect(page.locator('.daily-camera')).toBeVisible()
+})
+test('sent cards show recipients, media, dates and filter correctly',async({page})=>{
+ await page.goto('/app-plus/')
+ await page.evaluate(async()=>{
+  const photo=await(await fetch('/images/t-p03.jpg')).blob()
+  const db=await new Promise<IDBDatabase>((resolve,reject)=>{const req=indexedDB.open('sgx-elder-demo',1);req.onupgradeneeded=()=>req.result.createObjectStore('items',{keyPath:'id'});req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})
+  await new Promise<void>((resolve,reject)=>{const tx=db.transaction('items','readwrite');const store=tx.objectStore('items');store.put({id:'first',kind:'daily',createdAt:'2026-10-15T08:30:00Z',words:'今天在校园里散步，看到桂花开了。',photos:[photo],media:[],voice:null,people:['陈晓禾','林悦'],recipientIds:['t-u05','user-linyue'],tags:[]});store.put({id:'second',kind:'daily',createdAt:'2026-09-03T08:30:00Z',words:'老周，有空再一起喝茶。',photos:[],media:[],voice:null,people:['周宁'],recipientIds:['t-u03'],tags:[]});tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error)});db.close()
+ })
+ await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'我的',exact:true}).click()
+ await page.getByRole('button',{name:'发过的日常',exact:true}).click()
+ await expect(page.locator('.sent-card')).toHaveCount(2)
+ await expect(page.locator('.sent-card').first()).toContainText('发给陈晓禾、林悦')
+ await expect(page.locator('.sent-card img')).toHaveCount(1)
+ await expect.poll(()=>page.locator('.sent-card img').evaluate((img:HTMLImageElement)=>img.naturalWidth)).toBeGreaterThan(0)
+ await expect(page.locator('.sent-month')).toHaveCount(2)
+ await page.getByRole('group',{name:'按收件人筛选'}).getByRole('button',{name:'周宁',exact:true}).click()
+ await expect(page.locator('.sent-card')).toHaveCount(1)
+ await expect(page.locator('.sent-card')).toContainText('老周，有空再一起喝茶')
+ for(const width of [360,390,500]){await page.setViewportSize({width,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true)}
+ await page.getByRole('group',{name:'按收件人筛选'}).getByRole('button',{name:'全部',exact:true}).click()
+ await page.setViewportSize({width:390,height:844})
+ await page.screenshot({path:'/tmp/sent-daily-new.png'})
+})
