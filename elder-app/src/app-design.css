@@ -1,0 +1,149 @@
+/* Shared App visual system. Keep layout independent of the showcase phone shell. */
+.agent-shell {
+  --paper: #f7f5ef;
+  --surface: #fffefb;
+  --ink: #403d34;
+  --muted: #857b69;
+  --line: #e8e2d6;
+  --accent: #806c49;
+  --wash: #eee6d5;
+  background: var(--paper);
+  color: var(--ink);
+  padding-bottom: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+.agent-shell button { -webkit-tap-highlight-color: transparent; }
+.agent-shell button:focus-visible { outline: 3px solid #aa8c50; outline-offset: 3px; }
+.agent-shell h1 { font-weight: 500; letter-spacing: -.025em; }
+.agent-shell .plus-top, .agent-shell .home-navigation {
+  background: #faf9f5;
+  border-bottom: 1px solid var(--line);
+  box-shadow: none;
+}
+.plus-shell .plus-top { height: 62px; padding: 0 18px; gap: 12px; }
+.plus-shell .active-chat-topic { text-align: center; font-weight: 500; color: var(--ink); }
+.plus-top .history-trigger, .plus-top .dispatch-entry { color: var(--accent); width: 44px; flex: 0 0 44px; }
+.agent-shell > div > header { background: #faf9f5; border-bottom: 1px solid var(--line); padding-inline: 20px; }
+.agent-shell > div > header b { font-size: 21px; font-weight: 500; }
+.agent-shell .agent-home { padding: 16px 20px 155px; }
+.plus-shell .agent-home { min-height: calc(100dvh - 62px); padding-bottom: 210px; }
+.agent-shell .agent-welcome { padding: clamp(32px, 8dvh, 76px) 0 28px; }
+.agent-shell .agent-welcome h1 { font-size: 29px; margin: 21px 0 10px; font-weight: 500; }
+.agent-shell .agent-welcome p { font-size: 21px; color: #777060; line-height: 1.7; }
+.agent-shell .agent-welcome > span { color: var(--accent); font-size: 16px; }
+.agent-shell .agent-character:not(.compact) img { width: 95px; height: 147px; margin-bottom: 15px; }
+.agent-shell .hello-bubble { background: var(--surface); border-color: var(--line); right: -19px; color: var(--accent); }
+.agent-shell .welcome-intents { gap: 10px; margin: 0 auto 25px; max-width: 350px; }
+.agent-shell .welcome-intents button { background: var(--surface); border: 1px solid var(--line); color: #756347; border-radius: 16px; font-size: 18px; padding: 12px 18px; box-shadow: 0 3px 9px #564b3610; }
+/* Content and conversation share the same quiet paper surfaces. */
+.agent-shell .agent-message { margin: 22px 0; padding-left: 42px; }
+.agent-shell .agent-message.user { padding-left: 0; }
+.agent-shell .agent-bubble { border: 0; background: var(--surface); border-radius: 4px 24px 24px; box-shadow: 0 5px 20px #59492e04; padding: 17px 18px 12px; }
+.agent-shell .agent-bubble p { font-size: 21px; line-height: 1.75; color: var(--ink); }
+.agent-shell .agent-message.ai .agent-bubble:before { content:'小叙'; display:block; color: #918166; font-size: 14px; margin-bottom: 8px; }
+.agent-shell .agent-message.user .agent-bubble { background: #ece5d6; border: 0; border-radius: 22px 4px 22px 22px; padding: 15px 18px; }
+.agent-shell .agent-message .message-avatar { width: 55px; height: 91px; }
+.agent-shell .message-peek { left: -13px; top: 10px; width: 59px; height: 94px; }
+.agent-shell .agent-message.user .agent-bubble:has(.agent-media img) { width: 94%; max-width: 94%; padding: 6px; background: var(--surface); border-radius: 20px; box-shadow: 0 9px 25px #4f422912; }
+.agent-shell .agent-media img { display:block; width:100%; max-height:340px; border-radius: 14px; object-fit:contain; }
+.agent-shell .read-message { min-height: 36px; min-width: 44px; color: #978361; padding-top: 8px; }
+.agent-shell .agent-suggestions { margin: 18px 0 24px 42px; gap: 10px; }
+.agent-shell .agent-suggestions button { background: var(--surface); border:1px solid #d9ccb3; color:#776142; border-radius:15px; font-size:19px; padding:11px 18px; min-height:52px; }
+.agent-shell .agent-suggestions button:first-child { background:var(--wash); border-color:#e3d8bf; }
+.agent-shell .primary, .agent-shell .memory-actions > button:first-child { background:var(--accent); color:#fffef9; border-radius:17px; box-shadow:none; }
+.agent-shell .agent-add-inline { color:var(--accent); background:var(--surface); border:1px dashed #d8cbb3; border-radius:15px; }
+/* One composer design for chat, daily photos, and private messages. */
+.agent-shell .agent-input, .agent-shell .direct-composer {
+  padding: 12px 14px calc(14px + env(safe-area-inset-bottom));
+  background:#faf9f5; border-top:1px solid var(--line); backdrop-filter:none;
+}
+.plus-shell .agent-input, .plus-shell .direct-composer { bottom:calc(78px + env(safe-area-inset-bottom)); padding:12px 14px 19px; }
+.agent-shell .agent-input .chat-composer, .agent-shell .direct-composer .chat-composer { gap:10px; align-items:center; }
+.agent-shell .agent-input .chat-composer .hold-to-talk, .agent-shell .direct-composer .hold-to-talk {
+  height:58px; min-height:58px; border:1px solid #e4dccb; border-radius:17px;
+  background:#f0ebe1; color:#76674e; font-size:20px; font-weight:600; box-shadow:inset 0 1px 0 #fff9;
+}
+.agent-shell .agent-input .chat-composer input, .agent-shell .direct-composer .chat-composer input { background:var(--surface); border:1px solid #dfd5c3; border-radius:16px; min-height:58px; padding:12px; }
+.agent-shell .input-mode, .agent-shell .composer-photo, .agent-shell .composer-add { color:#8e7b59; flex:0 0 36px; min-width:36px; width:36px; min-height:48px; padding:0; }
+.agent-shell .composer-next { background:#86704c; color:white; width:44px; min-width:44px; height:48px; border-radius:16px; }
+.plus-shell .plus-nav { height:calc(78px + env(safe-area-inset-bottom)); background:#faf9f5; border-top:1px solid var(--line); gap:38px; padding:7px 20px calc(7px + env(safe-area-inset-bottom)); }
+.plus-shell .plus-nav > button { width:68px; min-width:68px; color:#8b816f; font-size:15px; gap:4px; }
+.plus-shell .plus-nav > button[aria-current=page] { color:#6c5736; }
+.plus-shell .plus-nav .plus-create { flex:0 0 74px; width:74px; min-width:74px; height:74px; margin-top:-26px; border:6px solid #faf9f5; background:#e9ddc3; color:#806744; line-height:59px; font-size:43px; box-shadow:0 -1px 0 #ded1b8,0 5px 12px #6d583414; }
+/* Creation is a short choice, not a second dashboard. */
+.plus-overlay { background:#38342c36; backdrop-filter:none; }
+.plus-menu { background:#faf9f5; border-radius:30px; padding:28px 22px 18px; max-width:380px; box-shadow:0 25px 80px #372d2826; }
+.plus-menu h2 { font-size:25px; font-weight:500; margin:8px 0 22px; color:#494135; }
+.plus-menu > button:not(.plus-close) { padding:20px 0; gap:15px; border-top:1px solid #e8e0d1; }
+.plus-menu > button:not(.plus-close) > svg:first-child { width:51px; height:51px; padding:12px; background:#eee6d6; border-radius:17px; flex-shrink:0; color:#8a714b; }
+.plus-menu b { font-size:21px; color:#484035; }
+.plus-menu small { color:#877a64; font-size:15px; margin-top:5px; }
+/* Photo-first composition and a quieter personal greeting. */
+.agent-shell .direct-compose { padding:13px 22px 210px!important; }
+.agent-shell .direct-compose h1 { font-size:27px; margin:4px 0 23px; line-height:1.5; }
+.agent-shell .direct-photos { gap:20px; }
+.agent-shell .direct-photos > div { padding:7px; border:1px solid #fff; border-radius:23px; box-shadow:0 12px 28px #54452e10; background:var(--surface); }
+.agent-shell .direct-photos img { border-radius:16px; max-height:390px; object-fit:contain; }
+.agent-shell .direct-media-actions { gap:14px; margin:22px 0; }
+.agent-shell .direct-media-actions button { min-height:52px; border:1px solid #ded3be; border-radius:16px; color:#806b49; background:var(--surface); padding:11px 19px; font-size:18px; }
+.agent-shell .direct-words > span { display:none; }
+.agent-shell .direct-words textarea { min-height:110px; border:1px solid var(--line); border-radius:19px; background:var(--surface); font-size:21px; color:var(--ink); }
+.agent-shell .greeting-mark { margin:28px 0; height:64px; width:64px; background:#eee3d0; color:#9a7852; border-radius:22px; }
+.agent-shell .greeting-suggestions { gap:12px; }
+.agent-shell .greeting-suggestions button { background:var(--surface); border:1px solid var(--line); border-radius:18px; font-size:20px; line-height:1.65; color:#655a46; padding:20px; box-shadow:0 4px 12px #55442c04; }
+/* Messaging uses a single identity header and edge-to-edge conversation list. */
+.agent-shell .dispatch-list { padding:5px 22px 120px!important; }
+.agent-shell .dispatch-person { gap:15px; min-height:105px; padding:21px 0; border-color:var(--line); }
+.agent-shell .dispatch-person .contact-avatar { width:56px; height:56px; min-width:56px; border-radius:20px; font-size:23px; box-shadow:inset 0 0 0 1px #7f6a4010; }
+.agent-shell .dispatch-person b { font-size:21px; color:var(--ink); }
+.agent-shell .dispatch-person b small { font-size:14px; color:var(--muted); }
+.agent-shell .dispatch-person p { color:#817866; font-size:17px; margin-top:6px; }
+.agent-shell .dm-person-header { background:#faf9f5; padding:12px 0; border-color:var(--line); }
+.agent-shell .dm-person-header h1 { font-size:21px; font-weight:500; }
+.agent-shell .dispatch-thread { padding-inline:20px!important; }
+.agent-shell .dm-messages { padding-top:12px; }
+.agent-shell .dispatch-message { width:fit-content; max-width:90%; margin:19px 0 19px auto; background:#eae3d4; border-radius:22px 5px 22px 22px; padding:15px 17px; }
+.agent-shell .dispatch-message:has(img) { padding:7px 7px 12px; background:var(--surface); box-shadow:0 7px 21px #57462c0b; }
+.agent-shell .dispatch-message:has(img) p, .agent-shell .dispatch-message:has(img) small { padding-inline:9px; }
+.agent-shell .dispatch-message img { display:block; border-radius:16px; max-height:330px; object-fit:contain; }
+.agent-shell .dispatch-message p { font-size:20px; line-height:1.75; }
+.agent-shell .dm-messages .dispatch-message small { color:#84745c; }
+.agent-shell .dm-draft, .agent-shell .dm-confirm { border:1px solid var(--line); background:var(--surface); border-radius:22px; padding:18px; }
+.agent-shell .profile-center { padding:28px 0 34px; }
+.agent-shell .profile-center img { width:88px; height:88px; border:5px solid var(--surface); box-shadow:0 9px 20px #4e412717; }
+.agent-shell .profile-center h1 { font-size:28px; color:var(--ink); margin:15px 0 8px; }
+.agent-shell .profile-center span { font-size:16px; color:var(--muted); }
+.agent-shell .account-menu { border:1px solid var(--line); border-radius:24px; background:var(--surface); padding:0 20px; box-shadow:0 6px 22px #55442c04; }
+.agent-shell .account-menu button { min-height:83px; color:#927a53; border-color:var(--line); }
+.agent-shell .account-menu button span { font-size:21px; color:var(--ink); }
+.agent-shell .person { border-color:var(--line); background:var(--surface); border-radius:18px; }
+.agent-shell .person.selected { background:var(--wash); border-color:#baa57e; }
+.agent-shell .history-panel { background:#faf9f5; }
+.agent-shell .history-item b { font-size:19px; }
+.agent-shell .history-item small { font-size:14px; color:#847b6b; }
+.agent-shell.large-text .agent-bubble p, .agent-shell.large-text .dispatch-message p { font-size:25px; }
+@media (max-height:700px) {
+  .agent-shell .agent-welcome { padding-top:24px; }
+  .agent-shell .agent-character:not(.compact) img { width:75px; height:116px; }
+  .agent-shell .agent-welcome h1 { margin-top:12px; font-size:26px; }
+  .agent-shell .agent-welcome p { font-size:20px; }
+}
+@media (max-width:360px) {
+  .plus-shell .plus-nav { gap:26px; }
+  .agent-shell .agent-home { padding-inline:16px; }
+  .agent-shell .agent-bubble { padding-inline:15px; }
+  .agent-shell .agent-input .chat-composer, .agent-shell .direct-composer .chat-composer { gap:6px; }
+}
+/* A page gets one navigation bar. The recipient header takes over in a DM. */
+.plus-shell > div > header { display:none; }
+.plus-shell:has(.dispatch-thread) > .plus-top { display:none; }
+.plus-shell .dm-person-header { top:0; margin-inline:-20px; padding:12px 20px; min-height:70px; }
+.plus-shell .direct-compose { padding-top:25px!important; }
+.plus-shell .account-page { padding-top:16px; padding-bottom:120px; }
+.plus-shell .dispatch-list { padding-top:8px!important; }
+.plus-shell .daily-camera { padding-top:20px; padding-bottom:120px; }
+.plus-shell .camera-view { height:clamp(280px, calc(100dvh - 300px), 580px); border-radius:24px; }
+/* Reserve the dock on every non-chat page, including recipient selection. */
+.plus-shell > div > section:not(.agent-home) { padding-bottom:120px; }
+.plus-shell .direct-compose:not(.greeting-compose) > h1 { display:none; }
+.agent-shell button, .agent-shell input, .agent-shell textarea { scroll-margin-block:90px 210px; }
