@@ -6,9 +6,9 @@ test('direct sharing remains reachable above the dock',async({page})=>{
  await page.locator('.daily-camera input[type=file]').setInputFiles('public/images/t-p03.jpg')
  await page.getByRole('button',{name:'下一步，选择收件人'}).click()
  await page.getByRole('button',{name:/陈晓禾/}).click()
- await page.getByRole('button',{name:/选好了/}).click()
- await page.getByRole('button',{name:'确认发送（演示）'}).click()
- await expect(page.getByText('这份日常准备好了')).toBeVisible()
+ await expect(page.getByRole('button',{name:'确认发送（演示）'})).toHaveCount(0)
+ await page.getByRole('button',{name:'发送',exact:true}).click()
+ await expect(page.getByText('已发送（演示）')).toBeVisible()
 })
 test('history keeps its topic and allows continued chat',async({page})=>{
  await page.goto('/app-plus/')
