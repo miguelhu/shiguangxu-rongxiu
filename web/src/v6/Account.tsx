@@ -1,3 +1,4 @@
+import {ConnectionPanel} from '../shared/ConnectionPanel'
 import { WritingArea } from './WritingAssist'
 import { useState } from 'react'
 import {
@@ -23,6 +24,7 @@ import Frame from './Frame'
 import { birthdays } from './workflow'
 export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
   const { c, s, state, setState, patch, switchCase, modal, closeModal, notify } = useDemo()
+  const [connecting,setConnecting]=useState(()=>new URLSearchParams(location.search).has('connect'))
   const [query, setQuery] = useState('')
   const [personFilter, setPersonFilter] = useState('all')
   const [kind, setKind] = useState('all')
@@ -44,6 +46,7 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
       .filter((b) => b.authorId === owner.id)
       .map((b) => ({ ...b, caseId: x.id, recipient: state.cases[x.id].host.address }))
   })
+  if(connecting)return <div className="phone-body"><ConnectionPanel defaultName={profile.name} onClose={()=>setConnecting(false)}/></div>
   function personCard(x: (typeof cases)[number]) {
     const cs = state.cases[x.id]
     const a = datasets[x.id].authors.find((a) => a.userId === actor.userId)!
@@ -91,6 +94,7 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
           值得一直惦记。
         </h2>
         <p className="helper">你参与过的人都会留在这里，以后可以直接给他们发照片或问候。</p>
+        <button className="start-gift-card" onClick={()=>setConnecting(true)}><UsersThree size={25}/><b>添加亲友</b><span>收到邀请，和长者建立联系</span></button>
         <div className="people-list">
           {related
             .slice()
@@ -169,6 +173,7 @@ export function Account({ page, go }: { page: Page; go: (p: Page) => void }) {
           <b>为重要的人，准备一份大家共同完成的礼物。</b>
           <span>看看拾光叙可以怎么送 →</span>
         </button>
+        <button className="start-gift-card" onClick={()=>setConnecting(true)}><UsersThree size={25}/><b>添加亲友</b><span>输入长者的邀请码</span></button>
         <Gifts go={go} embedded />
       </div>
     )

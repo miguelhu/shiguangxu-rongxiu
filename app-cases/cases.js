@@ -55,7 +55,7 @@ function render(){document.querySelector('.live-app')?.remove();document.querySe
 function advance(){if(step<scenarios[selected].steps.length-1){step++;complete=false;render()}}
 $('prev').onclick=()=>{if(step){step--;complete=false;render()}};$('next').onclick=advance;$('all').onclick=()=>{complete=!complete;render()};scenarios.forEach((c,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=c.title;$('scenario').append(option)});$('scenario').onchange=e=>{selected=Number(e.target.value);step=0;complete=false;render()};render();
 
-function openLiveApp(view,withCase=false){const screen=document.querySelector('.screen');screen.querySelector('.live-app')?.remove();const frame=document.createElement('iframe');frame.className='live-app';frame.title='拾光叙 · 三按钮 App';frame.src='/app-plus/?view='+view+(withCase?'&example='+selected+'&through='+(complete?scenarios[selected].steps.length-1:step):'');frame.allow='microphone; camera';screen.classList.add('show-live');screen.insertBefore(frame,screen.querySelector('.home-indicator'));}
+function openLiveApp(view,withCase=false){const screen=document.querySelector('.screen');screen.querySelector('.live-app')?.remove();const frame=document.createElement('iframe');frame.className='live-app';frame.title='拾光叙 · 长者 App';frame.src='/app-plus/?view='+view+(withCase?'&example='+selected+'&through='+(complete?scenarios[selected].steps.length-1:step):'');frame.allow='microphone; camera';screen.classList.add('show-live');screen.insertBefore(frame,screen.querySelector('.home-indicator'));}
 $('appMine').onclick=()=>openLiveApp('me');
 $('appHome').onclick=()=>render();
 
