@@ -6,7 +6,7 @@ test('personal QR has its own page and exports an image',async({page})=>{
  await expect(page.getByText('我的聊天',{exact:true})).toHaveCount(0)
  await page.locator('.drawer-mine').click()
  await page.getByRole('button',{name:'我的亲友',exact:true}).click()
- await page.getByRole('button',{name:'添加亲友 · 新的申请'}).click()
+ await page.getByRole('button',{name:'加好友'}).click()
  await page.getByRole('button',{name:/我的二维码/}).click()
  await expect(page.locator('.personal-qr svg')).toBeVisible()
  const download=page.waitForEvent('download')
