@@ -11,7 +11,7 @@ test('new conversations rotate prompts and keep prior chat available',async({pag
  await page.getByRole('textbox',{name:'给小叙留言'}).fill('今天和老同事一起吃饭')
  await page.getByRole('button',{name:'发送问题'}).click()
  await page.getByRole('button',{name:'打开聊天历史'}).click()
- await page.getByRole('button',{name:'新对话',exact:true}).click()
+ await page.getByRole('button',{name:'新话题',exact:true}).click()
  await expect(page.locator('.agent-home:visible .agent-message.user')).toHaveCount(0)
  await page.getByRole('button',{name:'打开聊天历史'}).click()
  await page.locator('.history-item').filter({hasText:'今天和老同事一起吃饭'}).click()

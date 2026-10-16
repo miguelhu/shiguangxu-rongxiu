@@ -1,9 +1,9 @@
 import {useEffect,useRef,useState} from 'react'
-import {Camera,Images,Microphone,VideoCamera,X,Check,SpeakerHigh,BookOpen,ArrowsClockwise} from '@phosphor-icons/react'
+import {Camera,Images,Microphone,VideoCamera,X,Check,BookOpen,ArrowsClockwise} from '@phosphor-icons/react'
 import {ChatComposer} from '../ChatComposer'
 import {ACCOUNTS} from '../Contacts'
 import {Facts,Media,Message,extract,questions,storeMemory} from './model'
-import {AgentSuggestion,ConversationArea,MediaPreview,MemoryActions,UploadTrigger,WelcomeMessage} from './components'
+import {AgentSuggestion,ConversationArea,MediaPreview,MemoryActions,WelcomeMessage} from './components'
 import './agent.css'
 import examples from './history-examples.json'
 type Stage='welcome'|'choice'|'memory'|'share'|'confirm'|'saved'|'conversation'
@@ -13,8 +13,7 @@ export function AgentHome({name,active,recipient,memoryRequest=0,exampleIndex=-1
  const [caseOptionsVisible,setCaseOptionsVisible]=useState(true)
  const caseStep=Number(new URLSearchParams(location.search).get('through'))
  const caseOptions=exampleIndex>=0&&new URLSearchParams(location.search).has('through')?(examples[exampleIndex].steps[caseStep] as {choices?:Array<string|{label:string,next?:number,caseIndex?:number,reply?:string,view?:string}>})?.choices:undefined
- const plusLayout=location.pathname.includes('/app-plus/')
- const [stage,setStage]=useState<Stage>('welcome'),[messages,setMessages]=useState<Message[]>([]),[media,setMedia]=useState<Media[]>([]),[facts,setFacts]=useState<Facts>({}),[story,setStory]=useState<string[]>([]),[asked,setAsked]=useState<(keyof Facts)[]>([]),[recipients,setRecipients]=useState<string[]>([]),[upload,setUpload]=useState(false),[discard,setDiscard]=useState(false),[error,setError]=useState(''),[busy,setBusy]=useState(false),[autoSpeak,setAutoSpeak]=useState(false),[voiceStarted,setVoiceStarted]=useState(false)
+ const [stage,setStage]=useState<Stage>('welcome'),[messages,setMessages]=useState<Message[]>([]),[media,setMedia]=useState<Media[]>([]),[facts,setFacts]=useState<Facts>({}),[story,setStory]=useState<string[]>([]),[asked,setAsked]=useState<(keyof Facts)[]>([]),[recipients,setRecipients]=useState<string[]>([]),[upload,setUpload]=useState(false),[discard,setDiscard]=useState(false),[error,setError]=useState(''),[busy,setBusy]=useState(false),[autoSpeak]=useState(false),[voiceStarted,setVoiceStarted]=useState(false)
  const input=useRef<HTMLInputElement>(null),end=useRef<HTMLDivElement>(null),urls=useRef<string[]>([]),lock=useRef(false),recordId=useRef(crypto.randomUUID()),lastRecipient=useRef(''),mediaMode=useRef('image/*')
  const objectURL=(b:Blob)=>{const u=URL.createObjectURL(b);urls.current.push(u);return u}
  const speak=(text:string)=>{if(!('speechSynthesis'in window)){setError('这台设备暂不支持朗读。');return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='zh-CN';u.rate=.9;speechSynthesis.speak(u)}
@@ -56,7 +55,7 @@ export function AgentHome({name,active,recipient,memoryRequest=0,exampleIndex=-1
  {stage!=='welcome'&&stage!=='saved'&&stage!=='conversation'&&stage!=='memory'&&<button className="agent-discard" onClick={()=>setDiscard(true)}>暂时舍弃</button>}
  {error&&<p className="agent-error" role="alert">{error}</p>}
  <div ref={end} className="conversation-end"/>
- {active&&<div className="agent-input">{!plusLayout&&<div className="agent-input-tools">{stage==='welcome'&&!voiceStarted&&<UploadTrigger onClick={()=>setUpload(true)}/>}<button aria-label={autoSpeak?'关闭自动朗读':'开启自动朗读'} aria-pressed={autoSpeak} onClick={()=>{setAutoSpeak(!autoSpeak);if(autoSpeak)window.speechSynthesis?.cancel()}}><SpeakerHigh size={21}/>{autoSpeak?'朗读开':'朗读'}</button></div>}<ChatComposer onAdd={plusLayout?()=>setUpload(true):undefined} onText={receive} onVoice={(blob,text)=>receive(text,blob)} onStart={()=>{setVoiceStarted(true);window.speechSynthesis?.cancel()}} disabled={busy}/></div>}
+ {active&&<div className="agent-input"><ChatComposer onAdd={()=>setUpload(true)} onText={receive} onVoice={(blob,text)=>receive(text,blob)} onStart={()=>{setVoiceStarted(true);window.speechSynthesis?.cancel()}} disabled={busy}/></div>}
  <input ref={input} type="file" hidden multiple onChange={e=>{uploadFiles(e.target.files);e.target.value=''}}/>
  {upload&&<div className="agent-overlay" onClick={()=>setUpload(false)}><div className="agent-upload-sheet" role="dialog" aria-label="添加内容" aria-modal="true" onClick={e=>e.stopPropagation()}><button className="sheet-close" aria-label="关闭上传选项" onClick={()=>setUpload(false)}><X size={25}/></button><h2>想留下什么？</h2><button onClick={()=>pick('image/*')}><Images size={27}/>照片</button><button onClick={()=>pick('image/*',true)}><Camera size={27}/>拍一张</button><button onClick={()=>pick('video/*')}><VideoCamera size={27}/>视频</button>{onArticle&&<button onClick={()=>{setUpload(false);onArticle()}}><BookOpen size={27}/>文章 · 上传或粘贴</button>}<button onClick={()=>pick('audio/*')}><Microphone size={27}/>声音文件</button></div></div>}
  {discard&&<div className="agent-overlay"><div className="agent-discard-dialog" role="alertdialog" aria-modal="true" aria-label="舍弃这次记录"><h2>这次先不留了吗？</h2><p>已经保存的内容不会删除。</p><button className="primary" onClick={reset}>舍弃这次记录</button><button className="secondary" onClick={()=>setDiscard(false)}>继续讲述</button></div></div>}
