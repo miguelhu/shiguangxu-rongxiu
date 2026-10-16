@@ -15,14 +15,14 @@ test('article upload persists title, body and source in the article category',as
  await page.getByRole('group',{name:'内容分类'}).getByRole('button',{name:/照片/}).click()
  await expect(page.locator('.library-card')).toHaveCount(0)
  await page.reload()
- await page.getByRole('button',{name:'打开聊天历史'}).click();await page.locator('.drawer-shortcuts').getByRole('button',{name:'我的拾光',exact:true}).click()
+ await page.getByRole('button',{name:'打开聊天历史'}).click();await page.locator('.drawer-mine').click();await page.getByRole('button',{name:'我的拾光',exact:true}).click()
  await expect(page.locator('.library-card')).toHaveCount(1)
  await expect(page.locator('.library-card')).toContainText('读到的一篇文章')
 })
 
 test('empty categories offer the matching creation action',async({page})=>{
  await page.goto('/app-plus/')
- await page.getByRole('button',{name:'打开聊天历史'}).click();await page.locator('.drawer-shortcuts').getByRole('button',{name:'我的拾光',exact:true}).click()
+ await page.getByRole('button',{name:'打开聊天历史'}).click();await page.locator('.drawer-mine').click();await page.getByRole('button',{name:'我的拾光',exact:true}).click()
  for(const [category,label,accept] of [['照片','上传照片','image/*'],['声音','上传声音','audio/*'],['视频','上传视频','video/*']]){
   await page.getByRole('group',{name:'内容分类'}).getByRole('button',{name:new RegExp(category)}).click()
   await expect(page.locator('.library-empty button')).toHaveText(label)
