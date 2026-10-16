@@ -3,7 +3,12 @@ async function open(page:any,name:string){await page.getByRole('button',{name:'�
 test('four sidebar destinations and reminder management',async({page})=>{
  await page.goto('/')
  await open(page,'我的提醒')
- await page.getByRole('button',{name:'添加提醒',exact:true}).click()
+ await expect(page.getByRole('button',{name:'添加提醒',exact:true})).toHaveCount(0)
+ await page.getByRole('button',{name:'切换打字',exact:true}).click()
+ await page.getByRole('textbox',{name:'给小叙留言'}).fill('每天早上九点半提醒我给女儿打电话')
+ await page.getByRole('button',{name:'发送问题',exact:true}).click()
+ await expect(page.getByLabel('提醒什么')).toHaveValue('给女儿打电话')
+ await expect(page.getByLabel('时间')).toHaveValue('09:30')
  await page.getByLabel('提醒什么').fill('给女儿打电话')
  await page.getByLabel('重复').selectOption('daily')
  await page.getByLabel('时间').fill('09:00')
