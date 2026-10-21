@@ -4,6 +4,8 @@
 
 - [长者App完整产品PRD V4](docs/PRD/11_长者App完整产品PRD_V4.md)：依据当前App页面，包含完整交互、账号、提醒、亲友与家谱、异常及验收。
 - [账号、内容与相框同步公共PRD](docs/PRD/12_账号内容与相框同步公共PRD_V1.md)：个人拾光如何映射相框、统一身份、设备绑定、双向同步、用途权限与删除。
+- [小叙Agent AI开发PRD](docs/PRD/13_小叙Agent_AI开发PRD_V1.md)：全功能语音执行、事实整理、家谱提取、个性化六卡与失败恢复。
+- [Agent口述与推荐验收案例](docs/PRD/14_小叙Agent_口述推荐与验收案例集_V1.md)：31个带预期结果的开发用例。
 - [全部PRD索引](docs/PRD/README.md)：当前文档优先级、历史版本及各端交付范围。
 
 
@@ -57,4 +59,4 @@ cd frame && npm ci && npm run dev
 
 独立代码：[elder-app](elder-app/README.md)。在线预览：https://shiguangxu.miguelhuchen.space/app/ 。
 
-当前产品规格：[长者App全语音Agent PRD V3](docs/PRD/09_长者App全语音Agent完整交互PRD_V3.md)，包含持续对话、相机直发、语音执行所有自有操作、AI选项、权限边界及实际实现差距。
+当前产品规格：[长者App V4](docs/PRD/11_长者App完整产品PRD_V4.md)与[小叙Agent AI开发PRD](docs/PRD/13_小叙Agent_AI开发PRD_V1.md)，配合[公共账号与相框同步](docs/PRD/12_账号内容与相框同步公共PRD_V1.md)阅读；09为历史材料。
