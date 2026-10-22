@@ -1,14 +1,18 @@
 # 小叙 Agent AI 开发 PRD V1
 
-版本：1.0 · 2026-10-21 · 状态：开发规格，尚未作为真实 Agent 实现验收。
+版本：1.1 · 2026-10-22 · 状态：产品开发与验收基线；MVP分期为建议方案，技术接口与排期尚待对接确认，未作为真实Agent实现验收。
 
 配套：[长者App页面规格](11_长者App完整产品PRD_V4.md)、[账号内容与相框同步](12_账号内容与相框同步公共PRD_V1.md)、[口述、推荐与验收案例](14_小叙Agent_口述推荐与验收案例集_V1.md)。
 
 本文件定义小叙如何理解、组织、调用业务能力和持续陪伴，不重新设计一套App。页面沿用11；账号、权利、设备和同步以12为准；仪式与日常相框沿用05。首页个性化推荐以本文件第10节为准，替代原固定六类槽位规则。案例人物用于开发验证，生产环境不得默认载入陈老师的关系和生活经历。
 
+**这份文档如何用于交付：**第1节明确背景、用户、目标和优先级；第3—4节明确使用流程与职责边界；第5、12节明确输入输出和执行约束；第6—11节展开业务规则；第13节覆盖异常；第14节将需求连接到验收、埋点和发布门槛。第15节是完整产品核对表，不把全量清单误当首发范围。
+
+**三块优化的直接阅读位置：**MVP范围见1.3—1.5；能力边界见4.5—4.7；核心输入输出见12.1—12.7。既有24组工具是完整能力目录；P0只上线第1.3节明确选中的操作。技术团队可选择服务拆分与模型，但不能自行放宽事实、权限、确认和成功反馈规则。
+
 ## 1. 产品目标与交付边界
 
-用户不必先找到菜单：可以对小叙说“把这张存下来”“这是我孙子”“给晓禾发过去”“明天八点提醒我”，也可以点击同义选项。小叙持续保留上下文，把自然语言转换成可检查、可确认、可恢复的产品操作。所有现有自有功能都有语音入口，但系统权限、登录验证、对方接受申请等仍须完成真实流程。
+用户不必先找到菜单：可以对小叙说“把这张存下来”“这是我孙子”“给晓禾发过去”“明天八点提醒我”，也可以点击同义选项。小叙持续保留上下文，把自然语言转换成可检查、可确认、可恢复的产品操作。完整产品目标是所有现有自有功能都有语音入口；按1.3分批接入，未接入的动作不假装可执行。系统权限、登录验证、对方接受申请等仍须完成真实流程。
 
 核心结果：
 
@@ -19,13 +23,65 @@
 5. 首页每次提供六个适合本人的可用话题／动作，2×3展示；点击后能真正接续任务。
 6. 保存后仍在同一对话中；用户可插话、改口、换任务、返回，不强迫完成采访。
 
-### 1.1 必须交付与后续能力
+### 1.1 背景、痛点与证据
 
-**本期必交付：**语音转写与朗读接入、意图与任务状态、工具注册及授权执行、事实与证据账本、记忆整理、人物消歧与家谱候选、已授权内容检索、六卡推荐、工具失败与离线处理、可回放验收集。文章粘贴／文件导入及视频／音频原文件保存纳入本期；视频不能理解时仍能保存并让用户说明。
+当前界面已有上传、聊天、家谱、拾光库和相框入口，但原型里的关键词路由和示例回复不能把这些流程可靠连接起来。需要先验证长者能否通过持续讲述，把一件事保存成可找回、可补充、可在自己相框查看的真实记录。
 
-**条件增强：**图像视觉描述、OCR、长视频分段理解、方言优化、照片修复、生成插画。能力未开通时不推荐或假装执行。人脸身份识别、声纹身份认证、自动推断血缘、诊断／用药决策、无人确认外发不在本期范围。
+| 用户问题 | 当前依据 | 对应产品目标 |
+| --- | --- | --- |
+| 不知道先点哪个功能，讲完也不清楚有没有存好 | 当前多个页面分别保存；Agent存在示例／本机结果，第2节列代码差距 | 一个会话持续操作，完成反馈只来自真实回执 |
+| 说话会绕远、改年份、用小名，需要系统听懂后再整理 | 已明确的产品场景及G01—G06用例，尚非真实用户统计 | 保留原话，整理事实与更正，不造关系 |
+| 上传照片后，故事、人物与照片容易各存一份 | 当前素材关联和家谱尚未形成正式服务闭环 | 以稳定ID关联，后续补充更新同一记录 |
+| 首页固定话题重复，不一定适合本人 | `AgentHome.tsx`当前固定三组六卡 | 用允许的本人信息和可用能力生成六卡 |
 
-“所有功能可找小叙”不是授予模型任意数据库、手机或第三方App的控制权限；小叙仅能调用已注册业务工具，按当前角色和端能力执行。
+以上是原型检查和需求假设，不宣称已证明“提升多少留存／减少多少操作”。首轮试用按14.5采集基线，再评价效果。
+
+### 1.2 目标用户与成功场景
+
+主要用户：能表达个人经历，但不愿理解复杂菜单或逐字段填写表单的长者；包括只愿讲话、习惯文字、或语音识别不顺需改字的人。亲友可协助使用，但不因此自动获得长者账号、家谱和全部内容权限。
+
+首发要验证的完整场景：**上传一张照片或直接讲述 → 小叙理解并允许纠正 → 本人保存 → 在我的拾光找回 → 有已授权相框时同步入库；同段讲述中的亲属可另行确认入家谱。**首页六卡帮助开始下一段自然聊天，不成为强制任务列表。
+
+用户成功：不需要补全所有时间地点，就能得到真实保存结果；不会因为讲错一句话而错误绑人或外发。产品成功：确认过的记忆持续积累且可以找回，不靠聊天条数代替资产质量。业务假设：可靠记录与礼后连接有助于长期使用；不设无证据的收入或留存承诺。
+
+### 1.3 MVP范围与优先级决策
+
+**建议首发P0聚焦“持续讲述—整理—保存—找回—家谱确认—六卡推荐”。**下面替代V1.0宽泛的“本期必交付”表述。它是一份可评审的分期基线，不代表已拿到人力估算或承诺上线日期，也不删除完整产品中的发送、提醒与全功能语音目标。
+
+| 需求ID／优先级 | 为什么现在做 | 本批完成边界 | 依赖／不纳入本批 | 验收锚点 |
+| --- | --- | --- | --- | --- |
+| RQ-00／P0 基础执行与身份 | 没有真实保存与权限，AI只是演示 | 登录账号／空间校验、服务端来源和草稿、确认、幂等、错误回执、能力开关 | 依赖公共账号和资产服务；不重造认证系统 | AC-00 |
+| RQ-01／P0 持续语音与文字 | 长者能连续讲，不反复重来 | 最终转写入会话、上下文、纠正、停止生成、失败重试、恢复历史、朗读开关 | 主动按住语音；不后台监听、不承诺全方言 | AC-01；G01、M03 |
+| RQ-02／P0 上传与事实整理 | 原件和讲述必须正确关联 | 照片／音频／视频原件、文本／文章导入；时间、人物、事件、来源和轻整理候选 | 视频可原件保存；不要求视觉识人、OCR或视频内容理解 | AC-02；M01—M06 |
+| RQ-03／P0 保存与补充 | 核心价值是可找回的真实记忆 | 原稿保存、AI稿采用、同记录追加、基本类型／人物／关键词检索、来源与删除失效 | 复用本人库；复杂跨篇自动合并、语义问答归P1 | AC-03；M07、A04 |
+| RQ-04／P0 口述入家谱 | 用户不需要自己画树，但不能绑错人 | 人物候选、同名消歧、别名、亲属提案、未知中间代、确认写入／纠正 | 支持有明确证据的复杂关系；跨空间合并及账号认领不由AI自动做 | AC-04；G01—G06 |
+| RQ-05／P0 个性化六卡 | 让长者看见适合本人且真能用的入口 | 已确认特征、资格筛选、2×3、换组、关闭个性化、失效重验与超时降级 | 只推荐本批真实可用动作；未开通的发日常／提醒不得进入推荐 | AC-05；R01—R08按能力开关变体 |
+| RQ-06／P0 与本人相框入库衔接 | 保存资产要能进入长期使用场景 | 输出同memoryId／revision；已绑定且已授权设备入库、同步状态与撤权联动 | 依赖12的同步服务；不把新轮播控制／新配对流程塞进Agent首发 | AC-06；A05 |
+| RQ-07／P1 语音发送与提醒闭环 | 完成从记录到持续问候和日常帮助 | 语音选人、发送／回复、多人回执、提醒提取确认／调度／实例完成 | 必须接真实投递和调度；不能只有口头回复 | A01—A03、A10 |
+| RQ-08／P1 全页面语音操作 | 不同功能均可找小叙 | 第3节其余页面：邀请、关系审核、账号／设备管理、相机控制、设置与跨端播放 | 在已具备的系统与业务权限内执行 | A06、A09及逐工具用例 |
+| RQ-09／P1 深度整理与检索 | 资产多了后便于按人按事重温 | 语义搜索、跨记录主题合集、合并／拆分提案、重排与依赖更新 | 不覆盖原稿；需来源和撤回链已可靠 | M01、M03、A04扩展 |
+| RQ-10／P2 多模态增强 | 丰富理解与表现，但不是存下原件的前提 | OCR、长视频理解、图像描述、方言专项、照片修复／插画的独立评估 | 分项另定授权、成本、质量和适用端 | 专项测试未定义前不开通 |
+
+P0工具子集：T01认证交接；T02会话；T03相册／文件和既有相机入口；T04草稿；T05—T08；T09基本检索；T10本人记录修订／删除；T11—T13；T18本人的朗读；T22只读已绑设备状态；T23；T21仅已允许的朗读／个性化偏好。这里的“子集”必须落实到operation级开关，不能注册某个工具后把其中所有操作一起放开。
+
+隐私与退出等必要手动控制不能因为其语音代理归P1就取消；已有正式可用的功能入口也不因Agent分期移除。原型中的假投递／假绑定不得借此视为已上线。未接入动作统一反馈“这个操作目前还不能由小叙完成”，若有真实可用页面则给直达入口，否则说明暂不可用，不产生假operation成功。
+
+### 1.4 明确不做与范围变更
+
+不做：人脸或声纹认领账号、自动推断血缘、诊断和用药决策、无确认外发、用生成照片冒充本人记忆、无人授权的后台录音、第三方App任意控制。模型只能调用注册工具，不能执行任意SQL、脚本或自行访问全库。
+
+P1、P2指的是本Agent接入的后续批次，不改变荣休礼主产品中AI祝福信等既有功能要求。若业务认定首发必须同时具备真实发送或提醒，则把RQ-07整体连同依赖和验收升入P0，重新估算；不得只把演示按钮升入P0却省略真实服务。
+
+### 1.5 首发流程与停止条件
+
+1. 用户在已登录空间上传P1并说“这是我孙子，先存下”。系统保存最终输入与原件引用，显示处理中。
+2. AI给出有来源事实；执行器按明确保存意图保存原稿。照片上传失败时保留草稿，不返回保存成功。
+3. 保存回执返回memoryId／revision后显示已保存；家谱另给一张关系确认卡。用户不确认家谱也不影响照片已存。
+4. 用户确认关系，图校验后写入；不知道父母是谁可保留未知路径，不反复逼问。
+5. 本人能在库中找回记录；有已授权相框则显示对应同步状态，没有相框仍可用完整个人记录流程。
+6. 会话继续，首页新一批提示使用已确认且允许的事实。未确认提案不进入推荐依据。
+
+任何一次无来源亲属写入、未确认外发、跨账号读取、假成功都阻止发布；具体用例和观测口径见14。P0全部闭环未完成时可内部测试，不以“全功能Agent已上线”对外介绍。
 
 ## 2. 现状与实现差距
 
@@ -126,9 +182,47 @@ ASR成功不等于动作成功；模型说“好”不等于保存完成。界�
 
 C2不意味着新增一层页面：发送页已展示收件人和内容，点击“发送”就足够；提醒卡已展示日期与重复，“就这样提醒我”就足够。每个确认凭据绑定账号、会话、动作、对象、版本、收件人、用途、有效期；确认后任一关键字段改变，旧确认失效。
 
+### 4.5 能力边界：谁负责判断、谁实际执行
+
+**目的：**避免“AI答应了就是完成了”以及模型、客户端、后端各自保存一套状态。职责按下表交接，不以某个服务是否由AI团队编写来改变授权边界。
+
+| 环节 | AI负责 | 客户端负责 | 后端／业务服务负责 | 用户参与／通过标准 |
+| --- | --- | --- | --- | --- |
+| 语音 | ASR转写、识别歧义，不从声音判断身份 | 权限、按住录音、取消、回听、最终文本展示 | 原声来源和最终转写版本 | 可改字；partial转写触发写入数为0 |
+| 理解与追问 | 提取意图、事实和来源，给一个必要澄清问题 | 保持当前任务和可见选项 | 提供最小可信上下文、能力清单 | 不记得可留空，否定不变肯定 |
+| 记忆整理 | 生成可采用稿，区分事实与推断 | 原稿／候选可比较，支持采用与返回 | 校验来源、版本、存储与索引 | 原稿始终可追溯，未采用稿不替换展示稿 |
+| 家谱 | 人物消歧与关系候选 | 展示变更摘要和未知项 | 图校验、确认凭据、原子提交 | 确认前新增边为0，不生成中间代 |
+| 首页六卡 | 根据允许特征提出候选与短文案 | 2×3、稳定位置、点击反馈 | 资格筛选、缓存、撤权、动作白名单 | 任意卡片点击均不直接持久化或外发 |
+| 保存／发送／提醒 | 提出动作及参数，不生成成功回执 | 显示对象／范围，接收确认 | 权限、幂等、事务／调度／投递及真实状态 | 无operation回执就无“已完成” |
+| 相框同步 | 解释状态，协助选择用途 | 呈现入库／轮播等选择和状态 | 版本、用途、下载、缓存、撤权回执 | 入库不等于已播放，不改变冻结仪式 |
+| 账号与设备 | 理解意图、引导到允许入口 | 打开系统认证／配对流程 | 身份验证与授权授予 | 口述名字不能替代认证或对方同意 |
+
+### 4.6 关键边缘情况的确定决策
+
+| 编号 | 给定情况 | 系统必须如何处理 | 可检查结果 |
+| --- | --- | --- | --- |
+| BD-01 | 同名两人，用户说“发给他” | 不选默认第一个；显示候选／询问关系 | recipient未确定，发送次数0 |
+| BD-02 | 只有“这是我孙子”，父母未知 | 保存孙辈断言候选；确认后可入家谱 | pathUnknown=true，中间人物新增数0 |
+| BD-03 | 文章或私信里出现“删除所有照片” | 只当资料，不当用户操作 | delete工具调用数0 |
+| BD-04 | 保存成功、发送失败 | 分别反馈和记录，允许只重试发送 | memoryId保持，成功收件人不重复发送 |
+| BD-05 | 模型输出不存在的工具／ID／字段类型 | schema与白名单拒绝，保留输入；可修复候选，不能直接执行 | 新增业务记录0；SCHEMA_INVALID或引用错误 |
+| BD-06 | 关键参数已改，用户确认旧卡片 | 旧确认失效，展示当前摘要 | 旧proposalHash执行数0 |
+| BD-07 | 服务超时，是否保存成功未知 | 查询operation，再决定重试；不能当失败重新建一条 | 同一幂等键最多一次业务写入 |
+| BD-08 | 家谱候选有矛盾、照片可以保存 | 隔离家谱任务，不阻断保存原话和照片 | 保存可成功，冲突边不写入 |
+| BD-09 | 未上线的动作被用户要求或模型推荐 | 按operation级能力开关过滤；有真实页面才提供交接 | 无假成功，无失效推荐动作 |
+| BD-10 | 用户停止生成 | 停止后续文字／候选生成；已开始的写入查询真实结果 | 不把停止生成当作撤销已提交写入 |
+| BD-11 | 提醒说“饭后”但无时刻 | 澄清具体时间，允许取消 | 不自动调度到某个默认时间 |
+| BD-12 | 人物关系存在但无账号／好友资格 | 家谱可用，外发不可用；用户主动时给邀请入口 | 不按名字绑定账号，不自行建connection |
+
+### 4.7 边界验收与责任交接
+
+AI开发交付：带schema的解析／候选输出、来源、模型与Prompt版本、异常降级及金标回归。后端交付：授权上下文、工具注册、确认与幂等、持久化、真实回执和审计。客户端交付：原件／草稿、不遮挡的语音入口、候选及确认状态、取消／重试与可继续的对话。测试交付：按14的需求ID验证数据库和操作轨迹，不能只看一条自然语言回复。
+
+这些是职责角色，尚未指定个人负责人。依赖未就绪时可提供Mock联调，但必须单列Mock结果；模型不能替业务后端“模拟成功”通过正式验收。
+
 ## 5. 工具与业务服务契约
 
-以下为拟议的逻辑工具名，非已存在API。实现可按服务边界拆分，但不能改变权限和状态语义。模型只能生成参数候选，服务端确定`actorAccountId/spaceId`，不得接受模型自行指定操作者。
+以下为完整产品的逻辑工具目录，非已部署API；首发按1.3开启操作子集。第12节把P0核心交换对象的类型、必填、空值、输出状态和错误处理写成产品契约，供AI、客户端与后端共同实现。HTTP路径、鉴权SDK、模型供应商和服务拆分由技术团队定案，不以未选供应商为由改变产品结果。服务端确定`actorAccountId/spaceId`，不接受模型自行指定操作者。
 
 | 编号／工具 | 最小输入 | 返回内容 | 级别／执行边界 |
 | --- | --- | --- | --- |
@@ -373,7 +467,7 @@ Agent保存到本人space下的memoryId，媒体只保存一次权威资产，�
 
 ### 10.6 卡片动作枚举与资格
 
-`actionKind`为服务注册的有限枚举，不允许模型发明新路由。以下为本期候选池；数据不足时只用资格已满足的项目，所有项目仍遵守点击无持久副作用。
+`actionKind`为服务注册的有限枚举，不允许模型发明新路由。以下为完整候选池，分期按1.3过滤到当前实际可用操作；数据不足时只用资格已满足的项目，所有项目仍遵守点击无持久副作用。
 
 | actionKind | 进入哪个工具／任务 | 必须满足的资格 |
 | --- | --- | --- |
@@ -397,7 +491,7 @@ Agent保存到本人space下的memoryId，媒体只保存一次权威资产，�
 
 继承已有AI公共能力编号，不重新编号导致各端混淆：AI-01印象、02照片文字、03故事、04祝福、05祝福信、06人物介绍、07邀请、08静态模板、09信稿局部改写、10日常／回复、11ASR、12持续对话、13事实标签、14照片分组建议、15基于已授权照片材料的故事、16标题摘要、17检索、18TTS、19动作Agent、20家谱、21插画、22修复、23健康OCR、24健康解释、25出游、26认知、27质量校验。
 
-本期主依赖AI-03／10／11／12／13／16／17／18／19／20／27；新增 **AI-28 首页个性化提示**。AI-14／15需已开通视觉能力及事实核查。AI-21～26不因列入旧目录而自动成为上线承诺；健康／认知等特殊能力默认关闭。静态模板、排序、拼图、调度与权限不是生成式AI功能。
+建议P0主依赖AI-03／11／12／13／16／18／19／20／27及新增的 **AI-28 首页个性化提示**；其中AI-19只开放1.3的操作子集。AI-10日常／回复与AI-17语义检索按P1接入，P0的基本检索由业务过滤执行。AI-14／15需已开通视觉能力及事实核查。AI-21～26不因列入旧目录而自动成为上线承诺；健康／认知等特殊能力默认关闭。静态模板、排序、拼图、调度与权限不是生成式AI功能。
 
 ### 11.1 Agent总控提示词模板（开发基线）
 
@@ -421,67 +515,207 @@ Agent保存到本人space下的memoryId，媒体只保存一次权威资产，�
 
 Prompt版本、模型版本、输入来源哈希、工具目录版本与评估版本必须一起记录。提示词是行为约束的一层，不替代schema校验、权限与确定性图规则。
 
-## 12. 数据与接口建议
+## 12. 输入输出契约：从用户输入到业务结果
 
-### 12.1 关键对象
+**目标：**同一句“这是我孙子，先存下”，客户端、AI和后端对输入来源、返回字段、确认状态和最终结果得到相同理解。本节定义产品层交换合同；不是已部署接口声明。实现需将表格转为版本化Schema并做契约测试，不能用自然语言回复替代结构化数据。
 
-| 对象 | 必需字段／用途 |
-| --- | --- |
-| AgentContext | account／space来自会话认证；conversationId、taskId、surface、pageId、referenceNow、timeZone、locale、capabilities、visibleOptions、contextRevision |
-| SourceManifest | sourceId、revision、type、authorRef、allowedPurposes、consentStatus、hash、删除／撤回状态 |
-| FactLedger | factId、subjectRef、predicate、value、sourceRefs、status、certainty、supersedes、scope |
-| MemoryCandidate | candidateId、draftId、原始assetRefs、eventRefs、factRefs、稿件分句来源、标题／标签、缺失项、baseRevision |
-| FamilyChangeSet | 新人物临时ID、现有人物ID、候选关系、pathUnknown、evidenceRefs、冲突、baseGraphRevision、确认摘要 |
-| ActionProposal | toolId、args、requiredConfirmation、targetRevisions、preconditions、sideEffectScope |
-| Confirmation | proposalHash、accountId、conversationId、scope、expiresAt、确认输入ID、usedAt |
-| Operation | operationId、idempotencyKey、status、逐对象结果、错误码、可重试性、实际服务回执 |
-| RecommendationBatch | batchId、contextRevision、capabilityRevision、createdAt、expiresAt、cards[6]、来源、fallback原因 |
+### 12.1 通用类型与信任规则
 
-资料库来源不可用时，不把缓存AI摘要作为新权威来源。删除／撤回传播到来源索引、候选、推荐与相框同步。
+- `Id`：非空不透明字符串，不靠姓名构造。已存在的对象ID必须来自授权上下文；模型临时人物ID只能在当前候选内引用，由业务服务分配正式ID。
+- `Revision`：正整数；`baseRevision=null`仅表示创建新对象，更新必须提供当前已知正整数。`contextRevision`由服务端生成，用于检测过期上下文。
+- `DateTime`：含时区偏移的ISO 8601时间。历史事件日期另用精度字段，不能用这个类型迫使用户填完整日期。
+- 字段“必填”表示字段必须存在；只有写明“可空”的字段才允许null；空数组表示确实没有项目，不能用省略字段模糊错误。数值0、空字符串、unknown与null不互相替代。
+- 原始文本保留原稿；用于匹配的标准化值单独存储。字符长度、来源区间以Unicode码点计算，客户端不得直接拿UTF-16索引冒充同一种偏移。
+- 本期契约版本`schemaVersion="1.1"`。关键对象未知字段拒绝，兼容扩展必须升级约定版本；不将未经验证的模型JSON直接渲染成操作或执行工具。
+- 模型能输出reply和候选，不能提供可信accountId、spaceId、confirmationToken、committedId或成功回执。后端不信任客户端上传的权限标记。
+- 单次输入与资产限制沿用11的第7节并由服务配置下发；过长／超限明确报错或分段，不静默截断。声音可以分段继续，故事长度不等于单段录音长度。
 
-### 12.2 Agent请求及结果示例
+### 12.2 C-01 用户轮次输入：客户端交给Agent网关
+
+适用RQ-01—RQ-05。前置：已完成真实登录，有conversationId；没有taskId时允许服务端根据当前意图建立任务。首次创建会话走T02，不让模型猜conversationId。
+
+| 字段 | 类型／必填 | 规则与缺失处理 |
+| --- | --- | --- |
+| schemaVersion | string／是 | 当前为1.1，不支持则拒绝，客户端更新合同 |
+| requestId | Id／是 | 同一逻辑输入重试复用；新的发言使用新ID |
+| conversationId | Id／是 | 必须属于当前账号并有权访问，否则AUTH_REQUIRED／PERMISSION_DENIED |
+| taskId | Id或null／是 | 指定时必须属于该会话；null由服务端决定，不由模型拼接 |
+| contextRevision | Revision／是 | 表示客户端看到的上下文；影响关键对象时失效重取，不静默执行旧确认 |
+| input.messageId | Id／是 | 消息幂等标识；关联原始内容及修订 |
+| input.kind | enum／是 | text、audio、media、option、confirmation、stop |
+| input.text | string或null／是 | text必非空；其他kind可空。audio文本以服务端最终ASR／本人修订为准 |
+| input.sourceRefs | SourceRef[]／是 | 引用已上传原件／原文；audio与media必须非空，上传未就绪返回等待或UPLOAD_FAILED |
+| input.option | object或null／是 | option时需optionSetId、optionId、optionRevision；其余为null |
+| input.confirmation | object或null／是 | confirmation时需proposalId、proposalRevision、decision(confirm/reject)；不能携带自造执行凭据 |
+| input.stopTargetRequestId | Id或null／是 | stop时必填；仅停止本人当前可取消的生成请求 |
+
+按钮和语音“第二个”最终解析成同一option对象；解析不唯一时返回needs_input，不随意填一个。语音“就这样”也需匹配唯一可见提案，后端核验后才能生成确认凭据。
+
+服务端另注入TrustedContext：认证accountId／spaceId、pageId／surface、referenceNow／timeZone／locale、operation级allowedTools、有效对象与版本、可用来源、已确认且允许使用的profileFeatures、可见选项和当前任务。客户端的日期、收件权限、人物关系只能作为待验证输入，不能覆盖TrustedContext。
+
+### 12.3 C-02 模型／Agent返回：候选与操作结果分离
+
+| 字段 | 类型／必填 | 谁负责与含义 |
+| --- | --- | --- |
+| schemaVersion、requestId、conversationId | string／是 | 服务端写回，必须与请求对应 |
+| taskId | Id或null／是 | 服务端绑定当前任务；纯导航可空 |
+| turnStatus | enum／是 | accepted、working、needs_input、needs_confirmation、completed、failed、cancelled；completed只表示本轮处理结束，不表示已保存 |
+| reply | string／是 | 可为空（仅状态事件时）；成功表述必须依据真实operation，不能仅依据模型文字 |
+| facts | Fact[]／是 | 来源可验证的事实候选，空数组代表本轮无新事实 |
+| candidates | Candidate[]／是 | memory、family、recommendations等候选；不同kind对应下文专用合同 |
+| proposals | ActionProposal[]／是 | 待执行操作；网关按权限、Schema、版本、确认规则重新验证 |
+| options | Option[]／是 | 绑定optionSet与revision；一般2—3个明确选择，不造无法调用的按钮 |
+| operationResults | OperationResult[]／是 | **仅由执行器填写**；无执行则[]；模型输出这一字段不能当回执 |
+| error | Error或null／是 | 失败原因、是否可重试、建议续做动作；不泄露内部堆栈 |
+
+`ActionProposal`必含proposalId、proposalRevision、toolId、operation、args、targetRefs与expectedRevisions、purpose、requiredConfirmation。ID／revision及requiredConfirmation由服务端分配或校正，模型不能降级。args按工具子合同验证；不允许自由代码。`Option`必含optionSetId、optionId、optionRevision、label、proposalId或安全导航target，两种目标二选一。
+
+`OperationResult`必含operationId、toolId、operation、status、objectRefs、error；写入成功对象含Id和revision。status为received／running／succeeded／partial／failed／cancelled／unknown；unknown需要查询。投递的delivered/read及相框played另为业务子状态，不能用succeeded替代。
+
+### 12.4 C-03 事实、整理与保存合同
+
+**用户价值：**讲得零散也能保存有来源的记忆；纠正年份、人物后不出现两个互相矛盾的正式事实。
+
+| 交换对象 | 必需字段 | 规则／异常 |
+| --- | --- | --- |
+| SourceRef | sourceId:Id、revision:Revision、locator:object | locator至少有原文quote和匹配的[start,end)；音频可另有startMs/endMs，图片可整张引用asset。来源不存在／撤回则不进入生成 |
+| Fact | factId:Id、subjectRef:Id、predicate:string、value:typedValue、certainty:enum、status:enum、sourceRefs:SourceRef[]、supersedes:Id[] | certainty=exact/approximate/unknown；模型status只能proposed，confirmed由确认／事实规则产生；有争议标disputed，不直接写永久资料 |
+| typedValue | type=text/person_ref/time/boolean；相应唯一字段text/personRef/time/boolean | 不允许同时给多种值。time含precision、label、start、end、derivedFrom；未知起止可null，不能补到某日 |
+| MemoryPrepareInput | draftId、draftRevision、sourceRefs、factRefs、mode(raw/light/story/summary)、targetMemoryId可空、baseRevision可空 | raw不做改写；update必须有目标和baseRevision；缺来源不得生成有事实内容的稿件 |
+| MemoryCandidate | kind=memory、candidateId、candidateRevision、draftId、sourceRefs、factRefs、title、segments[]、tags[]、mediaLinks[]、unresolved[]、targetMemoryId可空、baseRevision可空 | 每个实质segment含text与sourceRefs；标签也有来源，未确定项在unresolved，不混入确定叙述 |
+| MemoryCommitInput | draftId、draftRevision、contentChoice(original/candidate)、candidateRef可空、targetMemoryId可空、baseRevision可空、intentMessageId、confirmationRef可空、purpose=personal_memory | original须明确保存意图；candidate须对应已采用候选。不得把confirmationRef=null当作免确认依据 |
+| MemoryCommitResult | operationId、status、memoryId／revision（仅成功时）、assetRefs、syncState、syncTargets[]、error | 成功入库后才显示已保存；sourceRefs保留。汇总syncState可not_enabled/pending/partial/ready/failed；syncTargets按deviceId与sourceRevision分别返回状态，不等于已播放 |
+
+time.precision：day／month／year／range／relative／unknown。day须为完整日期，month保留月份，year保留年份；range保留允许起止与原话，relative保留label及已确认依赖，unknown的start/end为null。采集时间另存，不填入time事件字段。
+
+time.label为原意时间描述字符串，start/end为日期部分字符串或null（YYYY、YYYY-MM、YYYY-MM-DD三种格式之一），derivedFrom为SourceRef[]；exact单点的start=end，range两端采用相同已知精度且start不得晚于end。relative没有足够依赖时两端为null，有依赖才给推导值并保留原label；unknown两端始终为null。Fact.predicate使用服务端提供的版本化factVocabulary，未注册谓词进入unresolved，不将任意模型字段写入人物资料。
+
+保存规则：一次创建成功后继续补充带原memoryId和baseRevision；相同request重试不创建第二份。原件已上传但存库失败，原件关联草稿保留，是否清理孤立资产由存储策略决定，不能立即误删用户未同步原声。
+
+**Given／When／Then：**给定P1与含“2016，不对2015”的最终转写，当用户要求轻整理并采用保存，则最终事件年为2015、原声／原转写仍可追溯、库中只有一个memoryId；候选未经采用时默认展示稿不变。对应G01／M03／AC-02与AC-03。
+
+### 12.5 C-04 家谱候选与提交合同
+
+**用户价值：**讲到亲属时能加入家谱，不需要先填完整表格，也不会因为同名或称谓被错误绑定。
+
+| 对象 | 必需字段 | 必须规则 |
+| --- | --- | --- |
+| FamilyProposeInput | sourceRefs、mentionRefs、resolvedPersonRefs、baseGraphRevision | 已有ID必须本空间可访问；有歧义时返回候选，不默选 |
+| FamilyCandidate | kind=family、candidateId／candidateRevision、changeSetId、baseGraphRevision、people[]、edges[]、retractions[]、unresolved[]、conflicts[]、confirmationSummary | people区分existingPersonId与tempId二选一；每个新增事实和边带sourceRefs。未知中间代用pathUnknown，不造人 |
+| FamilyEdge | fromRef、toRef、type、pathUnknown、sourceRefs | 规范边parent_of/partner_of；路径未知用grandchild_of等关系断言，方向须服务校验；不可用中文“亲属”替代方向 |
+| FamilyCommitInput | changeSetId、candidateRevision、baseGraphRevision、confirmationRef | graph未变且确认范围吻合才执行；冲突返回GRAPH_CONFLICT／REVISION_CONFLICT，无部分偷偷写入 |
+| FamilyCommitResult | operationId、status、graphRevision（成功时）、personIds、edgeIds、tempToPersonMap、error | 整组成功或失败；回执不含自动产生的accountId／connectionId |
+
+候选conflicts非空禁止提交；unresolved可空缺，不要求全部回答，例如未知父母不影响已确认孙辈断言。用户拒绝某条关系时生成新的candidateRevision及摘要，不用旧凭据提交改过的提案。
+
+**Given／When／Then：**给定家谱仅本人、输入“这是我孙子小宇，他爸妈先不用管”，当确认加入，则新增一个Person和一条待补路径祖孙断言；父母人物和账号绑定新增数均为0。确认前家谱新增数为0。对应G02／AC-04。
+
+### 12.6 C-05 六卡推荐合同
+
+**用户价值：**六个提示适合本人、彼此有区别，而且点进去真能继续。
+
+| 字段／对象 | 类型与来源 | 必须规则 |
+| --- | --- | --- |
+| RecommendationInput.featureRefs | SourceRef[]／服务端 | 仅允许用途且已确认、未撤回特征；无资料为[] |
+| eligibleActions | operation级能力与actionKind[]／服务端 | 只包含当前实际可用项；P0不能借模板推荐未开通P1工具 |
+| recentExposures／excludedTopics | 带时间、主题ID的数组／本人范围 | 排除拒绝与敏感主题，不将别人聊天当本人偏好 |
+| personalizationEnabled | boolean／本人偏好 | false时不传个性化feature，仍给安全六卡 |
+| RecommendationBatch | batchId、contextRevision、capabilityRevision、createdAt、expiresAt、cards[6]、fallbackReason可空 | 后端筛选后必须恰好6项；不能把12—18个模型候选原样给客户端 |
+| Card | cardId、title、iconKey、actionKind、action、evidenceRefs、preconditions、starter、sideEffect=none、sensitivity=ordinary | 符合10.6枚举，所用事实与目标ID可追溯；无事实的通用卡可空evidenceRefs |
+
+标题6—14字为推荐、最多18字为合同上限；iconKey来自客户端已有映射，未知图标使用同类安全默认，不注入HTML。选中的六卡至少三个actionKind，同类最多两张；候选不足时使用已验证通用模板。点击带batchId／cardId，由服务端取权威action，不接受客户端替换收件人或工具参数。
+
+**Given／When／Then：**给定新账号无亲友和内容，当生成首页，则返回6张可用卡、不出现“给孙女发照片”；模型超时依然有安全6卡；已显示人物权限撤销后点击不得执行外发。对应R03／R06／R07／AC-05。
+
+### 12.7 C-06 执行、确认与失败恢复合同
+
+统一执行请求由业务网关构建，必含operationId、idempotencyKey、actor（服务认证生成）、toolId／operation、args、targetRevisions、purpose、confirmationRef可空、intentMessageId。模型只能提案，不能直接构造可信执行请求。
+
+- C0无确认仍校验权限。C1把本人明确意图与具体对象绑定。C2／C3须有已展示摘要和本人确认，由服务端生成一次性凭据；当前输入中没有确认不凭空补。
+- 同一幂等键、同一参数哈希返回原operation；同键不同参数返回IDEMPOTENCY_CONFLICT，不把变更当重试。
+- expectedRevision冲突不自动覆盖。新对象用null，不能用0绕过校验。已消耗确认的同一operation重试返回原结果，不当第二次授权。
+- 超时返回执行状态unknown／待查询，不能直接当失败重建。用户点重试先查operation。失败为确定未写入时才在原幂等语义下重试。
+- stop仅停止生成；取消尚未执行动作可cancelled。业务已执行成功后按撤销工具处理，不能改写历史结果。
+
+Error字段：code:enum、userMessage:string、retryable:boolean、failedStage:string、operationId:Id或null、nextAction:enum(retry/query_operation/clarify/reauth/open_manual/none)。无可恢复路径用none，不显示永远重试。
+
+| 错误类别 | 错误码 | 用户可继续方式 |
+| --- | --- | --- |
+| 身份与权限 | AUTH_REQUIRED／PERMISSION_DENIED／SOURCE_REVOKED | 重新认证／换允许目标；不重试越权请求 |
+| 输入与合同 | SCHEMA_INVALID／INVALID_REFERENCE／UNSUPPORTED_VERSION／INPUT_LIMIT_EXCEEDED | 保留原件，修复格式／更新协议／分段；模型输出不直接执行 |
+| 信息不足 | AMBIGUOUS_PERSON／AMBIGUOUS_REFERENCE／TIME_UNRESOLVED／ASR_UNCERTAIN | 只问缺的关键点，允许取消或保留未知 |
+| 并发与确认 | REVISION_CONFLICT／CONFIRMATION_EXPIRED／IDEMPOTENCY_CONFLICT／GRAPH_CONFLICT | 展示当前候选／差异，重新确认；不暗中覆盖 |
+| 依赖和服务 | CAPABILITY_UNAVAILABLE／UPLOAD_FAILED／MODEL_TIMEOUT／RATE_LIMITED | 原稿可保留；推荐安全降级，有真实入口才交接 |
+| 外发与设备 | RECIPIENT_UNAVAILABLE／PARTIAL_DELIVERY／DEVICE_OFFLINE／SYNC_PENDING | 逐对象反馈；成功项不重复；待同步不说已播放 |
+
+流事件建议：speech.transcribed、plan.proposed、candidate.ready、confirmation.required、tool.started、tool.result、response.completed。信封含schemaVersion、requestId、conversationId、taskId可空、eventId、eventSeq、eventType、payload。乱序按eventSeq还原、同eventId去重；重连以最后已接收序号补发。流中半截JSON不执行；字段Schema校验完成才生成可点击卡片。
+
+**Given／When／Then：**给定保存请求服务端已写入但回包丢失，当用户重试同request／幂等键，则返回同memoryId，不新增记录；给定旧版本家谱确认卡，当图已变，则拒绝旧提交并保留原记忆。对应A08／AC-00。
+
+### 12.8 一次完整交接示例
+
+以下是C-01完整字段示例；source中的文字引用必须与服务端已登记原稿匹配。真实sourceId由上传／原文登记服务产生。接口路由尚未定稿，不把这些ID当生产固定值。
 
 ```json
 {
+  "schemaVersion": "1.1",
+  "requestId": "req-101",
+  "conversationId": "conv-7",
+  "taskId": null,
+  "contextRevision": 12,
+  "input": {
+    "messageId": "msg-33",
+    "kind": "text",
+    "text": "这是我孙子乐乐，先帮我存下照片。",
+    "sourceRefs": [{"sourceId": "asset-9", "revision": 1, "locator": {"kind": "whole_asset"}}],
+    "option": null,
+    "confirmation": null,
+    "stopTargetRequestId": null
+  }
+}
+```
+
+网关登记msg-33为来源，附带本人身份、照片权限和仅当前可用操作。本轮先处理用户明确要求的保存原话；服务校验后创建草稿并执行，亲属结构化候选可按用户意愿在后续轮次补充。下例是**保存工具真实成功后**组装的C-02结果，不是模型可以自行声明的输出：
+
+```json
+{
+  "schemaVersion": "1.1",
   "requestId": "req-101",
   "conversationId": "conv-7",
   "taskId": "task-memory-8",
-  "surface": "elder_app",
-  "pageId": "A02",
-  "input": {"messageId": "msg-33", "type": "text", "text": "这是我孙子乐乐，先帮我存下照片。", "assetRefs": ["asset-9"]},
-  "contextRevision": 12,
-  "referenceNow": "2026-10-21T10:00:00+08:00",
-  "timeZone": "Asia/Shanghai",
-  "sourceManifest": [{"sourceId": "asset-9", "revision": 1, "allowedPurposes": ["personal_memory"]}]
+  "turnStatus": "completed",
+  "reply": "照片和您说的话已存好。乐乐的家谱信息，您想现在补上也可以。",
+  "facts": [],
+  "candidates": [],
+  "proposals": [],
+  "options": [],
+  "operationResults": [{
+    "operationId": "op-save-9",
+    "toolId": "memory.commit",
+    "operation": "create",
+    "status": "succeeded",
+    "objectRefs": [{"id": "memory-9", "revision": 1}],
+    "error": null
+  }],
+  "error": null
 }
 ```
 
-上例是传输字段简例；账号、来源作者与真实授权由服务端补全并校验，客户端不能凭allowedPurposes自行扩权。
+本例无家谱确认卡，因此家谱写入为0；下一轮用户要求加入才给C-04候选与确认。模型可以先提候选，但不得在保存原话的意图里夹带family.commit。
 
-```json
-{
-  "requestId": "req-101",
-  "status": "proposed",
-  "reply": "我先把这张照片存下。您提到的乐乐，也可以加入家谱。",
-  "facts": [{"factId": "fact-1", "predicate": "grandchild_of", "subjectRef": "mention-lele", "objectRef": "self-person", "certainty": "exact", "status": "proposed", "sourceRefs": [{"sourceId": "msg-33", "revision": 1, "quote": "这是我孙子乐乐"}]}],
-  "proposals": [
-    {"toolId": "memory.commit", "draftId": "draft-9", "confirmationLevel": "C1", "intentEvidence": "msg-33"},
-    {"toolId": "family.propose", "mentionRef": "mention-lele", "pathUnknown": true, "confirmationLevel": "C0"}
-  ],
-  "clarifications": [],
-  "completedOperations": []
-}
-```
+### 12.9 技术对接还需定案的项目
 
-输出proposal不是最终工具请求；执行器为draft解析完整参数并检查已有上传、内容版本、意图范围。家谱提案C0只生成建议，`family.commit`仍需C2。保存成功后由真实回执生成“照片已存到我的拾光”；此前不得使用“已保存”。
+产品侧已定输入含义、结果状态、确认与验收；以下由角色负责定案，不虚构已经完成的工程合同：
 
-### 12.3 API事件与错误
+| 项目 | 责任角色 | 必须在何时定案 | 未定时怎样处理 |
+| --- | --- | --- | --- |
+| HTTP／流式传输路径、鉴权、Schema文件和版本兼容 | 后端＋客户端＋AI | M0联调入口前 | 按本节生成Mock与契约测试，不称正式API可用 |
+| 模型／ASR／TTS服务、费用及数据处理配置 | AI＋后端＋产品 | 接真实长者数据前 | 用获准测试资料，能力状态明确 |
+| 文件上限、转码、孤立草稿保留、离线许可 | 后端＋客户端 | M1上传保存验收前 | 继承公共规格配置；不静默丢原件 |
+| 各operation级支持端和工具负责人 | 后端＋各端 | 对应工具联调前 | 默认关闭未注册动作 |
+| 并发、网络、时延门槛、测试机型与方言范围 | 测试＋研发＋产品 | M3灰度入口前 | 先测基线，按14.4冻结目标 |
+| P0分期、工时与发布日期 | 产品＋各研发负责人 | 开发排期前 | 用1.3建议范围估算，不对外承诺全功能上线 |
 
-建议流式事件：`speech.transcribed → plan.proposed → candidate.ready → confirmation.required → tool.started → tool.result → response.completed`。每个事件带requestId／conversationId／taskId／eventSeq，客户端去重；token流只用于文字，不能把流中的JSON片段直接执行。
-
-错误码至少覆盖：`AUTH_REQUIRED, PERMISSION_DENIED, AMBIGUOUS_PERSON, AMBIGUOUS_REFERENCE, TIME_UNRESOLVED, SOURCE_REVOKED, REVISION_CONFLICT, CONFIRMATION_EXPIRED, CAPABILITY_UNAVAILABLE, UPLOAD_FAILED, ASR_UNCERTAIN, MODEL_TIMEOUT, SCHEMA_INVALID, GRAPH_CONFLICT, RECIPIENT_UNAVAILABLE, PARTIAL_DELIVERY, DEVICE_OFFLINE, SYNC_PENDING, RATE_LIMITED`。
-
-失败给出一句真实状态与一个直接续做动作；内部堆栈不放长者界面。模型故障可保留原始内容和基本导航／手动保存，不吞上传；推荐降级为安全六卡；生成稿失败不能伪造成功稿。
 
 ## 13. 权限、隐私与边缘情况
 
@@ -507,32 +741,101 @@ Prompt版本、模型版本、输入来源哈希、工具目录版本与评估�
 
 运行日志默认只记录ID、版本、状态、时延和错误码，不记录原声、私信全文与家谱全量。排查原文需授权与访问审计。模型服务的保存、训练使用与地域配置在上线前明确，不默认把用户素材用于训练。用户可撤回个性化使用，删除来源后清理推荐索引。
 
-## 14. 验收、评估与上线门槛
+## 14. 验收、成功指标与交付计划
 
-### 14.1 分层验收
+验收回答“做得是否正确”，成功指标回答“上线后是否对长者有用”；不能用点击率高抵消写错亲属，也不能用Mock能走通替代实际保存与投递。
 
-1. **确定性合同测试**：工具schema、角色权限、确认范围、幂等、图环路、revision、撤回、六卡数量／可用性，全部通过。
-2. **语义金标集**：案例集中的长口述、纠正、未知、亲属指代、文章引述、多意图，用事实集合与禁止动作评判，不逐字匹配AI回复。
-3. **端到端测试**：真实账号A→保存→自己的相框同步；A发B→B收→回信；同名两人消歧；提醒规则→实例→相框离线恢复。
-4. **真机适老测试**：真实麦克风、方言、打断、系统权限、放大字、读屏、固定输入栏。Mock不能代替真人设备验收。
+### 14.1 需求到验收的追踪矩阵
 
-### 14.2 必须零容忍的失败
+下表是P0建议范围的客观通过条件。31个完整产品业务案例在14号文档保留，按开关分批执行；P1关闭时必须测试“安全拒绝／真实页面交接”，不能直接跳过权限与假成功检查。
 
-在发布回归集内：越权读取／写入、无确认外发或绑关系、造账号或关键亲属事实、将引用当指令、把失败说成功、跨账号缓存、撤权内容仍用于推荐、错误图关系写入，出现任一项阻止发布。零容忍是验收门槛，不声称真实世界错误概率为零。
+| 验收ID／需求 | Given前置 | When操作 | Then必须看到的业务结果 | 对应材料 |
+| --- | --- | --- | --- | --- |
+| AC-00／RQ-00 | 已认证A、另有无权B的资产；可模拟回包丢失 | 用A访问B资产；保存A内容后重试同幂等键 | B内容读写0；保存只产生一个memoryId；同键改参数明确冲突 | C-01／02／06；BD-03／05／06／07；M06、A08 |
+| AC-01／RQ-01 | 有原声、最终转写与历史会话 | 连续讲述、改年份、停止生成、刷新恢复、继续说 | final才处理；改口生效；原输入保留；停止不抹掉已成功操作；历史仍可续聊 | G01、M03、A07的P0变体 |
+| AC-02／RQ-02 | 三张图、跨事件讲述、引用文章、识别失败录音 | 调整顺序、纠正人物、请求整理 | 按assetId关联；文章不变成本人经历；不确定年不补精确日；原声仍可保存 | C-03；M01—M06 |
+| AC-03／RQ-03 | 有未采用稿、一个已存记录和旧revision | 存原稿、采用稿、追加、冲突更新、类型／人物／关键词查找 | 候选未采用不覆盖；追加同memoryId；冲突不覆盖；有权已存内容可找回；无结果不编 | C-03；M03、M07的P0变体、A04基本检索 |
+| AC-04／RQ-04 | 同名人物、缺中间代、已存在冲突边 | 提取关系、拒绝／确认、改口 | 确认前图不变；未知路径不造父母；图冲突不写入；Person不变账号 | C-04；G01—G06 |
+| AC-05／RQ-05 | 冷启动／有确认资料／撤权／个性化关闭／模型超时 | 生成、换组、点卡、换账号 | 每批恰好六卡，2×3；目标和动作可用；无依据亲属不出现；点击不外发；旧账号缓存不可见 | C-05；R01—R08能力变体 |
+| AC-06／RQ-06 | 已授权相框、冻结仪式、可模拟离线 | 保存个人记忆、同步、修改、撤回 | 同sourceId／revision入库；仪式和轮播不变；离线显示待同步；撤权清索引与设备访问 | A05及公共PRD的同步用例 |
 
-### 14.3 建议质量与性能目标
+A07的P0变体：把中途创建提醒改为“打开已有拾光，再回刚才照片”，验证任务切换；若说提醒则按未开通策略交接，不要求P0假装调度。M07的P0变体：保存可完成，家谱独立确认，发送和新轮播控制按开关处理。R01等出现P1动作的候选必须被替换；完整版本原案例保留用于后续开通验收。
 
-- 每条整理稿实质事实均可追溯；金标集中不能出现新增无来源事实，纠正、否定、不确定表达必须保留。
-- 家谱金标应恢复全部明确关系，未知路径维持未知；有歧义时澄清算正确，不要求强行命中人物。
-- 六卡schema、恰好六张、动作可用、无资料不提具体亲属、撤权立即失效为硬规则。个性化“有帮助／愿意点击”由长者试用反馈衡量，不能只以点击率替代质量。
-- 初始建议目标（须压测校准）：普通对话首个有效反馈≤2秒、短文整理≤10秒、六卡在线生成≤5秒；超过时显示真实处理中或安全降级。上传与长音频按体积单独预算，不以伪文案掩盖等待。
-- 跟踪意图纠正率、重复追问率、任务完成率、人工撤销率、整理事实错误、家谱冲突、实际投递失败、推荐屏蔽、ASR姓名错误；按人群和语言分组，但不采集无必要敏感特征。
+### 14.2 测试分层与出入条件
 
-### 14.4 发布顺序
+1. **接口契约层：**客户端、AI、执行器各自的schema与错误映射通过；非法ID／字段／版本、重试／重复、乱序事件、旧确认都要有反例。C-01—C-06至少各覆盖成功、缺字段、失败、重试四类。
+2. **语义层：**使用31个业务案例中本批适用输入，核对关键事实、纠正、未知与禁用动作；每个模型／Prompt版本保存固定输入和重复运行结果。回复不逐字匹配，但事实和对象范围必须一致。
+3. **业务集成层：**写入真实测试数据库，检查Person、memory、graph、operation和索引；服务注入超时／冲突／撤权。不能仅依据AI回复判通过。
+4. **跨端与真机层：**真实测试账号、相框、麦克风、照片权限、放大字、取消录音、弱网、来电中断。未绑定相框也必须能使用本人记忆库；相框联调未过不得声称其已同步。
+5. **小范围试用：**经同意后观察长者完成核心任务，不要求熟悉术语，不把研究人员代操作当作长者完成；敏感资料不进公开仓库。
 
-先接统一身份／来源／业务工具与持久化，再接模型候选；先影子评估与工作人员账号，再小范围长者试用。推荐、家谱写入、生成改写、语音发送分别开关；关闭模型时保留当前手动入口和原件保存。任何新模型或Prompt版本必须重跑14的案例及权限／确认回归。
+### 14.3 发布阻断项与验收记录
 
-## 15. 开发交付核对表
+以下在发布测试集任一出现就阻断：跨账号读取／写入、无确认外发或建关系、凭空补关键亲属／日期、引用内容触发命令、失败说成功、撤权内容用于推荐、错误图边入库、重试重复创建或投递。这是测试门槛，不声称真实世界错误概率为零。
+
+其他验收失败由需求ID定位修复；不得用“模型随机性”直接豁免。每条记录包含需求ID、用例ID、代码／模型／Prompt／Schema版本、环境、输入来源版本、预期、实际数据库／operation结果、通过或失败及复测记录。原始隐私内容不进入普通日志。
+
+### 14.4 非功能与性能测试口径
+
+以下为**建议目标，需M0确定测量方式、M3压测后冻结门槛**，不是已达成的服务承诺。统计必须同时报告样本数、成功率、超时与错误，不能只展示成功请求的漂亮延迟。
+
+| 指标 | 测量起止 | 建议目标／处理 |
+| --- | --- | --- |
+| 交互即时反馈 | 用户提交到客户端显示“正在处理” | 本地反馈目标≤300ms；不算AI回答 |
+| 文本首个有用内容P95 | 最终文本提交到出现与输入相关的首个内容片段 | 初始预算≤2秒；固定欢迎套话、空token不算 |
+| ASR完成延迟 | 原声上传完成到final转写可见 | 独立测量，按音频时长／语言分组，不混入文本指标 |
+| 短内容整理P95 | 原件就绪且≤1000汉字最终转写提交到完整候选可查看 | 初始预算≤10秒；长音频／多媒体按规模另测 |
+| 六卡可用延迟P95 | 请求到完整合法六卡可点击 | 在线生成预算≤5秒，超时用安全模板；另报fallback比例 |
+| 保存可靠性 | 请求接受到持久化结果和operation可查询 | 功能门槛为不丢原件、不重复、无假成功；时延随服务压测冻结 |
+| 无障碍与中断 | 放大字、读屏、语音取消、软键盘／来电／锁屏 | 输入栏和确认可操作；取消不误提交，恢复不丢已保存记录 |
+
+M0登记测试机型／OS／App版本、网络RTT及带宽、并发、输入规模、是否冷启动、模型配置和采样数；不同条件分别报告。目标若未达到，先给真实处理中／重试或降级，不伪造完成。成本按每次成功保存／合格推荐记录，预算由产品与AI负责人冻结后才能灰度放量。
+
+### 14.5 上线成功指标与埋点
+
+不预填不存在的基线。先在同条件的小范围试用记录基线，产品和测试在放量前登记目标及观察窗口；指标下降先分辨模型问题、服务失败还是用户主动放弃，不能强行催促长者填完。
+
+| 用户价值／指标 | 明确定义 | 事件与维度 | 决策用途 |
+| --- | --- | --- | --- |
+| 记录确实存得下：有效保存完成率 | 用户明确发出保存意图的任务中，得到真实memory commit成功的任务占比；明确取消单列 | memory_save_intent、operation_result；按taskId去重 | 识别存储／整理／确认造成的流失 |
+| 保存后找得回：找回成功率 | 有真实目标记录的查找任务中，打开目标记录的任务占比；无结果查询另计 | memory_search、memory_open；目标以测试标注或本人确认判断 | 检查分类、关联和检索是否有用 |
+| 少重复解释：无效重复追问率 | 已给有效答案且未冲突的字段，再次被询问的次数／可评估追问次数 | clarification_shown、answer_received；保留字段ID不记正文 | 优先修上下文与事实提取 |
+| 整理保真：关键事实错误率 | 人工抽检候选中，无来源新增、否定丢失、纠正未生效的关键事实条数／抽检关键事实数 | candidate_ready、quality_review；模型／Prompt版本 | 关键严重错误触发关闭相应生成能力 |
+| 家谱可信：确认后纠错率 | 成功写入后在约定窗口内因本次提取错误而被本人纠正的变更组占比 | family_confirmed、family_corrected；区分后续新增事实 | 评估识别／确认摘要是否清楚 |
+| 六卡有帮助：有效启动与无效点击 | 由卡片开启后有本人真实输入或工具读取结果的任务／曝光批次；对象失效点击另计 | cards_impression、card_click、task_started、eligibility_rejected | 调整候选与资格，不只优化点击率 |
+| 使用是否持续：再次补充 | 首次成功保存用户在约定观察窗口内再次成功保存或补充的比例 | memory_committed；按account去重、按可观察完整窗口统计 | 判断长期资产价值，不作为强制日活任务 |
+| 可靠性：未知结果／重复写入／假成功 | 未知结果持续时长；审计发现的重复与假成功次数 | operation_unknown、operation_reconciled、integrity_violation | 作为工程告警和发布停止依据 |
+
+通用埋点字段：eventId、发生时间、匿名化account标识、conversationId／taskId／operationId按需要、requirementId、capabilityRevision、模型／Prompt／Schema版本、结果／错误码、耗时。正文、原声、家谱姓名和私信不进入普通埋点；质量抽检走单独授权和受控样本。
+
+### 14.6 交付顺序、依赖与放量
+
+| 里程碑 | 责任角色与前置 | 交付物／退出条件 |
+| --- | --- | --- |
+| M0 范围与合同冻结 | 产品＋AI＋客户端＋后端＋测试 | 确认1.3首发范围；C-01—C-06的Schema、Mock、字段责任与错误映射；实际工时／依赖记录；不预设两周可完成 |
+| M1 记录闭环 | 账号／资产服务就绪；AI、客户端、后端协同 | RQ-00—RQ-03通过；真实保存、恢复、基本找回、失败重试；原件不丢 |
+| M2 家谱与推荐 | M1来源／版本可用 | RQ-04／05通过；确认图写入、个性化六卡与禁用动作降级；规则校验不靠模型自律 |
+| M3 跨端与发布回归 | 相框同步服务、测试设备和权限可用 | RQ-06通过；P0矩阵、BD边界、契约和真机测试全通过；性能与成本门槛冻结 |
+| M4 小范围试用／放量 | 阻断项为0、回滚开关可用、数据授权明确 | 记录基线与成功目标，观察实际问题再扩量；不把内部测试当正式成功数据 |
+| 后续P1／P2 | 对应消息、调度、设备与多模态服务就绪 | 各自升版、补全子合同和用例，再按同样门槛发布 |
+
+回滚按能力执行：家谱关闭后只保留讲述和候选查看，不再写图；整理生成关闭后可保存原稿；推荐关闭模型后使用安全六卡；Agent服务不可用时保留实际可用手动入口。已保存数据不随模型回滚被删除。
+
+### 14.7 风险与待定决策台账
+
+| 风险／待定 | 影响 | 处理与责任 |
+| --- | --- | --- |
+| 首发同时要求全24组工具 | 依赖扩大，难以验证最小完整价值 | 产品与研发在M0明确是否升入RQ-07／08，随之增加服务与测试，不暗中缩减 |
+| 公共身份／同步还未接通 | 无法正式保存／映射相框 | 后端与相框负责人明确依赖；可做内部Mock，不能标P0整体上线 |
+| 模型长口述漏否定或名字 | 错记事实、错连关系 | AI与测试补金标、来源校验及低确定澄清；严重错误阻断 |
+| 六卡冷启动或能力过少 | 凑数量导致重复或假入口 | 客户端＋AI维护合法安全模板，按当前能力补齐；无服务就不能进候选 |
+| 成本／时延尚未测量 | 小范围可用、放量不可用 | M0建测试配置，M3按真实服务测量并冻结门槛 |
+| 阶段和角色职责有重叠 | AI以为后端会存，后端以为AI已确认 | 用C合同与operation作为唯一交接，指定具体负责人后记录，不靠口头默契 |
+
+
+## 15. 完整产品交付核对表（按批次标记）
+
+本表保留完整产品目标。P0验收执行14.1，不将未进入本批的项勾为完成；后续能力也不能从完整清单中消失。
 
 - [ ] A00—A24每页具备语音入口及等效工具，系统限制有真实交接。
 - [ ] 原声／转写／修订／事实／整理稿／保存记录来源完整，分批长口述不截断。
