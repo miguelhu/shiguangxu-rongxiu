@@ -1,11 +1,11 @@
-# 荣休礼三端代码拆分
+# 拾光叙产品与工程
 
-## 当前App与跨端产品规格
+## 当前产品规格
 
-- [长者App完整产品PRD V4](docs/PRD/11_长者App完整产品PRD_V4.md)：依据当前App页面，包含完整交互、账号、提醒、亲友与家谱、异常及验收。
-- [账号、内容与相框同步公共PRD](docs/PRD/12_账号内容与相框同步公共PRD_V1.md)：个人拾光如何映射相框、统一身份、设备绑定、双向同步、用途权限与删除。
-- [小叙Agent AI开发PRD](docs/PRD/13_小叙Agent_AI开发PRD_V1.md)：全功能语音执行、事实整理、家谱提取、个性化六卡与失败恢复。
-- [Agent口述与推荐验收案例](docs/PRD/14_小叙Agent_口述推荐与验收案例集_V1.md)：31个带预期结果的开发用例。
+- [长者App完整产品PRD V4](docs/PRD/各端/长者App.md)：依据当前App页面，包含完整交互、账号、提醒、亲友与家谱、异常及验收。
+- [账号、内容与相框同步公共PRD](docs/PRD/公共能力/账号内容与同步.md)：个人拾光如何映射相框、统一身份、设备绑定、双向同步、用途权限与删除。
+- [小叙Agent AI开发PRD](docs/PRD/公共能力/小叙Agent.md)：全功能语音执行、事实整理、家谱提取、个性化六卡与失败恢复。
+- [Agent口述与推荐验收案例](docs/PRD/验收案例/Agent口述与推荐.md)：31个带预期结果的开发用例。
 - [全部PRD索引](docs/PRD/README.md)：当前文档优先级、历史版本及各端交付范围。
 
 
@@ -13,7 +13,7 @@
 
 最新代码另包含 [photoframe](photoframe/README.md)：当前线上 `/photoframe/` 的日常相框完整前端，含本轮小叙形象及显示条件修改。原 `frame` 是早期拆分的仪式／相框原型，不应将它误认为当前线上日常相框的部署源码。
 
-展示链路与小程序的统一视觉已同步；完整相框产品需求见 [相框PRD V2](docs/PRD/05_拾光叙相框完整产品PRD_V2.md)，实现差距见 [逐页核对](docs/PRD/06_相框页面核对与开发差距清单.md)。PRD中的注册—仪式—日常完整闭环是开发规格，不代表这些后台能力已经实现。
+展示链路与小程序的统一视觉已同步；完整相框产品需求见 [相框PRD](docs/PRD/各端/相框.md)，实现差距见 [逐页核对](docs/产品资料/工程核对/相框实现差距.md)。PRD中的注册—仪式—日常完整闭环是开发规格，不代表这些后台能力已经实现。
 
 `screenshot-review/` 保存最新45张页面截图与批注评审页面，可作为静态站点部署；其中不包含评审者私人反馈数据。
 
@@ -59,4 +59,4 @@ cd frame && npm ci && npm run dev
 
 独立代码：[elder-app](elder-app/README.md)。在线预览：https://shiguangxu.miguelhuchen.space/app/ 。
 
-当前产品规格：[长者App V4](docs/PRD/11_长者App完整产品PRD_V4.md)与[小叙Agent AI开发PRD](docs/PRD/13_小叙Agent_AI开发PRD_V1.md)，配合[公共账号与相框同步](docs/PRD/12_账号内容与相框同步公共PRD_V1.md)阅读；09为历史材料。
+当前产品规格：[长者App V4](docs/PRD/各端/长者App.md)与[小叙Agent AI开发PRD](docs/PRD/公共能力/小叙Agent.md)，配合[公共账号与相框同步](docs/PRD/公共能力/账号内容与同步.md)阅读；旧App版本仅供历史追溯。
