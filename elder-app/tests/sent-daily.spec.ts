@@ -1,0 +1,16 @@
+import {test,expect} from '@playwright/test'
+test('my account replaces sent history with device and WeChat management',async({page})=>{
+ await page.goto('/app-plus/')
+ await page.getByRole('button',{name:'打开聊天历史'}).click()
+ await page.locator('.drawer-mine').click()
+ await expect(page.getByRole('button',{name:'发过的日常',exact:true})).toHaveCount(0)
+ await page.getByRole('button',{name:'我的相框',exact:true}).click()
+ await expect(page.getByRole('heading',{name:'陈老师的相框'})).toBeVisible()
+ await page.getByRole('button',{name:'连接我的相框'}).click()
+ await page.getByRole('textbox',{name:'相框绑定码'}).fill('123456')
+ await page.getByRole('button',{name:'连接相框',exact:true}).click()
+ await expect(page.getByRole('status')).toContainText('暂时不能完成绑定')
+ await page.getByRole('button',{name:'返回',exact:true}).click()
+ await page.getByRole('button',{name:'微信账号',exact:true}).click()
+ await expect(page.getByText('未绑定',{exact:true})).toBeVisible()
+})

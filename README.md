@@ -1,6 +1,13 @@
-# 荣休礼三端代码拆分
+# 拾光叙产品与工程
 
-当前产品文档入口：[PRD目录](docs/PRD/README.md)。当前规格分为总览、四端和[一份AI PRD](docs/PRD/公共能力/AI能力.md)；问卷、历史稿与实现核对见[产品资料](docs/产品资料/README.md)。
+## 当前产品规格
+
+- [长者App完整产品PRD V4](docs/PRD/各端/长者App.md)：依据当前App页面，包含完整交互、账号、提醒、亲友与家谱、异常及验收。
+- [账号、内容与相框同步公共PRD](docs/PRD/公共能力/账号内容与同步.md)：个人拾光如何映射相框、统一身份、设备绑定、双向同步、用途权限与删除。
+- [小叙Agent AI开发PRD](docs/PRD/公共能力/小叙Agent.md)：全功能语音执行、事实整理、家谱提取、个性化六卡与失败恢复。
+- [Agent口述与推荐验收案例](docs/PRD/验收案例/Agent口述与推荐.md)：31个带预期结果的开发用例。
+- [全部PRD索引](docs/PRD/README.md)：当前文档优先级、历史版本及各端交付范围。
+
 
 ## 当前交付目录
 
@@ -52,4 +59,4 @@ cd frame && npm ci && npm run dev
 
 独立代码：[elder-app](elder-app/README.md)。在线预览：https://shiguangxu.miguelhuchen.space/app/ 。
 
-当前产品规格：[长者App PRD](docs/PRD/各端/长者App.md)，包含持续对话、相机直发、语音执行所有自有操作、AI选项、权限边界及业务验收；[实现差距](docs/产品资料/工程核对/App实现差距.md)单独维护。
+当前产品规格：[长者App V4](docs/PRD/各端/长者App.md)与[小叙Agent AI开发PRD](docs/PRD/公共能力/小叙Agent.md)，配合[公共账号与相框同步](docs/PRD/公共能力/账号内容与同步.md)阅读；旧App版本仅供历史追溯。
