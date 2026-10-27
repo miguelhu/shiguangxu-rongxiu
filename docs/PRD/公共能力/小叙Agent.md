@@ -1,6 +1,6 @@
 # 小叙Agent PRD
 
-版本：1.1 · 2026-10-22 · 状态：产品开发与验收基线；MVP分期为建议方案，技术接口与排期尚待对接确认，未作为真实Agent实现验收。
+版本：1.2 · 2026-10-27 · 状态：产品开发与验收基线；MVP分期为建议方案，技术接口与排期尚待对接确认，未作为真实Agent实现验收。
 
 配套：[长者App页面规格](../各端/长者App.md)、[账号内容与相框同步](账号内容与同步.md)、[口述、推荐与验收案例](../验收案例/Agent口述与推荐.md)。
 
@@ -263,10 +263,12 @@ ASR的临时partial文本仅用于实时展示，不触发写入；最终final�
 事实记录最少包括：`factId, subjectRef, predicate, object, sourceRefs, status, certainty, supersedes, scope, allowedPurposes`。
 
 - `status`：proposed／confirmed／disputed／retracted；`certainty`是用户表达的exact／approximate／unknown，不是模型概率。
-- 证据含sourceId、sourceRevision、原文quote、字符区间或audioTimeRange；区间由服务校验确实匹配原稿。
+- 证据含sourceId、revision及匹配来源类型的locator，文字含quote与码点区间，原声可用音频区间，整件媒体不虚构文字；具体按C-03。区间由服务校验确实匹配该修订原件。
 - 明确用户陈述可以用于忠实保存其回忆；若要变成长期人物档案、家谱或提醒仍按工具级别确认。
 - 引述、新闻、文章和别人观点标记speaker/sourceType；不能转成本人事实。说“妈妈告诉我……”保留转述来源。
 - 模型推断单独放`hypotheses`，默认不写正式档案、不用于个性化推荐；不因被多次模型引用而变成“确认事实”。
+
+ASR片段带稳定segmentId及修订；重复final不重复追加，较旧final不得覆盖本人手改后的转写。“前一段补到了后面”的迟到结果回原task并标记待核对，不重新触发已经执行过的命令。用户在两个端同时继续同一会话时，业务修订与当前执行焦点由服务端串行裁决，另一端冲突后刷新；不能各用本地“当前照片”保存到不同对象却都称成功。
 
 ### 6.2 时间与排序
 
@@ -287,7 +289,7 @@ ASR的临时partial文本仅用于实时展示，不触发写入；最终final�
 
 | 层 | 用户看到的内容 | 规则 |
 | --- | --- | --- |
-| 原始记录 | 原照片、原声、转写或粘贴原文 | 永远可追溯；不因改写消失 |
+| 原始记录 | 原照片、原声、转写或粘贴原文 | 在有效授权与留存期内可追溯，不因改写丢失；合法删除／撤回后不能继续读取正文 |
 | 信息整理 | 可修改的时间、人物、地点、标签、媒体关联 | 不确定项可空；标签不强迫用户填表 |
 | 阅读稿 | 轻整理／一段故事／简要摘要 | 明确“整理稿”；采用后才作为默认展示，原稿仍可查看 |
 
@@ -355,7 +357,7 @@ ASR的临时partial文本仅用于实时展示，不触发写入；最终final�
 - “刚才说错，是侄子”生成撤销旧断言＋新增候选的changeSet；确认后更新，不默默保留两条互斥关系。
 - “照片里不是孙子，是学生”只纠正对应照片人物／称谓，不能删除已经由其他证据确认的孙子Person。
 - 撤回家谱关系不删除该人物原始投稿、聊天或账号；关联记忆标记关系已变更。人物合并另行确认，并评估所有引用。
-- 人物跨空间合并、账号认领必须走12的所有权和验证流程；Agent不得向亲友泄露本人尚未确认的家谱草稿。
+- 人物跨空间合并、账号认领必须走《账号内容与同步》的所有权和验证流程；Agent不得向亲友泄露本人尚未确认的家谱草稿。
 
 ## 8. 对话驱动保存、分享、检索与提醒
 
@@ -369,7 +371,7 @@ ASR的临时partial文本仅用于实时展示，不触发写入；最终final�
 
 检索结合结构化字段、全文、允许的语义索引，先权限过滤，再重排并给来源。模糊“那次毕业”给2—3个候选，用户可说第二个。无结果直接说没找到，允许扩大日期／类型，不补出虚构记忆。
 
-合并候选展示“将哪几条整理到一起、哪些原件继续保留”。相同照片hash只说明文件重复，不等于事件重复；不同作者各自故事不可合并为一个人的原话。删除源后检索索引、摘要缓存、推荐依据和相框映射一起失效，按12执行。
+合并候选展示“将哪几条整理到一起、哪些原件继续保留”。相同照片hash只说明文件重复，不等于事件重复；不同作者各自故事不可合并为一个人的原话。删除源后检索索引、摘要缓存、推荐依据和相框映射一起失效，按《账号内容与同步》执行。
 
 ### 8.3 提醒
 
@@ -385,14 +387,14 @@ ASR的临时partial文本仅用于实时展示，不触发写入；最终final�
 
 ## 9. 我的拾光与相框的关系
 
-Agent保存到本人space下的memoryId，媒体只保存一次权威资产，通过用途与授权引用到相框。遵守12：
+Agent保存到本人space下的memoryId，媒体只保存一次权威资产，通过用途与授权引用到相框。遵守《账号内容与同步》：
 
 - 入本人拾光库，可以映射到本人已授权相框的内容库；不默认加入轮播，不发送给亲友，不改变已冻结仪式。
 - 用户说“放到相框里”若无法区分入库与轮播，问“存到相框里慢慢看，还是加入日常轮播？”已明确选择的上下文不重复问。
 - 同步信息包括sourceId/revision、用途、可用资产与删除标记；AI标题或稿件更新也要有revision，不只同步图片。
 - 带原声的记录在相框可回放原声；默认不把ASR或TTS冒充长者原声。TTS明确为朗读。
 - 来信、自己的记录、荣休礼项目成品分来源，Agent不能越过作者撤回和项目权限。
-- 设备解绑后停止新同步并按12处理缓存撤权；亲友关系变化不擅自变更家庭人物资料。
+- 设备解绑后停止新同步并按《账号内容与同步》处理缓存撤权；亲友关系变化不擅自变更家庭人物资料。
 - 用户问“相框有了吗”返回指定revision的同步状态。离线保留待同步，不声称已展示。
 
 ## 10. 首页六张个性化提示
@@ -417,7 +419,7 @@ Agent保存到本人space下的memoryId，媒体只保存一次权威资产，�
 2. 检索经过授权的有限feature，排除敏感／失效／已否定主题；让模型提出12—18个候选，每个绑定action与evidenceRefs。
 3. 确定性校验动作存在、参数正确、当前端支持、权限满足、事实可追溯、标题长度、无敏感泄露与重复。
 4. 业务侧按相关性、用户显式偏好、新鲜度、操作负担、近期曝光与反馈排序。不得以诱导停留／外发次数为唯一目标。
-5. 选择六张：同一actionKind最多2张；同一主题／同一人物通常最多1张；至少3个不同actionKind。若资格不足，用不依赖资料的开聊／上传／内容入口补齐，绝不虚构关系凑数量。
+5. 正常选择六张：同一actionKind最多2张；同一主题／同一人物通常最多1张；至少3个不同actionKind。实际可用类别不足时执行10.7节降级，不为凑数量开放未上线工具或虚构关系。
 6. 返回有序六卡及batchId、contextRevision、生成时间、到期时间、fallback状态。客户端只显示标题、图标和必要短说明，不展示算法标签。
 7. 点击时再次校验权限、对象与版本；对象已删则温和转安全入口，不执行旧动作。卡片点击最多开启任务或填入开聊提示，**绝不直接发送、删除、建亲友或提交家谱**。
 
@@ -476,6 +478,12 @@ Agent保存到本人space下的memoryId，媒体只保存一次权威资产，�
 
 推荐测试需同时验证枚举、目标ID和资格，不能只核对中文文案。`read_article`卡片没有可用文章时，可换成`collect_article`，但标题、starter与动作必须一起改变。
 
+### 10.7 可用能力不足与降级优先级
+
+资格／权限与真实可执行性优先于数量和多样性。正常有至少三类可用动作时严格执行六张、每类最多两张。实际仅一至两类可用时，可以使用这些安全动作的不同通用话题补齐六张，`fallbackReason=insufficient_action_kinds`，只放宽多样性约束；不能偷偷解除用户已排除主题、伪造已有内容或新增亲属。
+
+若没有任何实际可用动作，返回CAPABILITY_UNAVAILABLE，不返回声称成功的六张可点击卡。欢迎区保留六卡布局的不可用占位和真实重试／登录／手动输入入口（仅可用者显示），不伪装卡片点击能继续任务。恢复后以新的batchId生成；缓存、取消、旧批点击和并发换组按当前capabilityRevision重验，不能让旧批迟到覆盖用户新选择。
+
 ## 11. AI能力拆分与提示词合同
 
 统一能力登记、内容规则、四种文风及跨端页面映射以[AI能力](AI能力.md)为唯一口径，沿用AI-01—AI-28。本文仅展开AI-19动作执行、AI-20家谱、AI-28个性化六卡及其组合流程，不另建能力编号。T01—T24是业务工具，RQ是分期需求，C是交换合同，不能用T编号替代capabilityId。
@@ -514,8 +522,8 @@ Prompt版本、模型版本、输入来源哈希、工具目录版本与评估�
 - `Revision`：正整数；`baseRevision=null`仅表示创建新对象，更新必须提供当前已知正整数。`contextRevision`由服务端生成，用于检测过期上下文。
 - `DateTime`：含时区偏移的ISO 8601时间。历史事件日期另用精度字段，不能用这个类型迫使用户填完整日期。
 - 字段“必填”表示字段必须存在；只有写明“可空”的字段才允许null；空数组表示确实没有项目，不能用省略字段模糊错误。数值0、空字符串、unknown与null不互相替代。
-- 原始文本保留原稿；用于匹配的标准化值单独存储。字符长度、来源区间以Unicode码点计算，客户端不得直接拿UTF-16索引冒充同一种偏移。
-- 本期契约版本`schemaVersion="1.1"`。关键对象未知字段拒绝，兼容扩展必须升级约定版本；不将未经验证的模型JSON直接渲染成操作或执行工具。
+- 原始文本保留原稿；用于匹配的标准化值单独存储。来源区间以Unicode码点计算，客户端不得拿UTF-16索引冒充同一种偏移。用户字段长度按总览的可见字符口径及场景配置校验，两者不是同一个指标；组合表情／换行必须有前后端一致样本，不能用展示字数定位证据区间。
+- 本期产品契约版本`schemaVersion="1.2"`，补齐媒体来源定位及降级语义；联调须同步客户端、服务端Schema与样例。旧1.1不按新字段静默解释，需显式适配或返回UNSUPPORTED_VERSION；这不是已部署接口升级声明。关键对象未知字段拒绝，兼容扩展必须升级约定版本；不将未经验证的模型JSON直接渲染成操作或执行工具。
 - 模型能输出reply和候选，不能提供可信accountId、spaceId、confirmationToken、committedId或成功回执。后端不信任客户端上传的权限标记。
 - 单次输入与资产限制沿用《长者App》的第7节并由服务配置下发；过长／超限明确报错或分段，不静默截断。声音可以分段继续，故事长度不等于单段录音长度。
 
@@ -525,7 +533,7 @@ Prompt版本、模型版本、输入来源哈希、工具目录版本与评估�
 
 | 字段 | 类型／必填 | 规则与缺失处理 |
 | --- | --- | --- |
-| schemaVersion | string／是 | 当前为1.1，不支持则拒绝，客户端更新合同 |
+| schemaVersion | string／是 | 当前为1.2，不支持则拒绝，客户端更新合同 |
 | requestId | Id／是 | 同一逻辑输入重试复用；新的发言使用新ID |
 | conversationId | Id／是 | 必须属于当前账号并有权访问，否则AUTH_REQUIRED／PERMISSION_DENIED |
 | taskId | Id或null／是 | 指定时必须属于该会话；null由服务端决定，不由模型拼接 |
@@ -567,13 +575,15 @@ Prompt版本、模型版本、输入来源哈希、工具目录版本与评估�
 
 | 交换对象 | 必需字段 | 规则／异常 |
 | --- | --- | --- |
-| SourceRef | sourceId:Id、revision:Revision、locator:object | locator至少有原文quote和匹配的[start,end)；音频可另有startMs/endMs，图片可整张引用asset。来源不存在／撤回则不进入生成 |
+| SourceRef | sourceId:Id、revision:Revision、locator:object | locator.kind按来源类型互斥：text_span带quote、start、end，表示[start,end)；audio_segment带startMs/endMs；whole_asset引用完整图／音／视频资产。整件媒体不强制伪造quote；引用转写事实仍须定位对应转写修订。不存在／撤回来源不进入生成 |
 | Fact | factId:Id、subjectRef:Id、predicate:string、value:typedValue、certainty:enum、status:enum、sourceRefs:SourceRef[]、supersedes:Id[] | certainty=exact/approximate/unknown；模型status只能proposed，confirmed由确认／事实规则产生；有争议标disputed，不直接写永久资料 |
 | typedValue | type=text/person_ref/time/boolean；相应唯一字段text/personRef/time/boolean | 不允许同时给多种值。time含precision、label、start、end、derivedFrom；未知起止可null，不能补到某日 |
 | MemoryPrepareInput | draftId、draftRevision、sourceRefs、factRefs、mode(raw/light/story/summary)、targetMemoryId可空、baseRevision可空 | raw不做改写；update必须有目标和baseRevision；缺来源不得生成有事实内容的稿件 |
 | MemoryCandidate | kind=memory、candidateId、candidateRevision、draftId、sourceRefs、factRefs、title、segments[]、tags[]、mediaLinks[]、unresolved[]、targetMemoryId可空、baseRevision可空 | 每个实质segment含text与sourceRefs；标签也有来源，未确定项在unresolved，不混入确定叙述 |
 | MemoryCommitInput | draftId、draftRevision、contentChoice(original/candidate)、candidateRef可空、targetMemoryId可空、baseRevision可空、intentMessageId、confirmationRef可空、purpose=personal_memory | original须明确保存意图；candidate须对应已采用候选。不得把confirmationRef=null当作免确认依据 |
 | MemoryCommitResult | operationId、status、memoryId／revision（仅成功时）、assetRefs、syncState、syncTargets[]、error | 成功入库后才显示已保存；sourceRefs保留。汇总syncState可not_enabled/pending/partial/ready/failed；syncTargets按deviceId与sourceRevision分别返回状态，不等于已播放 |
+
+locator的文本区间须满足0≤start<end≤该修订码点长度且quote逐字匹配；音频毫秒区间须满足0≤startMs<endMs≤原件时长。来源类型不匹配、越界或已失权均拒绝；whole_asset只表示可引用原件，不等于模型已识别其事实。
 
 time.precision：day／month／year／range／relative／unknown。day须为完整日期，month保留月份，year保留年份；range保留允许起止与原话，relative保留label及已确认依赖，unknown的start/end为null。采集时间另存，不填入time事件字段。
 
@@ -609,12 +619,12 @@ time.label为原意时间描述字符串，start/end为日期部分字符串或n
 | eligibleActions | operation级能力与actionKind[]／服务端 | 只包含当前实际可用项；P0不能借模板推荐未开通P1工具 |
 | recentExposures／excludedTopics | 带时间、主题ID的数组／本人范围 | 排除拒绝与敏感主题，不将别人聊天当本人偏好 |
 | personalizationEnabled | boolean／本人偏好 | false时不传个性化feature，仍给安全六卡 |
-| RecommendationBatch | batchId、contextRevision、capabilityRevision、createdAt、expiresAt、cards[6]、fallbackReason可空 | 后端筛选后必须恰好6项；不能把12—18个模型候选原样给客户端 |
+| RecommendationBatch | batchId、contextRevision、capabilityRevision、createdAt、expiresAt、cards[6]、fallbackReason可空 | 成功批次后端筛选后恰好6项；无可用动作返回错误，不能把12—18个模型候选原样给客户端 |
 | Card | cardId、title、iconKey、actionKind、action、evidenceRefs、preconditions、starter、sideEffect=none、sensitivity=ordinary | 符合10.6枚举，所用事实与目标ID可追溯；无事实的通用卡可空evidenceRefs |
 
-标题6—14字为推荐、最多18字为合同上限；iconKey来自客户端已有映射，未知图标使用同类安全默认，不注入HTML。选中的六卡至少三个actionKind，同类最多两张；候选不足时使用已验证通用模板。点击带batchId／cardId，由服务端取权威action，不接受客户端替换收件人或工具参数。
+标题6—14字为推荐、最多18字为合同上限；iconKey来自客户端已有映射，未知图标使用同类安全默认，不注入HTML。正常六卡至少三个actionKind，同类最多两张；仅在10.7定义的实际能力不足时放宽多样性并写fallbackReason。无实际可用动作返回明确错误，不返回伪成功批次。点击带batchId／cardId，由服务端取权威action，不接受客户端替换收件人或工具参数。
 
-**Given／When／Then：**给定新账号无亲友和内容，当生成首页，则返回6张可用卡、不出现“给孙女发照片”；模型超时依然有安全6卡；已显示人物权限撤销后点击不得执行外发。对应R03／R06／R07／AC-05。
+**Given／When／Then：**给定新账号无亲友和内容且通用动作实际可用，当生成首页，则返回6张可用卡、不出现“给孙女发照片”；模型超时依然有安全6卡；已显示人物权限撤销后点击不得执行外发。对应R03／R06／R07／AC-05。
 
 ### 12.7 C-06 执行、确认与失败恢复合同
 
@@ -641,13 +651,17 @@ Error字段：code:enum、userMessage:string、retryable:boolean、failedStage:s
 
 **Given／When／Then：**给定保存请求服务端已写入但回包丢失，当用户重试同request／幂等键，则返回同memoryId，不新增记录；给定旧版本家谱确认卡，当图已变，则拒绝旧提交并保留原记忆。对应A08／AC-00。
 
+补流超过事件保留窗口时返回明确的需重取状态，客户端按requestId／operationId取权威任务快照，不将缺失流片段当作任务失败重建。服务端流断开不等于业务取消，恢复后分别展示已成功操作与仍未完成候选；模型的完整JSON通过校验也不等于用户已经确认。
+
+每轮模型调用、工具链步数、自动修复次数、时限与费用有配置预算，触达上限停止后续自动调用并给可继续入口；不无限追问／自修复／重试。模型切换或降级不能换作者、来源、任务权限或绕过质量门槛；未完成流式正文不可直接采用为正式稿，用户可明确另存自己选出的文本但仍按来源与用途检查。
+
 ### 12.8 一次完整交接示例
 
 以下是C-01完整字段示例；source中的文字引用必须与服务端已登记原稿匹配。真实sourceId由上传／原文登记服务产生。接口路由尚未定稿，不把这些ID当生产固定值。
 
 ```json
 {
-  "schemaVersion": "1.1",
+  "schemaVersion": "1.2",
   "requestId": "req-101",
   "conversationId": "conv-7",
   "taskId": null,
@@ -668,7 +682,7 @@ Error字段：code:enum、userMessage:string、retryable:boolean、failedStage:s
 
 ```json
 {
-  "schemaVersion": "1.1",
+  "schemaVersion": "1.2",
   "requestId": "req-101",
   "conversationId": "conv-7",
   "taskId": "task-memory-8",
@@ -725,7 +739,7 @@ Error字段：code:enum、userMessage:string、retryable:boolean、failedStage:s
 | 方言／长停顿／否定词漏识别 | 允许回听、改字、重说；高影响动作不基于含糊转写直接执行 |
 | 用户说“别问了” | 停止补全；保留草稿，可保存已有内容；不再循环同一字段 |
 | 误点／连续点击 | 草稿可撤回，提交幂等；取消已成功外发需按真实可撤回能力反馈 |
-| 时间跨日、旅行换时区 | 保存创建时区及本地规则；切换策略依12，确认跨时区影响，不悄悄漂移时间 |
+| 时间跨日、旅行换时区 | 保存创建时区及本地规则；切换策略依《账号内容与同步》，确认跨时区影响，不悄悄漂移时间 |
 | 药物／健康咨询混入提醒 | 只执行用户已给的提醒安排；不推荐剂量，不把不确定处方OCR写进计划 |
 
 运行日志默认只记录ID、版本、状态、时延和错误码，不记录原声、私信全文与家谱全量。排查原文需授权与访问审计。模型服务的保存、训练使用与地域配置在上线前明确，不默认把用户素材用于训练。用户可撤回个性化使用，删除来源后清理推荐索引。
@@ -832,7 +846,7 @@ M0登记测试机型／OS／App版本、网络RTT及带宽、并发、输入规�
 - [ ] 孙辈路径未知、同名、纠正、继亲、引用人物等均可处理，不造中间代。
 - [ ] 首页六卡由资格、事实与偏好驱动，冷启动降级、删除撤权、点击重校验完整。
 - [ ] 我的拾光分类准确，照片／声音／文章／视频／文字均能保存检索，原稿不丢。
-- [ ] 相框入库、轮播、投递、仪式用途不混淆，离线与撤权按12处理。
+- [ ] 相框入库、轮播、投递、仪式用途不混淆，离线与撤权按《账号内容与同步》处理。
 - [ ] 所有任务可取消、暂停、续聊；已保存后不用再点“再记一段”。
 - [ ] 提醒无额外大按钮，日常无重复预览，导航不恢复已移除功能。
 - [ ] 案例集通过、关键错误阻止发布、原型与正式服务验收分开。
