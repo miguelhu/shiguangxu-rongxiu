@@ -50,6 +50,7 @@ miniapp 与 web 的 Vite 配置依赖包内 `scripts/serve-frame.mjs`，不要�
 ## 验证与待办
 
 - 五个前端的 TypeScript 和 Vite 构建通过。
+- 五个 Release 源码包分别在全新目录解压，独立执行 npm ci 和构建均通过；当前验证环境为 Node.js 24.18.0。相框同时验证 `/photoframe/` 专用构建。
 - 长者 App 现有 Playwright 用例 17/17 通过。
 - 小程序新增 Release 用例 3/3 通过，覆盖首次案例链接、子目录独立图片加载、24 个共创者与统筹者页面的运行错误和 HTTP 错误检查。执行：`npm run build && npx playwright test --workers=1`。
 - 网页现有历史回归 9/20 通过、11 项未通过；失败涉及旧版“我的”礼物数量、发起入口旧文案、旧语音按钮、旧话题图片卡、旧祝福输入入口、已移除的参与状态标签、旧相框预览流程和现场入口。它们不能作为当前版本全部功能已验收的证明，需按当前 PRD 更新用例并继续验收。原测试保留在 web/tests/demo-v6.spec.ts，未通过项没有被隐藏或跳过。
