@@ -11,6 +11,8 @@
 
 ## 当前交付目录
 
+**按端下载与启动请先看 [Release 工程交付说明](docs/RELEASE-HANDOFF.md)。** GitHub Release 提供各端独立 ZIP，无需克隆整个仓库；当前相框使用 photoframe，frame 仅供历史参考。
+
 最新代码另包含 [photoframe](photoframe/README.md)：当前线上 `/photoframe/` 的日常相框完整前端，含本轮小叙形象及显示条件修改。原 `frame` 是早期拆分的仪式／相框原型，不应将它误认为当前线上日常相框的部署源码。
 
 展示链路与小程序的统一视觉已同步；完整相框产品需求见 [相框PRD](docs/PRD/各端/相框.md)，实现差距见 [逐页核对](docs/产品资料/工程核对/相框实现差距.md)。PRD中的注册—仪式—日常完整闭环是开发规格，不代表这些后台能力已经实现。
@@ -27,7 +29,7 @@
 | [web](web/README.md) | 展示网站；角色体验、生命周期、案例、并排对照与讲解 | `http://localhost:5188/` | `src/v6/App.tsx` |
 | [frame](frame/README.md) | 相框端；绑定前品牌页、仪式播放、照片故事、祝福信、声音与新心意 | `http://localhost:5192/` | `src/App.tsx` |
 
-三个工程各有 `package.json`、`package-lock.json`、`index.html`、`src/`、`public/`，不通过运行时相对路径读取兄弟目录。分别运行：
+各工程拥有自己的依赖和媒体。miniapp、web 构建依赖上级 scripts 中的预览中间件，Release 已包含它；日常相框联调另需 photoframe 的构建产物，详见交付说明。分别运行：
 
 ```bash
 cd miniapp && npm ci && npm run dev

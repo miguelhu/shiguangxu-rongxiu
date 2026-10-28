@@ -324,12 +324,7 @@ export function resource(path: string) {
   if (/^(data:|blob:|https?:)/.test(path)) return path
   const embedded = (window as Window & { __DEMO_MEDIA__?: Record<string, string> }).__DEMO_MEDIA__
   if (embedded?.[path]) return embedded[path]
-  // The showcase is deployed below /mini-program-showcase/, while its media library
-  // is shared with the main site at the domain root. Keeping one canonical copy
-  // prevents a release switch from leaving the mini-program with missing media.
-  if (location.pathname.startsWith('/mini-program-showcase/')) {
-    return new URL(path.replace(/^\.\//, ''), `${location.origin}/`).href
-  }
+  // Each build includes its own public media, including subdirectory deployments.
   return `${import.meta.env.BASE_URL}${path}`
 }
 export function topics(codes: string[]) {

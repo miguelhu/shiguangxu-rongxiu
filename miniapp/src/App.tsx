@@ -50,8 +50,10 @@ function readState(): State {
   const value = initial()
   value.caseId = 'teacher'
   const params = new URLSearchParams(location.search)
+  const caseId = params.get('case') as CaseId | null
+  if (caseId && value.cases[caseId]) value.caseId = caseId
   const requested = params.get('page') as Page | null
-  value.cases.teacher.page = requested || 'welcome'
+  value.cases[value.caseId].page = requested || 'welcome'
   return value
 }
 
